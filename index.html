@@ -1,35 +1,92 @@
-<!-- 版本：v0.1.0 -->
+<!-- 版本：v0.2.0 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人网站</title>
-    <!-- 引入外部样式和脚本 -->
+    <title>薛大侠 - 个人网站</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- 页眉区域 -->
-    <header>
-        <h1>欢迎来到我的个人网站</h1>
-        <p>这是我的第一个静态页面</p>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">薛大侠</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">关于</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resume.html" class="nav-link">简历</a>
+                </li>
+                <li class="nav-item">
+                    <a href="hobbies.html" class="nav-link">爱好</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link">随笔</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">联系</a>
+                </li>
+                <li class="nav-item">
+                    <a href="links.html" class="nav-link">链接</a>
+                </li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- 我是喵喵教主 -->
-    <main>
-        <section>
-            <h2>关于这个网站</h2>
-            <p>我会在这里展示我自己</p>
-        </section>
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 主页介绍卡片 -->
+        <div class="hero-card">
+            <h1>欢迎来到薛大侠的个人网站</h1>
+            <p class="subtitle">探索我的世界，了解我的故事</p>
+            <p>在这里，你可以了解到我的个人情况、工作经历、兴趣爱好，以及我分享的文章随笔。</p>
+        </div>
+
+        <!-- 功能模块卡片 -->
+        <div class="modules-grid">
+            <a href="about.html" class="module-card">
+                <h3>📖 关于我</h3>
+                <p>了解我的基本情况、教育背景和个人理念</p>
+            </a>
+            
+            <a href="resume.html" class="module-card">
+                <h3>💼 工作简历</h3>
+                <p>查看我的工作经历、技能特长和职业发展</p>
+            </a>
+            
+            <a href="hobbies.html" class="module-card">
+                <h3>🎯 兴趣爱好</h3>
+                <p>探索我的爱好世界，发现生活的乐趣</p>
+            </a>
+            
+            <a href="blog.html" class="module-card">
+                <h3>✍️ 文章随笔</h3>
+                <p>阅读我的原创文章、技术分享和生活感悟</p>
+            </a>
+            
+            <a href="contact.html" class="module-card">
+                <h3>🤝 商业合作</h3>
+                <p>了解合作方式，联系我进行商务洽谈</p>
+            </a>
+            
+            <a href="links.html" class="module-card">
+                <h3>🔗 友情链接</h3>
+                <p>发现我推荐的有趣网站和朋友的站点</p>
+            </a>
+        </div>
     </main>
 
     <!-- 页脚 -->
-    <footer>
-        <p>&copy; 2026 薛大侠</p>
-        <p>v0.1.0-dev</p>
+    <footer class="footer">
+        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
+        <p>v0.2.0</p>
     </footer>
 
-    <!-- 引入外部脚本（放在body结尾，确保DOM加载完毕） -->
     <script src="js/script.js"></script>
 </body>
 </html>
