@@ -1,9 +1,12 @@
-// 个人网站脚本 v0.3.0
-console.log('薛大侠的个人网站已加载！v0.3.0');
+// 个人网站脚本 v0.3.1
+console.log('薛大侠的个人网站已加载！v0.3.1');
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM加载完成');
+    
+    // View Transitions 页面切换动画
+    initViewTransitions();
     
     // 子导航高亮效果
     initSubNavHighlight();
@@ -23,6 +26,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // 链接项动画
     initLinkItemsAnimation();
 });
+
+/**
+ * View Transitions 页面切换动画
+ * 使用浏览器原生 @view-transition CSS 实现跨文档导航过渡
+ * 电脑端：缩放过渡效果
+ * 移动端：滑动推拉效果
+ */
+function initViewTransitions() {
+    // CSS @view-transition { navigation: auto; } 已启用原生导航过渡
+    // 无需JS拦截，浏览器会自动处理
+}
 
 /**
  * 子导航高亮效果

@@ -753,3 +753,92 @@ li {
         padding: 1rem;
     }
 }
+
+/* View Transitions 页面切换动画 v0.3.1 */
+
+/* 启用浏览器原生跨文档导航过渡 */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-group(root) {
+    animation-duration: 0.6s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    perspective: 1000px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: inherit;
+    animation-timing-function: inherit;
+    overflow: hidden;
+    backface-visibility: hidden;
+}
+
+/* 默认动画（桌面端：3D翻转效果） */
+::view-transition-old(root) {
+    animation-name: flip-out;
+}
+
+::view-transition-new(root) {
+    animation-name: flip-in;
+}
+
+/* 移动端（宽度小于768px）：滑动推拉效果 */
+@media (max-width: 767px) {
+    ::view-transition-group(root) {
+        perspective: none;
+    }
+    
+    ::view-transition-old(root) {
+        animation-name: slide-fade-left;
+    }
+    
+    ::view-transition-new(root) {
+        animation-name: slide-fade-right;
+    }
+}
+
+@keyframes flip-out {
+    from {
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+    to {
+        opacity: 0;
+        transform: rotateY(-90deg);
+    }
+}
+
+@keyframes flip-in {
+    from {
+        opacity: 0;
+        transform: rotateY(90deg);
+    }
+    to {
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+}
+
+@keyframes slide-fade-left {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+}
+
+@keyframes slide-fade-right {
+    from {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
