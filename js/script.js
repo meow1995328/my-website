@@ -1,5 +1,5 @@
-// 个人网站脚本 v0.3.1
-console.log('薛大侠的个人网站已加载！v0.3.1');
+// 个人网站脚本 v0.3.2
+console.log('XueXue的个人网站已加载！v0.3.2');
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
