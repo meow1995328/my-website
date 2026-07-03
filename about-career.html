@@ -1,13 +1,21 @@
-<!-- 版本：v0.3.0 -->
+<!-- 版本：v0.3.3 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💼 职业经历 - 薛大侠</title>
+    <title>💼 个人简历 - XueXue喵</title>
+    <script>
+        if (new URLSearchParams(window.location.search).get('transition') === 'dissolve') {
+            document.documentElement.classList.add('fh-transition-dissolve');
+            setTimeout(() => {
+                document.documentElement.classList.remove('fh-transition-dissolve');
+            }, 600);
+        }
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="fh-subpage-enter">
     <!-- 顶部导航栏 -->
     <header class="header">
         <nav class="nav">
@@ -37,29 +45,215 @@
 
     <!-- 主内容区域 -->
     <main class="main-content">
-        <div class="container">
-            <h1>💼 职业经历</h1>
-            <p>主业、副业、兼职等职业经历</p>
+        <!-- 左侧竖条导航按钮 -->
+        <nav class="side-nav">
+            <a href="#education" class="side-nav-item" data-target="education">教育经历</a>
+            <a href="#work" class="side-nav-item" data-target="work">工作经历</a>
+            <a href="#projects" class="side-nav-item" data-target="projects">项目经历</a>
+            <a href="#internship" class="side-nav-item" data-target="internship">实习兼职</a>
+        </nav>
+
+        <!-- 页面标题 -->
+        <div class="container career-header">
+            <h1>💼 个人简历</h1>
+            <div class="career-subnav">
+                <a href="#education" class="career-subnav-item">📚 教育经历</a>
+                <span class="career-divider">|</span>
+                <a href="#work" class="career-subnav-item">💼 工作经历</a>
+                <span class="career-divider">|</span>
+                <a href="#projects" class="career-subnav-item">📋 项目经历</a>
+                <span class="career-divider">|</span>
+                <a href="#internship" class="career-subnav-item">🎯 实习兼职</a>
+            </div>
         </div>
-        
-        <!-- 更多详细内容容器 -->
-        <div class="container">
-            <h2>章节标题</h2>
-            <p>详细内容占位符...</p>
+
+        <!-- 时间轴内容 -->
+        <div class="container timeline-container">
+            <!-- 教育经历 -->
+            <div class="timeline-section" id="education">
+                <div class="timeline-section-header">
+                    <h2>📚 教育经历</h2>
+                </div>
+                
+                <!-- 硕士 -->
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-date">2018.09 - 2020.06</div>
+                        <span class="timeline-divider">|</span>
+                        <h3>对外经济贸易大学 · 应用统计硕士 · 全日制统招研究生</h3>
+                    </div>
+                    <div class="timeline-details">
+                        <p><strong>相关课程：</strong>数量金融、经济分析统计、时间序列、回归分析、大数据分析、计量等</p>
+                        <p><strong>荣誉：</strong>学业奖学金</p>
+                    </div>
+                </div>
+
+                <!-- 本科 -->
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-date">2013.09 - 2017.06</div>
+                        <span class="timeline-divider">|</span>
+                        <h3>北京科技大学 · 计算机科学与技术 · 全日制统招本科</h3>
+                    </div>
+                    <div class="timeline-details">
+                        <p><strong>相关课程：</strong>软件工程、硬件与电子技术、计算机组成原理、操作系统、网络工程、数学类</p>
+                        <p><strong>荣誉：</strong>优秀三好学生、优秀共青团员、优秀毕业生、人民奖学金、大学生创新创业大赛特等奖</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 工作经历 -->
+            <div class="timeline-section" id="work">
+                <div class="timeline-section-header">
+                    <h2>💼 工作经历</h2>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-date">2020.07 - 2026.04</div>
+                        <span class="timeline-divider">|</span>
+                        <h3>某大型国有银行总行 · 风险管理部 · 非零售风险管理</h3>
+                    </div>
+                    <div class="timeline-details">
+                            <p><strong>① 全行核心项目推进：</strong>深度参与非零售内评高级法达标项目，负责非零售客户评级及债项评级模型的日常监控、验证与持续优化，确保模型区分能力与稳定性符合监管要求及内部应用标准。实施模型在客户准入、授信审批、贷后管理等环节的准确应用。</p>
+                            <p><strong>② 全行合格缓释认定体系建设：</strong>牵头全行信用风险缓释认定体系从0到1的搭建，负责顶层制度设计、跨部门流程梳理及配套系统功能建设，实现了风险缓释管理的标准化与系统化。</p>
+                            <p><strong>③ 智能风控建设：</strong>主导智能风控应用，通过构建客户违约预警规则与机制，实现对客户潜在风险的早期识别与动态监控，显著增强了风险的前瞻性管理能力，提升分行对潜在风险的响应速度。</p>
+                            <p><strong>④ 全行评级管理与考核：</strong>负责全国36家一级分行的评级考核与现场/非现场检查工作，以及各分行客户评级覆盖率、动态评级更新率、贷款不良率、违约管理考核。通过精细化管理和专业指导，保障全行风险评级政策的穿透式落地与执行质量。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
+
+        <!-- 项目经历 -->
+        <div class="container">
+            <div class="timeline-section" id="projects">
+                <div class="timeline-section-header">
+                    <h2>📋 项目经历</h2>
+                </div>
+                
+                <!-- 项目一 -->
+                <div class="project-item">
+                    <h3>一、高级法内评模型建设</h3>
+                    <div class="project-details">
+                        <p><strong>① 模型开发与部署：</strong>主导非零售内评体系下全类型模型的系统落地。完成11个大中企业专业打分卡模型与4个小企业统计模型的配置、投产前测试、上线及投产后验证，确保模型稳定运行。</p>
+                        <p><strong>② 针对性模型优化：</strong>为解决小企业评级中财报数据错用及人工评级占比过高的问题，主导开发并上线了法人按揭业务客户打分卡模型及小型批发零售敞口统计模型；同时，在小企业统计模型中创新性集成了"专精特新"评价模块，提升了对优质小微企业的识别精度。</p>
+                        <p><strong>③ 违约损失率模型建设：</strong>完成非零售违约损失率（LGD）模型的建设与系统对接，成功实现了对信贷、资产池、资金、票据等全类型非零售业务的债项批量跑批与计算。</p>
+                        <p><strong>④ 业务价值创造：</strong>将全行所有内评模型参数深度应用于非零售业务的定价与减值计提环节，覆盖超60万笔合同。通过对关键参数的持续优化，累计为全行节约减值损失数十亿元，显著提升了资本与风险管理效能。</p>
+                    </div>
+                </div>
+
+                <!-- 项目二 -->
+                <div class="project-item">
+                    <h3>二、银行系统及内部评级平台建设</h3>
+                    <div class="project-details">
+                        <p><strong>① 高级法功能模块建设：</strong>深度参与高级法内评体系的功能设计与系统实现，完成包括预评级、评级试算、违约认定管理、违约督管管理、债项评级批量跑批与监控、失效评级考核等核心模块的全流程建设，全面支撑内评合规与精细化管理要求。</p>
+                        <p><strong>② 大规模数据库迁移与测试：</strong>牵头内部评级系统数据库切换工作，独立编写测试计划与方案，设计并执行超2000条测试案例，完成全功能的全量回归测试；同时协同软研团队对批量任务跑批结果进行全量准确性校验，确保迁移过程零差错、业务无缝衔接。</p>
+                        <p><strong>③ 数据基础能力建设：</strong>配合风险数据集市建设，牵头完成非零售业务数据、财报数据、征信数据、担保关联数据等12张核心宽表的上线，为全行风险计量与分析提供了高质量的数据底座。</p>
+                        <p><strong>④ 系统稳定性保障：</strong>负责生产环境的日常运维与监控，建立问题响应机制，确保7×24小时系统高可用。累计完成近百次生产问题排查与系统bug修复，显著提升了系统的稳定性、业务连续性和用户体验。</p>
+                    </div>
+                </div>
+
+                <!-- 项目三 -->
+                <div class="project-item">
+                    <h3>三、合格信用风险缓释认定体系建设</h3>
+                    <div class="project-details">
+                        <p><strong>① 顶层制度设计与落地：</strong>牵头起草并正式发布行内《合格信用风险缓释认定管理办法》，从0到1建立了全行统一的合格信用风险缓释认定机制，为风险缓释管理的规范化、标准化奠定制度基础。</p>
+                        <p><strong>② 智能化认定体系建设：</strong>主导将认定规则全面嵌入担保管理系统，构建了全行信用风险缓释工具的合格性自动判定体系。系统支持每日批量处理超1000万条押品及5万条保证人的合格性自动判定，实现认定工作的全流程自动化与规模化。</p>
+                        <p><strong>③ 透明化监控工具建设：</strong>完成担保系统合格缓释认定明细台账功能开发与上线，支持对每一笔缓释工具的认定过程与结果进行精细化追溯与分析；同步建设合格缓释监控报表，每日自动计算押品合格率、基础信息字段缺失率等关键指标，为持续监控与优化提供数据支撑。</p>
+                        <p><strong>④ 数据质量专项治理：</strong>面对底层数据质量问题，主动牵头推动跨部门协作，联合各业务部门及软研团队，在各业务系统开展基础数据补录工作，并建立定期分析机制对认定结果进行回溯，显著提升了数据完整性与认定准确性。</p>
+                    </div>
+                </div>
+
+                <!-- 项目四 -->
+                <div class="project-item">
+                    <h3>四、资本计量高级方法达标建设</h3>
+                    <div class="project-details">
+                        <p><strong>① 风险暴露分类体系落地：</strong>牵头完成客户层、债项层、专业贷款及资金业务的全类型风险暴露分类规则制定，并推动规则在核心系统的全面部署与验证，为高级法下风险加权资产计量的准确性与合规性奠定基础。</p>
+                        <p><strong>② 动态评级更新机制建设：</strong>为配套新发布的非零售评级管理办法，在统一授信系统主导完成了动态评级更新功能的全流程建设，涵盖前期方案设计、系统架构规划、需求分析、业务测试及上线投产，确保评级时效性与制度要求无缝衔接。</p>
+                        <p><strong>③ 智能化违约督管体系构建：</strong>整合业务数据、资产保全数据、征信数据及外部企业数据，针对集团关联方违约、保证人违约、一般公司客户违约三类场景设计并上线了差异化的违约督管规则。体系上线后，年均触发督管任务超3000条，同步建设违约督管台账报表，为各分行提供了精准、可追溯的违约认定管理工具，显著提升了违约管理的主动性与精细化水平。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实习兼职经历 -->
+        <div class="container">
+            <div class="timeline-section" id="internship">
+                <div class="timeline-section-header">
+                    <h2>🎯 实习兼职经历</h2>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-date">2019.07 - 2019.08</div>
+                        <span class="timeline-divider">|</span>
+                        <h3>中信证券总部 · 风险管理部 · 暑期实习</h3>
+                    </div>
+                    <div class="timeline-details">
+                        <p><strong>① RiskMetrics风险计量体系学习汇报</strong></p>
+                        <p><strong>② 技术性辅助工作：</strong>使用风险计量系统计算资产组合的VAR，用Python解析系统输出的XML文件</p>
+                        <p><strong>③ 参加内部培训学习</strong></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-date">2019.05 - 2019.06</div>
+                        <span class="timeline-divider">|</span>
+                        <h3>民生证券总部 · 财富管理部 · 实习生</h3>
+                    </div>
+                    <div class="timeline-details">
+                        <p><strong>① 基金数据统计</strong></p>
+                        <p><strong>② 基金销售、评级工作沟通</strong></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-date">2018.07 - 2018.09 / 2020.05 - 2020.06</div>
+                        <span class="timeline-divider">|</span>
+                        <h3>中信百信银行 · 人力资源部 · 实习生</h3>
+                    </div>
+                    <div class="timeline-details">
+                        <p><strong>① 负责全行员工关系维护工作，负责校招宣传工作</strong></p>
+                        <p><strong>② 活动组织、培训学习、领导助理</strong></p>
+                        <p><strong>③ 职级晋升答辩组织、助理</strong></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-date">2018.06 - 2018.08</div>
+                        <span class="timeline-divider">|</span>
+                        <h3>海风教育 · 兼职工作</h3>
+                    </div>
+                    <div class="timeline-details">
+                        <p><strong>① 高考英语教学</strong></p>
+                        <p><strong>② 高中英语单词、阅读教学</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 返回按钮 -->
         <div class="container" style="text-align: center;">
             <a href="about.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
                 ← 返回关于我
             </a>
         </div>
+
+        <!-- 返回顶部按钮 -->
+        <button class="back-to-top" id="backToTop">↑</button>
+        
+        <!-- 返回上一层页面按钮 -->
+        <button class="back-to-parent" id="backToParent">←</button>
     </main>
 
     <!-- 页脚 -->
     <footer class="footer">
-        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
-        <p>v0.3.0</p>
+        <p>&copy; 2026 XueXue喵 - 用心记录生活</p>
+        <p>v0.3.2</p>
     </footer>
 
     <script src="js/script.js"></script>

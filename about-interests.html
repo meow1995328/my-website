@@ -5,9 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎨 兴趣与收藏品 - 薛大侠</title>
+    <script>
+        if (new URLSearchParams(window.location.search).get('transition') === 'dissolve') {
+            document.documentElement.classList.add('fh-transition-dissolve');
+            setTimeout(() => {
+                document.documentElement.classList.remove('fh-transition-dissolve');
+            }, 600);
+        }
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="fh-subpage-enter">
     <!-- 顶部导航栏 -->
     <header class="header">
         <nav class="nav">

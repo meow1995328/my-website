@@ -1,986 +1,1393 @@
-/* 全局重置和基础样式 */
+/* ============================================
+   全局重置和基础样式
+   ============================================ */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;              /* 清除所有元素默认外边距 */
+    padding: 0;             /* 清除所有元素默认内边距 */
+    box-sizing: border-box; /* 盒模型：宽高包含padding和border */
 }
 
 :root {
-    /* 地平线风格配色 */
-    --primary-color: #0078d4;
-    --secondary-color: #005a9e;
-    --accent-color: #00bcf2;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --bg-dark: #1a1a1a;
-    --bg-card: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: #b0b0b0;
-    --border-color: #404040;
+    /* ========== 主色调配色 ========== */
+    --primary-color: #0078d4;       /* 主色：微软蓝 */
+    --secondary-color: #005a9e;     /* 次主色：深蓝 */
+    --accent-color: #00bcf2;        /* 强调色：亮青色 */
+    --success-color: #10b981;       /* 成功色：绿色 */
+    --warning-color: #f59e0b;       /* 警告色：橙色 */
+    --bg-dark: #1a1a1a;             /* 深色背景 */
+    --bg-card: #2d2d2d;             /* 卡片背景 */
+    --text-primary: #ffffff;        /* 主文字颜色：白色 */
+    --text-secondary: #b0b0b0;      /* 次文字颜色：灰色 */
+    --border-color: #404040;        /* 边框颜色 */
     
-    /* 地平线6菜单风格配色 */
-    --fh-nav-bg: #006442;
-    --fh-nav-border: #008a5c;
-    --fh-card-resume: #1a1a2e;
-    --fh-card-interests: #e91e63;
-    --fh-card-life: #ff6f00;
-    --fh-card-family: #00bcd4;
-    --fh-card-honors: #7b1fa2;
-    --fh-card-collection: #ff1744;
+    /* ========== 地平线6菜单风格配色（关于我页面卡片） ========== */
+    --fh-nav-bg: #006442;           /* 导航栏背景 */
+    --fh-nav-border: #008a5c;       /* 导航栏边框 */
+    --fh-card-resume: #1a1a2e;      /* 个人简历卡片色 */
+    --fh-card-interests: #e91e63;   /* 兴趣特长卡片色 */
+    --fh-card-life: #ff6f00;        /* 个人生活卡片色 */
+    --fh-card-family: #00bcd4;      /* 家庭生活卡片色 */
+    --fh-card-honors: #7b1fa2;      /* 荣誉展示卡片色 */
+    --fh-card-collection: #ff1744;  /* 收集簿卡片色 */
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* 平滑滚动效果 */
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    color: var(--text-primary);
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; /* 字体：优先Segoe UI，其次系统字体 */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); /* 渐变背景 */
+    color: var(--text-primary); /* 文字颜色 */
+    line-height: 1.6; /* 行高 */
+    min-height: 100vh; /* 最小高度：视口高度 */
 }
 
-/* 顶部导航栏 - 地平线6风格 */
+/* ============================================
+   顶部导航栏 - 地平线6风格
+   ============================================ */
 .header {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    border-bottom: 2px solid #e94560;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 15px rgba(233, 69, 96, 0.3);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); /* 渐变背景 */
+    border-bottom: 2px solid #e94560; /* 底部红色边框 */
+    position: fixed; /* 固定定位：始终在顶部 */
+    top: 0;          /* 距离顶部0 */
+    left: 0;         /* 距离左侧0 */
+    right: 0;        /* 距离右侧0 */
+    z-index: 1000;   /* 层级：最高，确保在最上层 */
+    box-shadow: 0 2px 15px rgba(233, 69, 96, 0.3); /* 红色阴影效果 */
 }
 
 .nav {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.3rem 2rem;
+    max-width: 1400px; /* 最大宽度：1400px */
+    margin: 0 auto;    /* 水平居中 */
+    display: flex;     /* 弹性布局 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    padding: 0 2rem;   /* 上下0，左右2rem */
+    height: 45px;      /* 固定高度 */
 }
 
+/* ========== Logo样式 ========== */
+/* 网站Logo，当前设计不需要显示，故隐藏 */
 .logo {
-    display: none;
+    display: none; /* Logo隐藏（当前设计不需要） */
 }
 
+/* ========== 导航菜单容器 ========== */
+/* 包含所有一级导航按钮的无序列表容器 */
 .nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 0.3rem;
+    display: flex;     /* 弹性布局：水平排列所有菜单项 */
+    list-style: none;  /* 去掉列表项默认圆点 */
+    gap: 0.5rem;       /* 列表项之间的间距 */
 }
 
+/* ========== 导航菜单项 ========== */
+/* 每个一级导航按钮的容器（li标签） */
 .nav-item {
-    position: relative;
+    position: relative; /* 相对定位：为子元素（如下拉菜单）绝对定位做准备 */
 }
 
+/* ========== 导航链接按钮 ========== */
+/* 每个一级导航的链接按钮样式 */
 .nav-link {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.85rem;
-    transition: all 0.2s ease;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    margin: 0.1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;     /* 弹性布局：方便内容垂直居中 */
+    align-items: center; /* 垂直居中对齐文字 */
+    padding: 0.1rem 0.5rem !important; /* 内边距：上下0.35rem，左右1.0rem */
+    color: rgba(255, 255, 255, 0.85); /* 文字颜色：半透明白色 */
+    text-decoration: none; /* 去掉链接下划线 */
+    font-weight: 600;      /* 字体粗细：半粗 */
+    font-size: 0.75rem;    /* 字体大小：0.75rem（12px） */
+    transition: all 0.2s ease; /* 过渡动画：0.2秒（悬停/激活效果） */
+    background: rgba(0, 0, 0, 0.3); /* 背景：半透明黑色 */
+    border-radius: 15px; /* 圆角：15px（胶囊形） */
+    margin: 0;         /* 去掉外边距 */
+    border: 2px solid rgba(255, 255, 255, 0.1); /* 边框：白色半透明 */
 }
 
+/* ========== 导航链接悬停效果 ========== */
+/* 鼠标悬浮在导航按钮上时的样式 */
 .nav-link:hover {
-    background: rgba(233, 69, 96, 0.3);
-    color: #ffffff;
-    border-color: rgba(233, 69, 96, 0.5);
+    background: rgba(233, 69, 96, 0.3); /* 悬停背景：红色半透明 */
+    color: #ffffff;                      /* 悬停文字：纯白色 */
+    border-color: rgba(233, 69, 96, 0.5); /* 悬停边框：红色半透明 */
 }
 
+/* ========== 导航链接激活状态 ========== */
+/* 当前页面对应的导航按钮高亮样式 */
 .nav-link.active {
-    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
-    color: #ffffff;
-    border-color: #ff6b6b;
-    box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);
+    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%); /* 激活状态：红色渐变背景 */
+    color: #ffffff;                                                  /* 激活文字：白色 */
+    border-color: #ff6b6b;                                          /* 激活边框：亮红色 */
+    box-shadow: 0 0 15px rgba(233, 69, 96, 0.5);                   /* 激活阴影：红色发光效果 */
 }
 
-/* 主内容区域 */
+/* ============================================
+   主内容区域
+   ============================================ */
 .main-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 7rem 2rem 3rem;
-    min-height: calc(100vh - 200px);
+    max-width: 1400px;              /* 最大宽度：1400px */
+    margin: 0 auto;                 /* 水平居中 */
+    padding: 3rem 2rem 1rem;        /* 内边距：上7rem（避开导航栏），左右2rem，下3rem */
+    min-height: calc(100vh - 200px); /* 最小高度：视口高度-200px */
 }
 
-/* 子导航样式（用于页面内的锚点导航） */
+/* ============================================
+   子导航样式（用于页面内的锚点导航）
+   ============================================ */
 .sub-nav {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    flex-wrap: wrap;
+    display: flex;              /* 弹性布局 */
+    gap: 0.5rem;                /* 间距：0.5rem */
+    margin-bottom: 2rem;        /* 下边距：2rem */
+    padding: 1rem;              /* 内边距：1rem */
+    background: rgba(0, 0, 0, 0.5); /* 背景：半透明黑色 */
+    border-radius: 12px;        /* 圆角：12px */
+    flex-wrap: wrap;            /* 换行：自动换行 */
 }
 
 .sub-nav-link {
-    padding: 0.6rem 1.2rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
+    padding: 0.6rem 1.2rem;     /* 内边距：上下0.6rem，左右1.2rem */
+    color: var(--text-secondary); /* 文字颜色：灰色 */
+    text-decoration: none;      /* 去掉下划线 */
+    border-radius: 6px;         /* 圆角：6px */
+    font-size: 0.9rem;          /* 字体大小：0.9rem */
+    transition: all 0.3s ease;  /* 过渡动画：0.3秒 */
 }
 
 .sub-nav-link:hover {
-    color: var(--text-primary);
-    background: rgba(0, 120, 212, 0.3);
+    color: var(--text-primary);   /* 悬停文字：白色 */
+    background: rgba(0, 120, 212, 0.3); /* 悬停背景：蓝色半透明 */
 }
 
-/* 卡片容器 */
+/* ============================================
+   卡片容器
+   ============================================ */
 .container {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 2.5rem;
-    margin-bottom: 2rem;
+    background: rgba(255, 255, 255, 0.05); /* 背景：白色极淡透明 */
+    backdrop-filter: blur(10px);            /* 模糊效果：10px */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
+    border-radius: 12px;                   /* 圆角：12px */
+    padding: 2.5rem;                       /* 内边距：2.5rem */
+    margin-bottom: 2rem;                   /* 下边距：2rem */
 }
 
-/* 标题样式 */
+/* ============================================
+   标题样式
+   ============================================ */
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--accent-color);
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
+    font-size: 2.5rem;             /* 字体大小：2.5rem */
+    margin-bottom: 1.5rem;         /* 下边距：1.5rem */
+    color: var(--accent-color);    /* 文字颜色：亮青色 */
+    border-bottom: 2px solid var(--primary-color); /* 底部蓝色边框 */
+    padding-bottom: 0.5rem;        /* 底部内边距：0.5rem */
 }
 
 h2 {
-    font-size: 1.6rem;
-    margin: 2rem 0 1rem;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-size: 1.6rem;             /* 字体大小：1.6rem */
+    margin: 2rem 0 1rem;          /* 外边距：上2rem，左右0，下1rem */
+    color: var(--text-primary);    /* 文字颜色：白色 */
+    display: flex;                 /* 弹性布局 */
+    align-items: center;           /* 垂直居中 */
+    gap: 0.5rem;                   /* 间距：0.5rem */
 }
 
 h3 {
-    font-size: 1.2rem;
-    margin: 1.5rem 0 0.8rem;
-    color: var(--accent-color);
+    font-size: 1.2rem;             /* 字体大小：1.2rem */
+    margin: 1.5rem 0 0.8rem;      /* 外边距：上1.5rem，左右0，下0.8rem */
+    color: var(--accent-color);    /* 文字颜色：亮青色 */
 }
 
 h4 {
-    font-size: 1rem;
-    margin: 1rem 0 0.5rem;
-    color: var(--text-primary);
+    font-size: 1rem;               /* 字体大小：1rem */
+    margin: 1rem 0 0.5rem;        /* 外边距：上1rem，左右0，下0.5rem */
+    color: var(--text-primary);    /* 文字颜色：白色 */
 }
 
 p {
-    margin-bottom: 1rem;
-    color: var(--text-secondary);
+    margin-bottom: 1rem;           /* 下边距：1rem */
+    color: var(--text-secondary);  /* 文字颜色：灰色 */
 }
 
-/* 主页介绍卡片 */
+/* ============================================
+   主页介绍卡片
+   ============================================ */
 .hero-card {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(0, 188, 242, 0.1));
-    border: 2px solid var(--primary-color);
-    border-radius: 16px;
-    margin-bottom: 3rem;
+    text-align: center;                                   /* 文字居中 */
+    padding: 4rem 2rem;                                  /* 内边距：上下4rem，左右2rem */
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(0, 188, 242, 0.1)); /* 蓝色渐变背景 */
+    border: 2px solid var(--primary-color);              /* 蓝色边框 */
+    border-radius: 16px;                                 /* 圆角：16px */
+    margin-bottom: 3rem;                                 /* 下边距：3rem */
 }
 
 .hero-card h1 {
-    font-size: 2.8rem;
-    border: none;
-    margin-bottom: 1rem;
+    font-size: 2.8rem;   /* 标题字体大小：2.8rem */
+    border: none;        /* 去掉底部边框 */
+    margin-bottom: 1rem; /* 下边距：1rem */
 }
 
 .hero-card .subtitle {
-    font-size: 1.3rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
+    font-size: 1.3rem;              /* 副标题字体大小：1.3rem */
+    color: var(--text-secondary);   /* 副标题颜色：灰色 */
+    margin-bottom: 2rem;            /* 下边距：2rem */
 }
 
-/* Slogan 样式 */
+/* ============================================
+   Slogan 样式
+   ============================================ */
 .slogan {
-    font-size: 1.5rem;
-    font-style: italic;
-    color: var(--accent-color);
-    margin-bottom: 1rem;
+    font-size: 1.5rem;          /* 字体大小：1.5rem */
+    font-style: italic;         /* 斜体 */
+    color: var(--accent-color); /* 颜色：亮青色 */
+    margin-bottom: 1rem;        /* 下边距：1rem */
 }
 
-/* 公告卡片 */
+/* ============================================
+   公告卡片
+   ============================================ */
 .announcement-card {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
-    border: 2px solid var(--warning-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1)); /* 橙色渐变背景 */
+    border: 2px solid var(--warning-color); /* 橙色边框 */
+    border-radius: 12px;                    /* 圆角：12px */
+    padding: 1.5rem;                        /* 内边距：1.5rem */
+    margin-bottom: 2rem;                    /* 下边距：2rem */
 }
 
 .announcement-card h3 {
-    color: var(--warning-color);
-    margin-top: 0;
+    color: var(--warning-color); /* 标题颜色：橙色 */
+    margin-top: 0;              /* 去掉上边距 */
 }
 
-/* 活动预告卡片 */
+/* ============================================
+   活动预告卡片
+   ============================================ */
 .event-card {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
-    border: 2px solid var(--success-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1)); /* 绿色渐变背景 */
+    border: 2px solid var(--success-color); /* 绿色边框 */
+    border-radius: 12px;                    /* 圆角：12px */
+    padding: 1.5rem;                        /* 内边距：1.5rem */
+    margin-bottom: 2rem;                    /* 下边距：2rem */
 }
 
 .event-card h3 {
-    color: var(--success-color);
-    margin-top: 0;
+    color: var(--success-color); /* 标题颜色：绿色 */
+    margin-top: 0;               /* 去掉上边距 */
 }
 
-/* 功能模块网格 */
+/* ============================================
+   功能模块网格（首页）
+   ============================================ */
 .modules-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    display: grid;                              /* 网格布局 */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 自动填充：最小280px，最大1fr */
+    gap: 1.5rem;                                /* 网格间距：1.5rem */
+    margin-top: 2rem;                           /* 上边距：2rem */
 }
 
 .module-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    display: block;
+    background: var(--bg-card);           /* 背景：卡片色 */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
+    border-radius: 12px;                  /* 圆角：12px */
+    padding: 2rem;                        /* 内边距：2rem */
+    transition: all 0.3s ease;            /* 过渡动画：0.3秒 */
+    cursor: pointer;                      /* 鼠标指针：手型 */
+    text-decoration: none;                /* 去掉下划线 */
+    color: inherit;                       /* 继承父元素颜色 */
+    display: block;                       /* 块级元素 */
 }
 
 .module-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
-    box-shadow: 0 10px 30px rgba(0, 120, 212, 0.3);
+    transform: translateY(-5px);              /* 悬停：向上移动5px */
+    border-color: var(--primary-color);       /* 悬停边框：蓝色 */
+    box-shadow: 0 10px 30px rgba(0, 120, 212, 0.3); /* 悬停阴影：蓝色发光 */
 }
 
 .module-card h3 {
-    margin-top: 0;
-    color: var(--accent-color);
+    margin-top: 0;               /* 去掉上边距 */
+    color: var(--accent-color);  /* 标题颜色：亮青色 */
 }
 
 .module-card p {
-    font-size: 0.9rem;
-    margin-bottom: 0;
+    font-size: 0.9rem;   /* 字体大小：0.9rem */
+    margin-bottom: 0;    /* 去掉下边距 */
 }
 
-/* 地平线6风格卡片网格布局 */
+/* ============================================
+   地平线6风格卡片网格布局（关于我页面）
+   ============================================ */
 .fh-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 2fr 1.8fr 1.5fr;
-    grid-template-rows: 180px 100px 100px;
-    gap: 4px;
-    width: 100%;
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 4px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
+    display: grid;                               /* 网格布局 */
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 1.5fr; /* 4列：比例1.5:2:1.8:1.5 */
+    grid-template-rows: 220px 110px 110px;      /* 3行：高度280px, 160px, 160px（增大行高） */
+    gap: 7px;                                    /* 网格间距：6px */
+    width: 100%;                                 /* 宽度：100% */
+    max-width: 1400px;                           /* 最大宽度：1400px（增大宽度覆盖更多页面） */
+    margin: 0.5rem auto;                         /* 水平居中，上下0.5rem（减少上下边距） */
+    padding: 6px;                                /* 内边距：6px */
+    background: rgba(255, 255, 255, 0.05);      /* 背景：白色极淡透明 */
+    border-radius: 16px;                         /* 圆角：16px */
 }
 
 .fh-card {
-    border-radius: 12px;
-    padding: 1.2rem;
-    text-decoration: none;
-    color: #ffffff;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: relative;
-    overflow: hidden;
+    border-radius: 12px;           /* 圆角：12px */
+    padding: 1.2rem;               /* 内边距：1.2rem */
+    text-decoration: none;         /* 去掉下划线 */
+    color: #ffffff;                /* 文字颜色：白色 */
+    cursor: pointer;               /* 鼠标指针：手型 */
+    transition: all 0.2s ease;     /* 过渡动画：0.2秒 */
+    display: flex;                 /* 弹性布局 */
+    flex-direction: column;        /* 垂直排列 */
+    justify-content: flex-start;   /* 顶部对齐 */
+    position: relative;            /* 相对定位：为伪元素做准备 */
+    overflow: hidden;              /* 溢出隐藏 */
 }
 
 .fh-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
-    pointer-events: none;
+    content: '';                                 /* 伪元素内容：空 */
+    position: absolute;                          /* 绝对定位 */
+    top: 0; left: 0; right: 0; bottom: 0;       /* 铺满整个卡片 */
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%); /* 白色渐变覆盖层 */
+    pointer-events: none;                        /* 不响应鼠标事件 */
 }
 
 .fh-card:hover {
-    transform: scale(1.015);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-width: 3px;
-    border-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 8px 25px rgba(0, 0, 0, 0.3);
+    transform: scale(1.025);                       /* 悬停：放大1.025倍 */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);    /* 悬停阴影：黑色 */
+    border-width: 3px;                             /* 悬停边框宽度：4px */
+    border-color: #ffd700;                         /* 悬停边框颜色：金色 */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(0, 0, 0, 0.3); /* 金色发光阴影 */
 }
 
 .fh-card h3 {
-    color: #ffffff;
-    margin-top: 0;
-    font-size: 1.1rem;
-    font-weight: 700;
-    z-index: 1;
-    margin-bottom: 0.3rem;
+    color: #ffffff;       /* 标题颜色：白色 */
+    margin-top: 0;        /* 去掉上边距 */
+    font-size: 1.1rem;    /* 字体大小：1.1rem */
+    font-weight: 700;     /* 字体粗细：粗 */
+    z-index: 1;           /* 层级：1（在渐变覆盖层之上） */
+    margin-bottom: 0.3rem; /* 下边距：0.3rem */
 }
 
 .fh-card p {
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.8rem;
-    margin-top: 0;
-    z-index: 1;
-    line-height: 1.4;
-    flex-shrink: 1;
+    color: rgba(255, 255, 255, 0.75); /* 文字颜色：半透明白色 */
+    font-size: 0.8rem;                 /* 字体大小：0.8rem */
+    margin-top: 0;                     /* 去掉上边距 */
+    z-index: 1;                        /* 层级：1 */
+    line-height: 1.4;                  /* 行高：1.4 */
+    flex-shrink: 1;                    /* 允许缩小 */
 }
 
+/* ========== 个人简历卡片 ========== */
 .fh-card-resume {
-    grid-column: 2 / 4;
-    grid-row: 1 / 2;
-    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #006699 100%);
-    border: 2px solid #00ffff;
-    padding: 1.5rem;
+    grid-column: 2 / 4;                                             /* 列：第2列到第4列 */
+    grid-row: 1 / 2;                                                /* 行：第1行 */
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #006699 100%); /* 蓝色渐变 */
+    border: 2px solid #00ffff;                                      /* 青色边框 */
+    padding: 1.5rem;                                                /* 内边距：1.5rem */
 }
 
 .fh-card-resume h3 {
-    font-size: 1.4rem;
+    font-size: 1.4rem; /* 标题字体大小：1.4rem */
 }
 
 .fh-card-resume p {
-    font-size: 0.9rem;
+    font-size: 0.9rem; /* 文字字体大小：0.9rem */
 }
 
+/* ========== 兴趣特长卡片 ========== */
 .fh-card-interests {
-    grid-column: 1 / 2;
-    grid-row: 1 / 4;
-    background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
-    border: 2px solid #ff4081;
+    grid-column: 1 / 2;                                  /* 列：第1列 */
+    grid-row: 1 / 4;                                     /* 行：第1行到第4行（占据全部3行） */
+    background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%); /* 粉色渐变 */
+    border: 2px solid #ff4081;                           /* 粉色边框 */
 }
 
+/* ========== 个人生活卡片 ========== */
 .fh-card-life {
-    grid-column: 4 / 5;
-    grid-row: 1 / 4;
-    background: linear-gradient(135deg, #ff6f00 0%, #e65100 100%);
-    border: 2px solid #ff8f00;
+    grid-column: 4 / 5;                                  /* 列：第4列 */
+    grid-row: 1 / 4;                                     /* 行：第1行到第4行 */
+    background: linear-gradient(135deg, #ff6f00 0%, #e65100 100%); /* 橙色渐变 */
+    border: 2px solid #ff8f00;                           /* 橙色边框 */
 }
 
+/* ========== 家庭生活卡片 ========== */
 .fh-card-family {
-    grid-column: 2 / 3;
-    grid-row: 2 / 4;
-    background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
-    border: 2px solid #26c6da;
+    grid-column: 2 / 3;                                  /* 列：第2列 */
+    grid-row: 2 / 4;                                     /* 行：第2行到第4行（占据2行） */
+    background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%); /* 青色渐变 */
+    border: 2px solid #26c6da;                           /* 青色边框 */
 }
 
+/* ========== 荣誉展示卡片 ========== */
 .fh-card-honors {
-    grid-column: 3 / 4;
-    grid-row: 2 / 3;
-    background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%);
-    border: 2px solid #9c27b0;
-    padding: 0.8rem 1rem;
+    grid-column: 3 / 4;                                  /* 列：第3列 */
+    grid-row: 2 / 3;                                     /* 行：第2行 */
+    background: linear-gradient(135deg, #7b1fa2 0%, #6a1b9a 100%); /* 紫色渐变 */
+    border: 2px solid #9c27b0;                           /* 紫色边框 */
+    padding: 0.8rem 1rem;                                /* 内边距：0.8rem 1rem */
 }
 
 .fh-card-honors h3 {
-    font-size: 0.95rem;
-    margin-bottom: 0.2rem;
+    font-size: 0.95rem;   /* 标题字体大小：0.95rem */
+    margin-bottom: 0.2rem; /* 下边距：0.2rem */
 }
 
 .fh-card-honors p {
-    font-size: 0.7rem;
+    font-size: 0.7rem; /* 文字字体大小：0.7rem */
 }
 
+/* ========== 收集簿卡片 ========== */
 .fh-card-collection {
-    grid-column: 3 / 4;
-    grid-row: 3 / 4;
-    background: linear-gradient(135deg, #ff1744 0%, #d50000 100%);
-    border: 2px solid #ff5252;
-    padding: 0.8rem 1rem;
+    grid-column: 3 / 4;                                  /* 列：第3列 */
+    grid-row: 3 / 4;                                     /* 行：第3行 */
+    background: linear-gradient(135deg, #ff1744 0%, #d50000 100%); /* 红色渐变 */
+    border: 2px solid #ff5252;                           /* 红色边框 */
+    padding: 0.8rem 1rem;                                /* 内边距：0.8rem 1rem */
 }
 
 .fh-card-collection h3 {
-    font-size: 0.95rem;
-    margin-bottom: 0.2rem;
+    font-size: 0.95rem;   /* 标题字体大小：0.95rem */
+    margin-bottom: 0.2rem; /* 下边距：0.2rem */
 }
 
 .fh-card-collection p {
-    font-size: 0.7rem;
+    font-size: 0.7rem; /* 文字字体大小：0.7rem */
 }
 
-/* 精选作品展示 */
+/* ============================================
+   精选作品展示（首页）
+   ============================================ */
 .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    display: grid;                              /* 网格布局 */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* 自动填充：最小350px */
+    gap: 2rem;                                 /* 间距：2rem */
+    margin-top: 2rem;                          /* 上边距：2rem */
 }
 
 .featured-item {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+    background: var(--bg-card);           /* 背景：卡片色 */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
+    border-radius: 12px;                  /* 圆角：12px */
+    padding: 1.5rem;                      /* 内边距：1.5rem */
+    transition: all 0.3s ease;            /* 过渡动画：0.3秒 */
 }
 
 .featured-item:hover {
-    transform: translateY(-3px);
-    border-color: var(--primary-color);
+    transform: translateY(-3px);              /* 悬停：向上移动3px */
+    border-color: var(--primary-color);       /* 悬停边框：蓝色 */
 }
 
 .featured-item-title {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    color: var(--text-primary); /* 标题颜色：白色 */
+    font-size: 1.1rem;          /* 字体大小：1.1rem */
+    margin-bottom: 0.5rem;      /* 下边距：0.5rem */
 }
 
 .featured-item-desc {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: var(--text-secondary); /* 描述颜色：灰色 */
+    font-size: 0.9rem;            /* 字体大小：0.9rem */
 }
 
 .featured-item-meta {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    color: var(--accent-color);
+    display: flex;                /* 弹性布局 */
+    gap: 1rem;                   /* 间距：1rem */
+    margin-top: 1rem;            /* 上边距：1rem */
+    font-size: 0.85rem;          /* 字体大小：0.85rem */
+    color: var(--accent-color);  /* 颜色：亮青色 */
 }
 
-/* 列表样式 */
+/* ============================================
+   列表样式
+   ============================================ */
 ul, ol {
-    margin: 1rem 0 1rem 2rem;
-    color: var(--text-secondary);
+    margin: 1rem 0 1rem 2rem;    /* 外边距：上下1rem，左2rem */
+    color: var(--text-secondary); /* 文字颜色：灰色 */
 }
 
 li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; /* 列表项下边距：0.5rem */
 }
 
-/* 时间线样式（用于简历） */
-.timeline {
-    position: relative;
-    padding-left: 2rem;
-    margin: 2rem 0;
+/* ============================================
+   个人简历页面样式
+   ============================================ */
+
+/* ========== 时间轴容器 ========== */
+.timeline-container {
+    max-width: 100%; /* 最大宽度：100% */
+    width: 100%;     /* 宽度：100% */
 }
 
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--primary-color);
+/* ========== 时间轴区块 ========== */
+.timeline-section {
+    margin-bottom: 2.5rem; /* 下边距：2.5rem */
 }
 
+/* ========== 时间轴区块标题（橙色分隔栏） ========== */
+.timeline-section-header {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); /* 橙色渐变 */
+    color: #ffffff;                                                /* 文字颜色：白色 */
+    padding: 0.25rem 1.5rem;                                       /* 内边距：0.8rem 1.5rem */
+    border-radius: 10px;                                      /* 上边距：1rem */
+    margin-bottom: 1rem;                                        /* 下边距：1.5rem */
+    position: relative;                                           /* 相对定位 */
+    overflow: hidden;                                             /* 溢出隐藏 */
+}
+
+.timeline-section-header::after {
+    content: '';                                                           /* 伪元素：空 */
+    position: absolute;                                                    /* 绝对定位 */
+    top: 0; right: -30px;                                                  /* 位置：右上角 */
+    width: 60px; height: 100%;                                             /* 尺寸：60px宽，100%高 */
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%); /* 白色渐变斜线 */
+    transform: skewX(-20deg);                                               /* 倾斜20度 */
+}
+
+.timeline-section-header h2 {
+    margin: 0;               /* 去掉外边距 */
+    font-size: 1.2rem;       /* 字体大小：1.2rem */
+    font-weight: 600;        /* 字体粗细：半粗 */
+}
+
+/* ========== 时间轴条目 ========== */
 .timeline-item {
-    position: relative;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: var(--bg-card);
-    border-radius: 8px;
-    border-left: 3px solid var(--accent-color);
+    margin-bottom: 1.5rem;                    /* 下边距：1.5rem */
+    background: rgba(255, 255, 255, 0.05);   /* 背景：白色极淡透明 */
+    border-radius: 12px;                      /* 圆角：12px */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 边框：白色极淡 */
+    border-left: 4px solid #00d4ff;          /* 左边框：青色4px */
+    padding: 1.2rem 1.5rem;                  /* 内边距：1.2rem 1.5rem */
+    transition: all 0.3s ease;               /* 过渡动画：0.3秒 */
 }
 
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -2.3rem;
-    top: 1.5rem;
-    width: 12px;
-    height: 12px;
-    background: var(--primary-color);
-    border-radius: 50%;
-    border: 2px solid var(--accent-color);
+.timeline-item:hover {
+    background: rgba(255, 255, 255, 0.08); /* 悬停背景：略亮 */
+    border-color: rgba(255, 255, 255, 0.2); /* 悬停边框：略亮 */
+    transform: translateX(5px);              /* 悬停：向右移动5px */
+}
+
+/* ========== 时间轴头部（日期+标题） ========== */
+.timeline-header {
+    display: flex;         /* 弹性布局 */
+    align-items: baseline; /* 基线对齐 */
+    gap: 0.8rem;          /* 间距：0.8rem */
+    margin-bottom: 0.8rem; /* 下边距：0.8rem */
+    flex-wrap: nowrap;     /* 不换行 */
+    font-size: 1rem;      /* 字体大小：1rem */
 }
 
 .timeline-date {
-    font-size: 0.9rem;
-    color: var(--accent-color);
-    margin-bottom: 0.5rem;
+    font-weight: 600;       /* 字体粗细：半粗 */
+    color: #00d4ff;         /* 颜色：青色 */
+    white-space: nowrap;    /* 不换行 */
+    flex-shrink: 0;         /* 不缩小 */
 }
 
-/* 标签样式 */
+.timeline-divider {
+    color: rgba(255, 255, 255, 0.3); /* 分隔符颜色：灰色 */
+    flex-shrink: 0;                   /* 不缩小 */
+}
+
+.timeline-header h3 {
+    color: #ffffff; /* 标题颜色：白色 */
+    margin: 0;      /* 去掉外边距 */
+    font-weight: 600; /* 字体粗细：半粗 */
+    flex: 1;        /* 占据剩余空间 */
+    min-width: 0;   /* 允许缩小 */
+}
+
+/* ========== 时间轴详情内容 ========== */
+.timeline-details {
+    color: rgba(255, 255, 255, 0.75); /* 颜色：半透明白色 */
+    font-size: 0.9rem;                 /* 字体大小：0.9rem */
+    line-height: 1.6;                  /* 行高：1.6 */
+    padding-left: 0;                   /* 去掉左内边距 */
+}
+
+.timeline-details p {
+    margin-bottom: 0.6rem; /* 段落下边距：0.6rem */
+}
+
+.timeline-details p:last-child {
+    margin-bottom: 0; /* 最后一段去掉下边距 */
+}
+
+/* ============================================
+   个人简历页面标题样式
+   ============================================ */
+.career-header {
+    display: flex;         /* 弹性布局 */
+    align-items: center;   /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    gap: 0.5rem;          /* 间距：0.5rem */
+    margin-bottom: 0.5rem; /* 下边距：0.8rem */
+    flex-wrap: wrap;       /* 换行：自动换行 */
+}
+
+.career-header h1 {
+    font-size: 1.2rem;   /* 字体大小：1.3rem */
+    margin: 0;           /* 去掉外边距 */
+    padding-bottom: 0;   /* 去掉底部内边距 */
+}
+
+.career-subnav {
+    display: flex;         /* 弹性布局 */
+    align-items: center;   /* 垂直居中 */
+    gap: 0.4rem;          /* 间距：0.4rem */
+    flex-wrap: wrap;       /* 换行：自动换行 */
+}
+
+.career-subnav-item {
+    color: rgba(255, 255, 255, 0.7); /* 文字颜色：半透明白色 */
+    text-decoration: none;            /* 去掉下划线 */
+    font-size: 0.85rem;              /* 字体大小：0.85rem */
+    padding: 0.2rem 0.6rem;          /* 内边距：0.2rem 0.6rem */
+    border-radius: 4px;              /* 圆角：4px */
+    transition: all 0.3s ease;       /* 过渡动画：0.3秒 */
+}
+
+.career-subnav-item:hover {
+    color: #00d4ff;                     /* 悬停文字：青色 */
+    background: rgba(0, 212, 255, 0.1); /* 悬停背景：青色半透明 */
+}
+
+.career-divider {
+    color: rgba(255, 255, 255, 0.3); /* 分隔符颜色：灰色 */
+}
+
+/* ============================================
+   左侧竖条导航按钮样式（个人简历页面）
+   ============================================ */
+.side-nav {
+    position: fixed;              /* 固定定位 */
+    left: 8px;                   /* 距离左侧8px */
+    top: 50%;                    /* 距离顶部50% */
+    transform: translateY(-50%); /* 垂直居中 */
+    z-index: 100;                /* 层级：100 */
+    display: flex;               /* 弹性布局 */
+    flex-direction: column;      /* 垂直排列 */
+    gap: 0.8rem;                /* 间距：0.8rem */
+    background: rgba(0, 0, 0, 0.5); /* 背景：半透明黑色 */
+    border-radius: 8px;         /* 圆角：8px */
+    padding: 0.5rem 0.2rem;     /* 内边距：0.5rem 0.2rem */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 边框：白色极淡 */
+    backdrop-filter: blur(10px); /* 模糊效果：10px */
+}
+
+.side-nav-item {
+    display: flex;              /* 弹性布局 */
+    align-items: center;        /* 垂直居中 */
+    justify-content: center;    /* 水平居中 */
+    width: 30px;               /* 宽度：30px */
+    height: 80px;              /* 高度：80px */
+    color: rgba(255, 255, 255, 0.5); /* 文字颜色：半透明 */
+    text-decoration: none;      /* 去掉下划线 */
+    font-size: 0.7rem;         /* 字体大小：0.7rem */
+    border-radius: 4px;        /* 圆角：4px */
+    transition: all 0.3s ease; /* 过渡动画：0.3秒 */
+    writing-mode: vertical-rl;     /* 文字竖向排列：从右到左 */
+    text-orientation: upright;     /* 文字方向：直立 */
+    letter-spacing: 0.05em;        /* 字间距：0.05em */
+}
+
+.side-nav-item:hover {
+    color: #ffffff;                     /* 悬停文字：白色 */
+    background: rgba(255, 255, 255, 0.1); /* 悬停背景：白色半透明 */
+    width: 34px;                       /* 悬停宽度：34px */
+}
+
+.side-nav-item.active {
+    color: #00d4ff;                     /* 激活文字：青色 */
+    background: rgba(0, 212, 255, 0.15); /* 激活背景：青色半透明 */
+    font-weight: 600;                   /* 激活字体：半粗 */
+    width: 34px;                        /* 激活宽度：34px */
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); /* 激活阴影：青色发光 */
+}
+
+/* ============================================
+   项目经历样式（个人简历页面）
+   ============================================ */
+.project-item {
+    background: rgba(255, 255, 255, 0.05);   /* 背景：白色极淡透明 */
+    border-radius: 12px;                      /* 圆角：12px */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 边框：白色极淡 */
+    padding: 1.2rem 1.5rem;                  /* 内边距：1.2rem 1.5rem */
+    margin-bottom: 1.2rem;                   /* 下边距：1.2rem */
+    transition: all 0.3s ease;               /* 过渡动画：0.3秒 */
+}
+
+.project-item:hover {
+    background: rgba(255, 255, 255, 0.08); /* 悬停背景：略亮 */
+    border-color: rgba(255, 255, 255, 0.2); /* 悬停边框：略亮 */
+    transform: translateX(5px);              /* 悬停：向右移动5px */
+}
+
+.project-item h3 {
+    color: #ff6b35;         /* 标题颜色：橙色 */
+    font-size: 1.1rem;      /* 字体大小：1.1rem */
+    margin: 0 0 0.8rem 0;   /* 外边距：上下0，下0.8rem */
+    font-weight: 600;       /* 字体粗细：半粗 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 底部边框：灰色 */
+    padding-bottom: 0.5rem; /* 底部内边距：0.5rem */
+}
+
+.project-details {
+    color: rgba(255, 255, 255, 0.75); /* 颜色：半透明白色 */
+    font-size: 0.9rem;                 /* 字体大小：0.9rem */
+    line-height: 1.6;                  /* 行高：1.6 */
+}
+
+.project-details p {
+    margin-bottom: 0.5rem;   /* 段落下边距：0.5rem */
+    text-align: justify;     /* 文字对齐：两端对齐 */
+}
+
+.project-details p:last-child {
+    margin-bottom: 0; /* 最后一段去掉下边距 */
+}
+
+.project-details strong {
+    color: #00d4ff; /* 强调文字颜色：青色 */
+}
+
+/* ============================================
+   标签样式
+   ============================================ */
 .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 1rem 0;
+    display: flex;     /* 弹性布局 */
+    flex-wrap: wrap;   /* 换行：自动换行 */
+    gap: 0.5rem;       /* 间距：0.5rem */
+    margin: 1rem 0;    /* 外边距：上下1rem */
 }
 
 .tag {
-    background: rgba(0, 120, 212, 0.3);
-    color: var(--accent-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
+    background: rgba(0, 120, 212, 0.3); /* 背景：蓝色半透明 */
+    color: var(--accent-color);          /* 颜色：亮青色 */
+    padding: 0.3rem 0.8rem;             /* 内边距：0.3rem 0.8rem */
+    border-radius: 20px;                 /* 圆角：20px（胶囊形） */
+    font-size: 0.85rem;                 /* 字体大小：0.85rem */
 }
 
-/* 技能进度条 */
+/* ============================================
+   技能进度条
+   ============================================ */
 .skill-bar {
-    margin: 1rem 0;
+    margin: 1rem 0; /* 外边距：上下1rem */
 }
 
 .skill-name {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
+    display: flex;             /* 弹性布局 */
+    justify-content: space-between; /* 两端对齐 */
+    margin-bottom: 0.5rem;    /* 下边距：0.5rem */
 }
 
 .skill-progress {
-    height: 8px;
-    background: var(--bg-card);
-    border-radius: 4px;
-    overflow: hidden;
+    height: 8px;                    /* 高度：8px */
+    background: var(--bg-card);     /* 背景：卡片色 */
+    border-radius: 4px;             /* 圆角：4px */
+    overflow: hidden;               /* 溢出隐藏 */
 }
 
 .skill-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    border-radius: 4px;
-    transition: width 0.5s ease;
+    height: 100%;                                               /* 高度：100% */
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); /* 蓝色到青色渐变 */
+    border-radius: 4px;                                         /* 圆角：4px */
+    transition: width 0.5s ease;                                /* 过渡动画：0.5秒 */
 }
 
-/* 内容创作卡片 */
+/* ============================================
+   内容创作卡片
+   ============================================ */
 .creation-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
+    background: var(--bg-card);           /* 背景：卡片色 */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
+    border-radius: 12px;                  /* 圆角：12px */
+    padding: 1.5rem;                      /* 内边距：1.5rem */
+    margin-bottom: 1.5rem;                /* 下边距：1.5rem */
+    transition: all 0.3s ease;            /* 过渡动画：0.3秒 */
 }
 
 .creation-card:hover {
-    border-color: var(--primary-color);
-    transform: translateX(5px);
+    border-color: var(--primary-color); /* 悬停边框：蓝色 */
+    transform: translateX(5px);         /* 悬停：向右移动5px */
 }
 
 .creation-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+    display: flex;              /* 弹性布局 */
+    justify-content: space-between; /* 两端对齐 */
+    align-items: center;        /* 垂直居中 */
+    margin-bottom: 1rem;        /* 下边距：1rem */
 }
 
 .creation-card-title {
-    color: var(--text-primary);
-    font-size: 1.1rem;
+    color: var(--text-primary); /* 标题颜色：白色 */
+    font-size: 1.1rem;          /* 字体大小：1.1rem */
 }
 
 .creation-card-date {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
+    color: var(--text-secondary); /* 日期颜色：灰色 */
+    font-size: 0.85rem;           /* 字体大小：0.85rem */
 }
 
 .creation-card-content {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+    color: var(--text-secondary); /* 内容颜色：灰色 */
+    font-size: 0.95rem;           /* 字体大小：0.95rem */
 }
 
 .creation-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-    margin-top: 1rem;
+    display: flex;     /* 弹性布局 */
+    flex-wrap: wrap;   /* 换行：自动换行 */
+    gap: 0.3rem;       /* 间距：0.3rem */
+    margin-top: 1rem;  /* 上边距：1rem */
 }
 
-/* 资源工具卡片 */
+/* ============================================
+   资源工具卡片
+   ============================================ */
 .resource-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
+    background: var(--bg-card);           /* 背景：卡片色 */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
+    border-radius: 12px;                  /* 圆角：12px */
+    padding: 1.5rem;                      /* 内边距：1.5rem */
+    margin-bottom: 1rem;                  /* 下边距：1rem */
+    transition: all 0.3s ease;            /* 过渡动画：0.3秒 */
 }
 
 .resource-card:hover {
-    border-color: var(--primary-color);
+    border-color: var(--primary-color); /* 悬停边框：蓝色 */
 }
 
 .resource-card-title {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    color: var(--text-primary); /* 标题颜色：白色 */
+    font-size: 1.1rem;          /* 字体大小：1.1rem */
+    margin-bottom: 0.5rem;      /* 下边距：0.5rem */
 }
 
 .resource-card-desc {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    color: var(--text-secondary); /* 描述颜色：灰色 */
+    font-size: 0.9rem;            /* 字体大小：0.9rem */
 }
 
 .resource-card-type {
-    display: inline-block;
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    margin-top: 1rem;
+    display: inline-block; /* 行内块元素 */
+    padding: 0.2rem 0.6rem; /* 内边距：0.2rem 0.6rem */
+    border-radius: 4px;     /* 圆角：4px */
+    font-size: 0.8rem;      /* 字体大小：0.8rem */
+    margin-top: 1rem;       /* 上边距：1rem */
 }
 
 .resource-card-type.free {
-    background: rgba(16, 185, 129, 0.3);
-    color: var(--success-color);
+    background: rgba(16, 185, 129, 0.3); /* 免费：绿色背景 */
+    color: var(--success-color);          /* 免费：绿色文字 */
 }
 
 .resource-card-type.paid {
-    background: rgba(245, 158, 11, 0.3);
-    color: var(--warning-color);
+    background: rgba(245, 158, 11, 0.3); /* 付费：橙色背景 */
+    color: var(--warning-color);          /* 付费：橙色文字 */
 }
 
 .resource-card-type.opensource {
-    background: rgba(0, 120, 212, 0.3);
-    color: var(--accent-color);
+    background: rgba(0, 120, 212, 0.3); /* 开源：蓝色背景 */
+    color: var(--accent-color);          /* 开源：青色文字 */
 }
 
-/* 联系方式样式 */
+/* ============================================
+   联系方式样式
+   ============================================ */
 .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    display: grid;                              /* 网格布局 */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 自动填充：最小250px */
+    gap: 2rem;                                 /* 间距：2rem */
+    margin-top: 2rem;                          /* 上边距：2rem */
 }
 
 .contact-item {
-    background: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid var(--border-color);
+    background: var(--bg-card);           /* 背景：卡片色 */
+    padding: 1.5rem;                      /* 内边距：1.5rem */
+    border-radius: 8px;                   /* 圆角：8px */
+    text-align: center;                   /* 文字居中 */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
 }
 
 .contact-item h3 {
-    margin-top: 0;
+    margin-top: 0; /* 去掉上边距 */
 }
 
 .contact-item a {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-size: 1.1rem;
+    color: var(--accent-color); /* 链接颜色：亮青色 */
+    text-decoration: none;      /* 去掉下划线 */
+    font-size: 1.1rem;          /* 字体大小：1.1rem */
 }
 
 .contact-item a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* 悬停：下划线 */
 }
 
-/* 链接列表 */
+/* ============================================
+   链接列表（友情链接等）
+   ============================================ */
 .links-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
+    display: grid;                              /* 网格布局 */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 自动填充：最小280px */
+    gap: 1rem;                                  /* 间距：1rem */
 }
 
 .link-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--bg-card);
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--text-primary);
-    transition: all 0.3s ease;
-    border: 1px solid var(--border-color);
+    display: flex;              /* 弹性布局 */
+    align-items: center;        /* 垂直居中 */
+    gap: 1rem;                 /* 间距：1rem */
+    padding: 1rem;             /* 内边距：1rem */
+    background: var(--bg-card); /* 背景：卡片色 */
+    border-radius: 8px;        /* 圆角：8px */
+    text-decoration: none;      /* 去掉下划线 */
+    color: var(--text-primary); /* 文字颜色：白色 */
+    transition: all 0.3s ease;  /* 过渡动画：0.3秒 */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
 }
 
 .link-item:hover {
-    background: rgba(0, 120, 212, 0.2);
-    border-color: var(--primary-color);
-    transform: translateX(5px);
+    background: rgba(0, 120, 212, 0.2); /* 悬停背景：蓝色半透明 */
+    border-color: var(--primary-color);  /* 悬停边框：蓝色 */
+    transform: translateX(5px);          /* 悬停：向右移动5px */
 }
 
-/* 留言板样式 */
+/* ============================================
+   留言板样式
+   ============================================ */
 .message-board {
-    background: var(--bg-card);
-    border-radius: 12px;
-    padding: 2rem;
-    margin-top: 2rem;
+    background: var(--bg-card); /* 背景：卡片色 */
+    border-radius: 12px;        /* 圆角：12px */
+    padding: 2rem;              /* 内边距：2rem */
+    margin-top: 2rem;           /* 上边距：2rem */
 }
 
 .message-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: flex;             /* 弹性布局 */
+    flex-direction: column;    /* 垂直排列 */
+    gap: 1rem;                 /* 间距：1rem */
 }
 
 .message-input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1rem;
-    color: var(--text-primary);
-    font-size: 1rem;
-    resize: vertical;
+    background: rgba(255, 255, 255, 0.05); /* 背景：白色极淡透明 */
+    border: 1px solid var(--border-color);  /* 边框：灰色 */
+    border-radius: 8px;                     /* 圆角：8px */
+    padding: 1rem;                          /* 内边距：1rem */
+    color: var(--text-primary);             /* 文字颜色：白色 */
+    font-size: 1rem;                        /* 字体大小：1rem */
+    resize: vertical;                       /* 允许垂直调整大小 */
 }
 
 .message-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
+    outline: none;                /* 去掉默认焦点边框 */
+    border-color: var(--primary-color); /* 焦点边框：蓝色 */
 }
 
 .message-btn {
-    background: var(--primary-color);
-    color: var(--text-primary);
-    border: none;
-    border-radius: 8px;
-    padding: 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    background: var(--primary-color); /* 背景：蓝色 */
+    color: var(--text-primary);       /* 文字颜色：白色 */
+    border: none;                     /* 去掉边框 */
+    border-radius: 8px;              /* 圆角：8px */
+    padding: 1rem;                   /* 内边距：1rem */
+    font-size: 1rem;                 /* 字体大小：1rem */
+    cursor: pointer;                 /* 鼠标指针：手型 */
+    transition: all 0.3s ease;       /* 过渡动画：0.3秒 */
 }
 
 .message-btn:hover {
-    background: var(--secondary-color);
+    background: var(--secondary-color); /* 悬停背景：深蓝 */
 }
 
-/* RSS订阅样式 */
+/* ============================================
+   RSS订阅样式
+   ============================================ */
 .subscribe-box {
-    background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(0, 188, 242, 0.1));
-    border: 2px solid var(--primary-color);
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(0, 188, 242, 0.1)); /* 蓝色渐变背景 */
+    border: 2px solid var(--primary-color);                                                 /* 蓝色边框 */
+    border-radius: 12px;                                                                     /* 圆角：12px */
+    padding: 2rem;                                                                          /* 内边距：2rem */
+    text-align: center;                                                                     /* 文字居中 */
 }
 
 .subscribe-input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1rem;
-    color: var(--text-primary);
-    font-size: 1rem;
-    margin: 1rem 0;
-    width: 100%;
-    max-width: 400px;
+    background: rgba(255, 255, 255, 0.05); /* 背景：白色极淡透明 */
+    border: 1px solid var(--border-color);  /* 边框：灰色 */
+    border-radius: 8px;                     /* 圆角：8px */
+    padding: 1rem;                          /* 内边距：1rem */
+    color: var(--text-primary);             /* 文字颜色：白色 */
+    font-size: 1rem;                        /* 字体大小：1rem */
+    margin: 1rem 0;                         /* 外边距：上下1rem */
+    width: 100%;                            /* 宽度：100% */
+    max-width: 400px;                       /* 最大宽度：400px */
 }
 
-/* 合规四件套样式 */
+/* ============================================
+   合规四件套样式（站点信息页面）
+   ============================================ */
 .compliance-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    display: grid;                              /* 网格布局 */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 自动填充：最小280px */
+    gap: 1.5rem;                                /* 间距：1.5rem */
+    margin-top: 2rem;                           /* 上边距：2rem */
 }
 
 .compliance-item {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
+    background: var(--bg-card);           /* 背景：卡片色 */
+    border: 1px solid var(--border-color); /* 边框：灰色 */
+    border-radius: 8px;                   /* 圆角：8px */
+    padding: 1.5rem;                      /* 内边距：1.5rem */
+    transition: all 0.3s ease;            /* 过渡动画：0.3秒 */
 }
 
 .compliance-item:hover {
-    border-color: var(--primary-color);
+    border-color: var(--primary-color); /* 悬停边框：蓝色 */
 }
 
 .compliance-item h4 {
-    margin-top: 0;
-    color: var(--accent-color);
+    margin-top: 0;               /* 去掉上边距 */
+    color: var(--accent-color);  /* 标题颜色：亮青色 */
 }
 
-/* 页脚 */
+/* ============================================
+   页脚
+   ============================================ */
 .footer {
-    background: rgba(0, 0, 0, 0.8);
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
-    border-top: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.8); /* 背景：深黑色 */
+    text-align: center;             /* 文字居中 */
+    padding: 1rem;                  /* 内边距：1rem */
+    margin-top: 1rem;               /* 上边距：1rem（减小空隙） */
+    border-top: 1px solid var(--border-color); /* 顶部边框：灰色 */
 }
 
 .footer p {
-    margin: 0.5rem 0;
-    font-size: 0.9rem;
+    margin: 0.5rem 0; /* 段落外边距：上下0.5rem */
+    font-size: 0.9rem; /* 字体大小：0.9rem */
 }
 
 .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1rem;
+    display: flex;      /* 弹性布局 */
+    justify-content: center; /* 水平居中 */
+    gap: 2rem;         /* 间距：2rem */
+    margin-top: 1rem;  /* 上边距：1rem */
 }
 
 .footer-link {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-size: 0.9rem;
+    color: var(--accent-color); /* 链接颜色：亮青色 */
+    text-decoration: none;      /* 去掉下划线 */
+    font-size: 0.9rem;         /* 字体大小：0.9rem */
 }
 
 .footer-link:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* 悬停：下划线 */
 }
 
-/* 响应式设计 */
+/* ============================================
+   返回顶部按钮
+   ============================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #e94560 0%, #c73e54 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.back-to-top:hover {
+    background: linear-gradient(135deg, #ff5252 0%, #e94560 100%);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.6);
+    transform: translateY(-2px);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ============================================
+   返回上一层页面按钮
+   ============================================ */
+.back-to-parent {
+    position: fixed;
+    bottom: 400px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0, 120, 212, 0.4);
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.back-to-parent:hover {
+    background: linear-gradient(135deg, #106ebe 0%, #0078d4 100%);
+    box-shadow: 0 6px 20px rgba(0, 120, 212, 0.6);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   响应式设计
+   ============================================ */
+
+/* ========== 平板端（最大宽度1024px） ========== */
 @media (max-width: 1024px) {
     .nav-menu {
-        gap: 0.1rem;
+        gap: 0.1rem; /* 菜单间距：0.1rem */
     }
     
     .nav-link {
-        padding: 0.8rem 1rem;
-        font-size: 0.85rem;
+        padding: 0.8rem 1rem; /* 链接内边距：0.8rem 1rem */
+        font-size: 0.85rem;   /* 链接字体：0.85rem */
     }
 }
 
+/* ========== 移动端（最大宽度768px） ========== */
 @media (max-width: 768px) {
     .nav {
-        flex-direction: column;
-        padding: 1rem;
+        flex-direction: column; /* 导航栏垂直排列 */
+        padding: 1rem;          /* 内边距：1rem */
     }
     
     .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 0.5rem;
+        flex-wrap: wrap;        /* 菜单换行 */
+        justify-content: center; /* 菜单居中 */
+        margin-top: 0.5rem;     /* 上边距：0.5rem */
     }
     
     .nav-link {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.8rem;
+        padding: 0.6rem 0.8rem; /* 链接内边距：0.6rem 0.8rem */
+        font-size: 0.8rem;      /* 链接字体：0.8rem */
     }
     
     .main-content {
-        padding: 9rem 1rem 2rem;
+        padding: 9rem 1rem 2rem; /* 内容内边距：上9rem（避开导航栏），左右1rem，下2rem */
     }
     
     .hero-card h1 {
-        font-size: 2rem;
+        font-size: 2rem; /* 英雄卡片标题：2rem */
     }
     
     .container {
-        padding: 1.5rem;
+        padding: 1.5rem; /* 容器内边距：1.5rem */
     }
     
     .modules-grid,
     .featured-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* 网格变为单列 */
     }
     
     h1 {
-        font-size: 2rem;
+        font-size: 2rem; /* 一级标题：2rem */
     }
     
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.3rem; /* 二级标题：1.3rem */
     }
     
     .sub-nav {
-        flex-wrap: wrap;
-        gap: 0.3rem;
+        flex-wrap: wrap; /* 子导航换行 */
+        gap: 0.3rem;     /* 子导航间距：0.3rem */
     }
     
     .sub-nav-link {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem; /* 子导航链接内边距：0.5rem 0.8rem */
+        font-size: 0.85rem;     /* 子导航链接字体：0.85rem */
     }
 }
 
+/* ========== 小屏移动端（最大宽度480px） ========== */
 @media (max-width: 480px) {
     .nav-link {
-        padding: 0.5rem 0.6rem;
-        font-size: 0.75rem;
+        padding: 0.5rem 0.6rem; /* 链接内边距：0.5rem 0.6rem */
+        font-size: 0.75rem;     /* 链接字体：0.75rem */
     }
     
     .hero-card {
-        padding: 2rem 1rem;
+        padding: 2rem 1rem; /* 英雄卡片内边距：2rem 1rem */
     }
     
     .container {
-        padding: 1rem;
+        padding: 1rem; /* 容器内边距：1rem */
     }
 }
 
-/* View Transitions 页面切换动画 v0.3.1 */
+/* ============================================
+   View Transitions 页面切换动画 (v0.3.1)
+   ============================================ */
 
-/* 启用浏览器原生跨文档导航过渡 */
+/* ========== 启用浏览器原生跨文档导航过渡 ========== */
 @view-transition {
-    navigation: auto;
+    navigation: auto; /* 自动启用导航过渡 */
 }
 
+/* ========== 过渡组配置 ========== */
 ::view-transition-group(root) {
-    animation-duration: 0.6s;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    perspective: 1000px;
+    animation-duration: 0.6s;                           /* 动画时长：0.6秒 */
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* 动画曲线：贝塞尔曲线 */
+    perspective: 1000px;                                /* 透视：1000px（用于3D效果） */
 }
 
+/* ========== 旧页面和新页面过渡配置 ========== */
 ::view-transition-old(root),
 ::view-transition-new(root) {
     animation-duration: inherit;
     animation-timing-function: inherit;
     overflow: hidden;
     backface-visibility: hidden;
+    will-change: transform, opacity, filter;
+    contain: paint;
 }
 
-/* 默认动画（桌面端：3D翻转效果） */
-::view-transition-old(root) {
+/* ========== 默认动画（桌面端：3D翻转效果） ========== */
+html:not(.fh-transition-dissolve)::view-transition-old(root) {
     animation-name: flip-out;
 }
 
-::view-transition-new(root) {
+html:not(.fh-transition-dissolve)::view-transition-new(root) {
     animation-name: flip-in;
 }
 
-/* 移动端（宽度小于768px）：滑动推拉效果 */
+/* ========== 关于我子页面：使用溶解动画替代3D翻转 ========== */
+html.fh-transition-dissolve::view-transition-group(root) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    perspective: none;
+}
+
+html.fh-transition-dissolve::view-transition-old(root) {
+    animation-name: dissolve-out !important;
+    animation-duration: 0.35s !important;
+    animation-timing-function: cubic-bezier(0.4, 0, 1, 1) !important;
+}
+
+html.fh-transition-dissolve::view-transition-new(root) {
+    animation-name: dissolve-in !important;
+    animation-duration: 0.4s !important;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1) !important;
+}
+
+/* ========== 溶解消失动画 ========== */
+@keyframes dissolve-out {
+    0% {
+        opacity: 1;
+        filter: blur(0) brightness(1);
+        transform: scale(1);
+    }
+    40% {
+        opacity: 0.8;
+        filter: blur(4px) brightness(1.1);
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 0;
+        filter: blur(12px) brightness(0.8);
+        transform: scale(0.96);
+    }
+}
+
+/* ========== 移动端（宽度小于768px）：滑动推拉效果 ========== */
 @media (max-width: 767px) {
     ::view-transition-group(root) {
-        perspective: none;
+        perspective: none; /* 移动端不需要透视 */
     }
     
     ::view-transition-old(root) {
-        animation-name: slide-fade-left;
+        animation-name: slide-fade-left; /* 旧页面：向左滑动淡出 */
     }
     
     ::view-transition-new(root) {
-        animation-name: slide-fade-right;
+        animation-name: slide-fade-right; /* 新页面：向右滑动淡入 */
     }
 }
 
+/* ========== 3D翻转动画：旧页面翻转出去 ========== */
 @keyframes flip-out {
     from {
-        opacity: 1;
-        transform: rotateY(0deg);
+        opacity: 1;              /* 开始：完全不透明 */
+        transform: rotateY(0deg); /* 开始：无旋转 */
     }
     to {
-        opacity: 0;
-        transform: rotateY(-90deg);
+        opacity: 0;               /* 结束：完全透明 */
+        transform: rotateY(-90deg); /* 结束：向左翻转90度 */
     }
 }
 
+/* ========== 3D翻转动画：新页面翻转进来 ========== */
 @keyframes flip-in {
     from {
-        opacity: 0;
-        transform: rotateY(90deg);
+        opacity: 0;              /* 开始：完全透明 */
+        transform: rotateY(90deg); /* 开始：向右翻转90度 */
     }
     to {
-        opacity: 1;
-        transform: rotateY(0deg);
+        opacity: 1;               /* 结束：完全不透明 */
+        transform: rotateY(0deg); /* 结束：无旋转 */
     }
 }
 
+/* ========== 滑动淡出动画：旧页面向左滑出 ========== */
 @keyframes slide-fade-left {
     from {
-        opacity: 1;
-        transform: translateX(0);
+        opacity: 1;          /* 开始：完全不透明 */
+        transform: translateX(0); /* 开始：无位移 */
     }
     to {
-        opacity: 0;
-        transform: translateX(-80px);
+        opacity: 0;           /* 结束：完全透明 */
+        transform: translateX(-80px); /* 结束：向左移动80px */
     }
 }
 
+/* ========== 滑动淡入动画：新页面向右滑入 ========== */
 @keyframes slide-fade-right {
     from {
-        opacity: 0;
-        transform: translateX(80px);
+        opacity: 0;           /* 开始：完全透明 */
+        transform: translateX(80px); /* 开始：向右偏移80px */
     }
     to {
-        opacity: 1;
-        transform: translateX(0);
+        opacity: 1;          /* 结束：完全不透明 */
+        transform: translateX(0); /* 结束：无位移 */
     }
+}
+
+/* ========== 溶解进入动画（用于关于我子页面） ========== */
+@keyframes dissolve-in {
+    0% {
+        opacity: 0;
+        filter: blur(16px) brightness(1.2);
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 0.6;
+        filter: blur(4px) brightness(1.05);
+        transform: scale(0.99);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0) brightness(1);
+        transform: scale(1);
+    }
+}
+
+/* ========== 关于我子页面进入动画类 ========== */
+.fh-subpage-enter {
+    animation: dissolve-in 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* 溶解动画（250ms） */
 }
