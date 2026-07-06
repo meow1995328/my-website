@@ -1,7 +1,7 @@
 // ============================================
-// 个人网站脚本 v0.3.3
+// 个人网站脚本 v0.3.4
 // ============================================
-console.log('XueXue的个人网站已加载！v0.3.3');
+console.log('XueXue的个人网站已加载！v0.3.4');
 
 // ========== 页面加载早期检查URL参数，设置动画类型 ==========
 // 在DOMContentLoaded之前执行，确保View Transitions能正确应用
@@ -54,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化返回上一层页面按钮
     initBackToParent();
+    
+    // 初始化家庭生活弹窗
+    initFamilyModal();
 });
 
 /**
@@ -139,13 +142,36 @@ function initSmoothScroll() {
                 const rect = target.getBoundingClientRect();
                 const targetPosition = window.scrollY + rect.top - headerHeight - offset;
                 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                smoothScrollTo(targetPosition, 400);
+                
+                updateSideNavHighlight(targetId.substring(1));
             }
         });
     });
+}
+
+function smoothScrollTo(targetPosition, duration = 400) {
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
+    const startTime = performance.now();
+    
+    function scrollStep(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        
+        window.scrollTo({
+            top: startPosition + distance * easeProgress,
+            behavior: 'instant'
+        });
+        
+        if (progress < 1) {
+            requestAnimationFrame(scrollStep);
+        }
+    }
+    
+    requestAnimationFrame(scrollStep);
 }
 
 /**
@@ -293,47 +319,47 @@ function initLinkItemsAnimation() {
  * 用于个人简历页面的左侧竖向导航
  * ============================================
  */
-function initSideNav() {
-    // 获取所有左侧导航链接
+function updateSideNavHighlight(sectionId) {
     const sideNavLinks = document.querySelectorAll('.side-nav-item');
-    
-    // 如果没有左侧导航链接，直接返回
+    sideNavLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === `#${sectionId}`) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+function initSideNav() {
+    const sideNavLinks = document.querySelectorAll('.side-nav-item');
     if (sideNavLinks.length === 0) return;
     
-    // 监听窗口滚动事件
-    window.addEventListener('scroll', function() {
-        // 当前滚动位置（加上150px偏移量）
-        const scrollPosition = window.scrollY + 150;
-        
-        // 获取所有带有id属性的时间轴区块
+    const header = document.querySelector('.header');
+    const headerHeight = header ? header.offsetHeight : 50;
+    const triggerOffset = 200;
+    
+    function updateHighlight() {
         const sections = document.querySelectorAll('.timeline-section[id]');
-        
-        // 当前所在的section id（默认为空）
         let currentSectionId = '';
         
-        // 遍历每个section，判断当前滚动位置是否在该section范围内
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;         // section顶部位置
-            const sectionHeight = section.offsetHeight;   // section高度
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top;
+            const sectionBottom = rect.bottom;
             
-            // 检查滚动位置是否在当前section范围内
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                currentSectionId = section.getAttribute('id'); // 更新当前section id
+            const triggerLine = headerHeight + triggerOffset;
+            
+            if (sectionTop < triggerLine && sectionBottom > triggerLine) {
+                currentSectionId = section.getAttribute('id');
             }
         });
         
-        // 更新左侧导航链接的高亮状态
-        sideNavLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            // 如果链接指向当前section，则添加active类
-            if (href === `#${currentSectionId}`) {
-                link.classList.add('active');
-            } else {
-                // 否则移除active类
-                link.classList.remove('active');
-            }
-        });
-    });
+        updateSideNavHighlight(currentSectionId);
+    }
+    
+    window.addEventListener('scroll', updateHighlight);
+    updateHighlight();
 }
 
 /**
@@ -458,10 +484,7 @@ function initBackToTop() {
     });
     
     backToTopBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        smoothScrollTo(0, 400);
     });
 }
 
@@ -478,5 +501,154 @@ function initBackToParent() {
     
     backToParentBtn.addEventListener('click', function() {
         window.history.back();
+    });
+}
+
+// ============================================
+// 家庭生活弹窗交互逻辑 (v0.3.4)
+// ============================================
+
+const familyData = {
+    'mom': {
+        title: '🥰 妈妈',
+        subtitle: '亲切热情的家庭主妇',
+        birth: '出生于196X年',
+        status: '❤️ 健在',
+        image: 'images/family-mom.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=warm%20portrait%20of%20a%20kind%20middle-aged%20Chinese%20woman%20with%20gentle%20smile%20soft%20lighting%20home%20setting&image_size=portrait_4_3',
+        story: '妈妈是我们家的灵魂人物，她用无尽的爱和关怀守护着整个家庭。从我记事起，每天清晨她都会准备好热腾腾的早餐，晚上无论多晚都会等我回家。她的拿手好菜是红烧肉和糖醋排骨，每次回家都能吃到最爱的味道。妈妈性格温柔，但在关键时刻总是很坚强，她教会了我什么是真正的爱和责任。',
+        memories: [
+            '小时候每天早上都会给我梳辫子',
+            '生病时整夜守在床边照顾',
+            '总是把最好的留给家人',
+            '教会我做饭和家务',
+            '支持我追求自己的梦想'
+        ]
+    },
+    'dad': {
+        title: '👨‍💼 爸爸',
+        subtitle: '勤劳朴实的劳动工人',
+        birth: '出生于196X年',
+        status: '❤️ 健在',
+        image: 'images/family-dad.png',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=portrait%20of%20a%20kind%20middle-aged%20Chinese%20man%20wearing%20glasses%20professional%20business%20attire%20warm%20smile&image_size=portrait_4_3',
+        story: '爸爸是一名资深工程师，一辈子兢兢业业工作，用双手撑起了这个家。他不善言辞，但总是用行动表达爱。小时候家里条件不好，但他从不让我受委屈，省吃俭用供我读书。爸爸教会了我坚韧和责任感，他常说："做任何事都要认真，要么不做，要么做好。"这句话一直激励着我。',
+        memories: [
+            '小时候骑在爸爸肩上看烟花',
+            '辅导我做数学题到深夜',
+            '总是默默承担家里的重担',
+            '教我骑自行车和游泳',
+            '支持我选择自己的人生道路'
+        ]
+    },
+    'hamster-lalada': {
+        title: '🐹 小拉达',
+        subtitle: '仓鼠 · 已去吱星',
+        birth: '🐣 出生于2023年',
+        status: '💔 2024年去世',
+        image: 'images/pet-lalada.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20syrian%20hamster%20golden%20color%20fluffy%20sitting%20in%20a%20hamster%20house%20soft%20lighting&image_size=portrait_4_3',
+        story: '小拉达是我的第一只宠物，也是最难忘的一只。它是一只金黄色的金丝熊，圆滚滚的像个小毛球。刚到家时它很胆小，总是躲在角落里，但慢慢熟悉后变得非常亲人。每天晚上它都会在跑轮上跑个不停，那声音就像是家里的闹钟。虽然它只陪伴了我两年，但那些美好的回忆永远不会忘记。',
+        memories: [
+            '第一次带回家时只有手掌大小',
+            '喜欢把食物塞到腮帮子藏起来',
+            '会站起来用爪子扒笼子要零食',
+            '冬天喜欢钻到木屑里睡觉',
+            '跑轮跑太快会自己翻车'
+        ]
+    },
+    'hamster-maodou': {
+        title: '🐹 毛豆',
+        subtitle: '仓鼠 · 已去吱星',
+        birth: '🐣 出生于2020年',
+        status: '💔 2022年去世',
+        image: 'images/pet-maodou.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20syrian%20hamster%20light%20brown%20color%20eating%20sunflower%20seed%20adorable%20soft%20lighting&image_size=portrait_4_3',
+        story: '毛豆是小拉达去世后我养的第二只仓鼠，它的毛色是浅棕色的，像一颗毛茸茸的毛豆。毛豆性格活泼好动，和小拉达完全不同，它总是充满精力，喜欢探索新事物。它最喜欢吃葵花籽，每次听到开袋子的声音就会兴奋地跑过来。虽然它也离开了，但它给我的生活带来了很多欢乐。',
+        memories: [
+            '刚到家就敢从我手上吃东西',
+            '喜欢在笼子里搭窝',
+            '会把木屑推得到处都是',
+            '睡觉时会把身体卷成一个球',
+            '每次放风都会到处乱跑'
+        ]
+    },
+    'cat-caidou': {
+        title: '🐱 彩豆',
+        subtitle: '猫咪 · 现役',
+        birth: '🐣 出生于2025年',
+        status: '❤️ 健康活泼',
+        image: 'images/pet-caidou.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20calico%20cat%20tri-color%20fluffy%20kitten%20curled%20up%20relaxing%20warm%20home%20setting&image_size=portrait_4_3',
+        story: '彩豆是我现在的宠物，一只虎斑串串猫咪。它是2025年我们在延庆永宁古城地摊上花100元买的，刚到家时只有两个月大，小小的一只特别可爱。现在它已经长成了一只漂亮的大猫咪，性格傲娇又粘人。它最喜欢躺在窗台上晒太阳，或者跳到我身上求抚摸。彩豆是家里的小少爷，全家人都很宠爱它，它给我们的生活带来了无尽的欢乐。',
+        memories: [
+            '刚到家时躲在沙发底下不敢出来',
+            '喜欢追着激光笔跑',
+            '会用头蹭我的手求抚摸',
+            '每天早上准时叫我起床',
+            '睡觉喜欢四脚朝天露出肚子'
+        ]
+    }
+};
+
+function initFamilyModal() {
+    const cards = document.querySelectorAll('.family-card');
+    const overlay = document.getElementById('familyModalOverlay');
+    const modal = document.getElementById('familyModal');
+    const closeBtn = document.getElementById('familyModalClose');
+    
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalBirth = document.getElementById('modalBirth');
+    const modalStatus = document.getElementById('modalStatus');
+    const modalStory = document.getElementById('modalStory');
+    const modalMemories = document.getElementById('modalMemories');
+
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const memberId = this.getAttribute('data-member');
+            const data = familyData[memberId];
+            
+            if (!data) return;
+
+            modalImg.src = data.image;
+            modalImg.onerror = function() {
+                this.src = data.fallbackImage;
+            };
+            modalTitle.textContent = data.title;
+            modalSubtitle.textContent = data.subtitle;
+            modalBirth.textContent = data.birth;
+            modalStatus.textContent = data.status;
+            modalStory.textContent = data.story;
+            
+            modalMemories.innerHTML = '';
+            data.memories.forEach(memory => {
+                const li = document.createElement('li');
+                li.textContent = memory;
+                modalMemories.appendChild(li);
+            });
+
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function closeModal() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            closeModal();
+        }
     });
 }

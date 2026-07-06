@@ -1,10 +1,10 @@
-<!-- 版本：v0.3.0 -->
+<!-- 版本：v0.3.4 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👨‍👩‍👧 家庭生活 - 薛大侠</title>
+    <title>👨‍👩‍👧 家庭生活</title>
     <script>
         if (new URLSearchParams(window.location.search).get('transition') === 'dissolve') {
             document.documentElement.classList.add('fh-transition-dissolve');
@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="fh-subpage-enter">
-    <!-- 顶部导航栏 -->
     <header class="header">
         <nav class="nav">
             <a href="index.html" class="logo">薛大侠</a>
@@ -43,31 +42,110 @@
         </nav>
     </header>
 
-    <!-- 主内容区域 -->
     <main class="main-content">
         <div class="container">
             <h1>👨‍👩‍👧 家庭生活</h1>
-            <p>家人介绍、宠物、家庭生活等</p>
+            <p>我的家人和可爱的宠物们</p>
         </div>
-        
-        <!-- 更多详细内容容器 -->
-        <div class="container">
-            <h2>章节标题</h2>
-            <p>详细内容占位符...</p>
-        </div>
-        
-        <!-- 返回按钮 -->
-        <div class="container" style="text-align: center;">
-            <a href="about.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
-                ← 返回关于我
-            </a>
+
+        <div class="family-grid">
+            <div class="family-card" data-member="mom">
+                <div class="family-card-inner">
+                    <div class="family-card-img">
+                        <img src="images/family-mom.jpg" alt="妈妈" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=warm%20portrait%20of%20a%20kind%20middle-aged%20Chinese%20woman%20with%20gentle%20smile%20soft%20lighting%20home%20setting&image_size=portrait_4_3'">
+                    </div>
+                    <div class="family-card-content">
+                        <h3>👩 妈妈</h3>
+                        <p class="family-card-subtitle">朝阳区某大型社区扑克牌牌长</p>
+                        <p class="family-card-desc">最爱做美食，无微不至地照顾全家</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="family-card" data-member="dad">
+                <div class="family-card-inner">
+                    <div class="family-card-img">
+                        <img src="images/family-dad1.png" alt="爸爸" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=portrait%20of%20a%20kind%20middle-aged%20Chinese%20man%20wearing%20glasses%20professional%20business%20attire%20warm%20smile&image_size=portrait_4_3'">
+                    </div>
+                    <div class="family-card-content">
+                        <h3>👨‍💼 爸爸</h3>
+                        <p class="family-card-subtitle">朝阳区某大型社区乒乓球队队长</p>
+                        <p class="family-card-desc">幽默机灵，是家里的顶梁柱</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="family-card" data-member="hamster-lalada">
+                <div class="family-card-inner">
+                    <div class="family-card-img">
+                        <img src="images/pet-lalada.jpg" alt="小拉达" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20syrian%20hamster%20golden%20color%20fluffy%20sitting%20in%20a%20hamster%20house%20soft%20lighting&image_size=portrait_4_3'">
+                    </div>
+                    <div class="family-card-content">
+                        <h3>🐹 小拉达</h3>
+                        <p class="family-card-subtitle">仓鼠 · 已去吱星</p>
+                        <p class="family-card-desc">我的第一只宠物，陪伴了我一年时光</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="family-card" data-member="hamster-maodou">
+                <div class="family-card-inner">
+                    <div class="family-card-img">
+                        <img src="images/pet-maodou.jpg" alt="毛豆" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20syrian%20hamster%20light%20brown%20color%20eating%20sunflower%20seed%20adorable%20soft%20lighting&image_size=portrait_4_3'">
+                    </div>
+                    <div class="family-card-content">
+                        <h3>🐹 毛豆</h3>
+                        <p class="family-card-subtitle">仓鼠 · 已去吱星</p>
+                        <p class="family-card-desc">小拉达的接班人，活泼好动的小家伙</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="family-card" data-member="cat-caidou">
+                <div class="family-card-inner">
+                    <div class="family-card-img">
+                        <img src="images/pet-caidou.jpg" alt="彩豆" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20calico%20cat%20tri-color%20fluffy%20kitten%20curled%20up%20relaxing%20warm%20home%20setting&image_size=portrait_4_3'">
+                    </div>
+                    <div class="family-card-content">
+                        <h3>🐱 彩豆</h3>
+                        <p class="family-card-subtitle">虎斑猫咪 · 现役</p>
+                        <p class="family-card-desc">家里的小少爷，集万千宠爱于一身</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- 页脚 -->
+    <div class="family-modal-overlay" id="familyModalOverlay">
+        <div class="family-modal" id="familyModal">
+            <button class="family-modal-close" id="familyModalClose">&times;</button>
+            <div class="family-modal-content">
+                <div class="family-modal-img">
+                    <img id="modalImg" src="" alt="">
+                </div>
+                <div class="family-modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <p class="family-modal-subtitle" id="modalSubtitle"></p>
+                    <div class="family-modal-stats">
+                        <span id="modalBirth"></span>
+                        <span id="modalStatus"></span>
+                    </div>
+                    <div class="family-modal-story">
+                        <h3>📖 故事</h3>
+                        <p id="modalStory"></p>
+                    </div>
+                    <div class="family-modal-memories">
+                        <h3>💝 珍贵回忆</h3>
+                        <ul id="modalMemories"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
-        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
-        <p>v0.3.0</p>
+        <p>&copy; 2026 XueXue - 用心记录生活</p>
+        <p>v0.3.4</p>
     </footer>
 
     <script src="js/script.js"></script>

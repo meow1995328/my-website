@@ -64,7 +64,7 @@ body {
     align-items: center; /* 垂直居中 */
     justify-content: center; /* 水平居中 */
     padding: 0 2rem;   /* 上下0，左右2rem */
-    height: 45px;      /* 固定高度 */
+    height: 60px;      /* 固定高度 */
 }
 
 /* ========== Logo样式 ========== */
@@ -1119,7 +1119,7 @@ li {
    ============================================ */
 .back-to-parent {
     position: fixed;
-    bottom: 400px;
+    bottom: 300px;
     right: 20px;
     width: 45px;
     height: 45px;
@@ -1390,4 +1390,287 @@ html.fh-transition-dissolve::view-transition-new(root) {
 /* ========== 关于我子页面进入动画类 ========== */
 .fh-subpage-enter {
     animation: dissolve-in 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* 溶解动画（250ms） */
+}
+
+/* ============================================
+   家庭生活页面样式 (v0.3.4)
+   ============================================ */
+
+/* ========== 家庭卡片网格布局 ========== */
+.family-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+@media (max-width: 900px) {
+    .family-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .family-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========== 家庭卡片基础样式 ========== */
+.family-card {
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.family-card:hover {
+    transform: translateY(-8px);
+}
+
+.family-card-inner {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.family-card:hover .family-card-inner {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+/* ========== 卡片图片区域 ========== */
+.family-card-img {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+}
+
+.family-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.family-card:hover .family-card-img img {
+    transform: scale(1.1);
+}
+
+/* ========== 卡片内容区域 ========== */
+.family-card-content {
+    padding: 1.2rem 1.5rem;
+}
+
+.family-card-content h3 {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+    color: #ffffff;
+}
+
+.family-card-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 0.5rem 0;
+}
+
+.family-card-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ========== 弹窗遮罩层 ========== */
+.family-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.family-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* ========== 弹窗主体 ========== */
+.family-modal {
+    background: linear-gradient(135deg, rgba(30, 30, 40, 0.95), rgba(40, 40, 60, 0.95));
+    border-radius: 24px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.family-modal-overlay.active .family-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* ========== 关闭按钮 ========== */
+.family-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s, transform 0.3s;
+    z-index: 10;
+}
+
+.family-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+/* ========== 弹窗内容区域 ========== */
+.family-modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 0;
+}
+
+@media (max-width: 640px) {
+    .family-modal-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========== 弹窗图片 ========== */
+.family-modal-img {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+}
+
+@media (min-width: 641px) {
+    .family-modal-img {
+        border-radius: 24px 0 0 24px;
+        max-height: none;
+    }
+}
+
+.family-modal-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========== 弹窗信息区域 ========== */
+.family-modal-info {
+    padding: 2rem;
+}
+
+.family-modal-info h2 {
+    font-size: 1.8rem;
+    margin: 0 0 0.5rem 0;
+    color: #ffffff;
+}
+
+.family-modal-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 1rem 0;
+}
+
+/* ========== 状态标签 ========== */
+.family-modal-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.family-modal-stats span {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========== 故事区域 ========== */
+.family-modal-story {
+    margin-bottom: 1.5rem;
+}
+
+.family-modal-story h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.8rem 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.family-modal-story p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* ========== 珍贵回忆列表 ========== */
+.family-modal-memories {
+    margin-bottom: 1rem;
+}
+
+.family-modal-memories h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.8rem 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.family-modal-memories ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.family-modal-memories li {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.75);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+.family-modal-memories li:last-child {
+    border-bottom: none;
+}
+
+.family-modal-memories li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: #ffd700;
 }
