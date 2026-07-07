@@ -1,4 +1,4 @@
-<!-- 版本：v0.3.4 -->
+<!-- 版本：v0.3.5 -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -19,7 +19,7 @@
     <!-- 顶部导航栏 -->
     <header class="header">
         <nav class="nav">
-            <a href="index.html" class="logo">薛大侠</a>
+            <a href="index.html" class="logo">XueXue</a>
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="index.html" class="nav-link">首页</a>
@@ -83,6 +83,8 @@
                         <h3>对外经济贸易大学 · 应用统计硕士 · 全日制统招研究生</h3>
                     </div>
                     <div class="timeline-details">
+                        <p><strong>校训：</strong>博学、诚信、求索、笃行</p>
+                        <p><strong>任职经历：</strong>校青年联合会干事、班级文体委员</p>
                         <p><strong>相关课程：</strong>数量金融、经济分析统计、时间序列、回归分析、大数据分析、计量等</p>
                         <p><strong>荣誉：</strong>学业奖学金</p>
                     </div>
@@ -96,8 +98,10 @@
                         <h3>北京科技大学 · 计算机科学与技术 · 全日制统招本科</h3>
                     </div>
                     <div class="timeline-details">
+                        <p><strong>校训：</strong>求实鼎新</p>
+                        <p><strong>任职经历：</strong>校学生会宣传部干事、宿舍长</p>
                         <p><strong>相关课程：</strong>软件工程、硬件与电子技术、计算机组成原理、操作系统、网络工程、数学类</p>
-                        <p><strong>荣誉：</strong>优秀三好学生、优秀共青团员、优秀毕业生、人民奖学金、大学生创新创业大赛特等奖</p>
+                        <p><strong>荣誉：</strong>优秀三好学生、优秀共青团员、优秀三好毕业生、人民奖学金、大学生创新创业大赛特等奖</p>
                     </div>
                 </div>
             </div>
@@ -129,12 +133,28 @@
         <div class="container">
             <div class="timeline-section" id="projects">
                 <div class="timeline-section-header">
-                    <h2>📋 项目经历</h2>
-                </div>
+                        <div class="section-title-wrap">
+                            <h2>📋 项目经历</h2>
+                            <span class="filter-hint">点击标签筛选</span>
+                        </div>
+                        <div class="project-filters">
+                            <button class="filter-btn active" data-filter="all">全部</button>
+                            <button class="filter-btn" data-filter="work">💼 工作项目</button>
+                            <button class="filter-btn" data-filter="academic">📚 学业项目</button>
+                            <button class="filter-btn" data-filter="personal">👨‍💻 个人项目</button>
+                        </div>
+                    </div>
                 
                 <!-- 项目一 -->
-                <div class="project-item">
-                    <h3>一、高级法内评模型建设</h3>
+                <div class="project-item" data-category="work">
+                    <div class="project-header">
+                        <div class="project-title-row">
+                            <span class="project-date">2021-2024</span>
+                            <span class="project-divider">|</span>
+                            <h3>一、高级法内评模型建设</h3>
+                        </div>
+                        <span class="project-category-tag">💼 工作项目</span>
+                    </div>
                     <div class="project-details">
                         <p><strong>① 模型开发与部署：</strong>主导非零售内评体系下全类型模型的系统落地。完成11个大中企业专业打分卡模型与4个小企业统计模型的配置、投产前测试、上线及投产后验证，确保模型稳定运行。</p>
                         <p><strong>② 针对性模型优化：</strong>为解决小企业评级中财报数据错用及人工评级占比过高的问题，主导开发并上线了法人按揭业务客户打分卡模型及小型批发零售敞口统计模型；同时，在小企业统计模型中创新性集成了"专精特新"评价模块，提升了对优质小微企业的识别精度。</p>
@@ -144,8 +164,15 @@
                 </div>
 
                 <!-- 项目二 -->
-                <div class="project-item">
-                    <h3>二、银行系统及内部评级平台建设</h3>
+                <div class="project-item" data-category="work">
+                    <div class="project-header">
+                        <div class="project-title-row">
+                            <span class="project-date">2022-2024</span>
+                            <span class="project-divider">|</span>
+                            <h3>二、银行系统及内部评级平台建设</h3>
+                        </div>
+                        <span class="project-category-tag">💼 工作项目</span>
+                    </div>
                     <div class="project-details">
                         <p><strong>① 高级法功能模块建设：</strong>深度参与高级法内评体系的功能设计与系统实现，完成包括预评级、评级试算、违约认定管理、违约督管管理、债项评级批量跑批与监控、失效评级考核等核心模块的全流程建设，全面支撑内评合规与精细化管理要求。</p>
                         <p><strong>② 大规模数据库迁移与测试：</strong>牵头内部评级系统数据库切换工作，独立编写测试计划与方案，设计并执行超2000条测试案例，完成全功能的全量回归测试；同时协同软研团队对批量任务跑批结果进行全量准确性校验，确保迁移过程零差错、业务无缝衔接。</p>
@@ -155,8 +182,15 @@
                 </div>
 
                 <!-- 项目三 -->
-                <div class="project-item">
-                    <h3>三、合格信用风险缓释认定体系建设</h3>
+                <div class="project-item" data-category="work">
+                    <div class="project-header">
+                        <div class="project-title-row">
+                            <span class="project-date">2023-2024</span>
+                            <span class="project-divider">|</span>
+                            <h3>三、合格信用风险缓释认定体系建设</h3>
+                        </div>
+                        <span class="project-category-tag">💼 工作项目</span>
+                    </div>
                     <div class="project-details">
                         <p><strong>① 顶层制度设计与落地：</strong>牵头起草并正式发布行内《合格信用风险缓释认定管理办法》，从0到1建立了全行统一的合格信用风险缓释认定机制，为风险缓释管理的规范化、标准化奠定制度基础。</p>
                         <p><strong>② 智能化认定体系建设：</strong>主导将认定规则全面嵌入担保管理系统，构建了全行信用风险缓释工具的合格性自动判定体系。系统支持每日批量处理超1000万条押品及5万条保证人的合格性自动判定，实现认定工作的全流程自动化与规模化。</p>
@@ -166,12 +200,36 @@
                 </div>
 
                 <!-- 项目四 -->
-                <div class="project-item">
-                    <h3>四、资本计量高级方法达标建设</h3>
+                <div class="project-item" data-category="work">
+                    <div class="project-header">
+                        <div class="project-title-row">
+                            <span class="project-date">2023-2024</span>
+                            <span class="project-divider">|</span>
+                            <h3>四、资本计量高级方法达标建设</h3>
+                        </div>
+                        <span class="project-category-tag">💼 工作项目</span>
+                    </div>
                     <div class="project-details">
                         <p><strong>① 风险暴露分类体系落地：</strong>牵头完成客户层、债项层、专业贷款及资金业务的全类型风险暴露分类规则制定，并推动规则在核心系统的全面部署与验证，为高级法下风险加权资产计量的准确性与合规性奠定基础。</p>
                         <p><strong>② 动态评级更新机制建设：</strong>为配套新发布的非零售评级管理办法，在统一授信系统主导完成了动态评级更新功能的全流程建设，涵盖前期方案设计、系统架构规划、需求分析、业务测试及上线投产，确保评级时效性与制度要求无缝衔接。</p>
                         <p><strong>③ 智能化违约督管体系构建：</strong>整合业务数据、资产保全数据、征信数据及外部企业数据，针对集团关联方违约、保证人违约、一般公司客户违约三类场景设计并上线了差异化的违约督管规则。体系上线后，年均触发督管任务超3000条，同步建设违约督管台账报表，为各分行提供了精准、可追溯的违约认定管理工具，显著提升了违约管理的主动性与精细化水平。</p>
+                    </div>
+                </div>
+
+                <!-- 项目五 -->
+                <div class="project-item" data-category="personal">
+                    <div class="project-header">
+                        <div class="project-title-row">
+                            <span class="project-date">2026.06-至今</span>
+                            <span class="project-divider">|</span>
+                            <h3>五、个人网站建设</h3>
+                        </div>
+                        <span class="project-category-tag">👨‍💻 个人项目</span>
+                    </div>
+                    <div class="project-details">
+                        <p><strong>① 项目概述：</strong>从零开始搭建个人技术博客与展示网站，采用现代化前端技术栈，实现多模块页面布局与丰富的交互效果。</p>
+                        <p><strong>② 技术实现：</strong>使用HTML5、CSS3、JavaScript原生开发，采用CSS Grid和Flexbox实现响应式布局，使用CSS View Transitions API实现页面切换动画，自定义开发平滑滚动、弹窗交互等功能。</p>
+                        <p><strong>③ 功能特性：</strong>实现了6大模块导航、卡片点击动画、时间轴布局、项目分类筛选、家庭生活弹窗等特色功能，整体设计风格参考"地平线6菜单"，具有良好的视觉体验。</p>
                     </div>
                 </div>
             </div>
