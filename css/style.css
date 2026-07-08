@@ -1538,19 +1538,21 @@ html.fh-transition-dissolve::view-transition-new(root) {
 /* ========== 家庭卡片网格布局 ========== */
 .family-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 1rem 2rem;
+    grid-template-columns: repeat(3, 1fr); /* 一行显示3个卡片，改为2或4可调整列数 */
+    gap: 0.5rem; /* 卡片之间的间距 */
+    max-width: 1600px; /* 最大宽度，防止太宽 */
+    margin: 0 auto; /* 居中 */
+    padding: 0rem 0rem; /* 上下左右内边距 */
 }
 
+/* 900px以下改为2列 */
 @media (max-width: 900px) {
     .family-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
+/* 600px以下改为1列 */
 @media (max-width: 600px) {
     .family-grid {
         grid-template-columns: 1fr;
@@ -1559,33 +1561,35 @@ html.fh-transition-dissolve::view-transition-new(root) {
 
 /* ========== 家庭卡片基础样式 ========== */
 .family-card {
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer; /* 鼠标变成手型 */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 动画过渡时间 */
 }
 
 .family-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px); /* 悬停时向上移动的距离 */
 }
 
 .family-card-inner {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    transition: border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column; /* 上图下文字布局，改为row可变成左图右文字 */
+    background: rgba(255, 255, 255, 0.05); /* 半透明白色背景 */
+    backdrop-filter: blur(10px); /* 毛玻璃效果 */
+    border-radius: 16px; /* 卡片圆角大小 */
+    overflow: hidden; /* 超出部分隐藏 */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 边框透明度 */
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2); /* 阴影大小 */
+    transition: border-color 0.3s, box-shadow 0.3s; /* 边框和阴影过渡 */
 }
 
 .family-card:hover .family-card-inner {
-    border-color: rgba(255, 215, 0, 0.5);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.5); /* 悬停时边框变成金色 */
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 0 16px rgba(255, 215, 0, 0.1); /* 悬停时阴影加强 */
 }
 
 /* ========== 卡片图片区域 ========== */
 .family-card-img {
     width: 100%;
-    height: 280px;
+    aspect-ratio: 4/3; /* 图片比例，16/9更宽，1/1正方形 */
     overflow: hidden;
     position: relative;
 }
@@ -1593,36 +1597,37 @@ html.fh-transition-dissolve::view-transition-new(root) {
 .family-card-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover; /* cover裁剪填充，contain完整显示但有留白 */
+    object-position: center; /* 居中裁剪 */
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* 图片缩放过渡 */
 }
 
 .family-card:hover .family-card-img img {
-    transform: scale(1.1);
+    transform: scale(1.1); /* 悬停时图片放大比例 */
 }
 
 /* ========== 卡片内容区域 ========== */
 .family-card-content {
-    padding: 1rem 1.2rem;
+    padding: 0.5rem 0.5rem; /* 内容区域内边距 */
 }
 
 .family-card-content h3 {
-    font-size: 1.2rem;
-    margin: 0 0 0.3rem 0;
-    color: #ffffff;
+    font-size: 1rem; /* 标题字体大小 */
+    margin: 0 0 0.2rem 0; /* 标题下方间距 */
+    color: #ffffff; /* 白色文字 */
 }
 
 .family-card-subtitle {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0 0 0.3rem 0;
+    font-size: 0.75rem; /* 副标题字体大小 */
+    color: rgba(255, 255, 255, 0.6); /* 半透明灰色 */
+    margin: 0 0 0.2rem 0; /* 副标题下方间距 */
 }
 
 .family-card-desc {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem; /* 描述文字大小 */
+    color: rgba(255, 255, 255, 0.8); /* 较浅灰色 */
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.4; /* 行高 */
 }
 
 /* ========== 弹窗遮罩层 ========== */
@@ -1651,8 +1656,8 @@ html.fh-transition-dissolve::view-transition-new(root) {
 .family-modal {
     background: linear-gradient(135deg, rgba(30, 30, 40, 0.95), rgba(40, 40, 60, 0.95));
     border-radius: 24px;
-    max-width: 800px;
-    width: 90%;
+    max-width: 1150px;
+    width: 95%;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
@@ -1702,7 +1707,7 @@ html.fh-transition-dissolve::view-transition-new(root) {
 /* ========== 弹窗图片 ========== */
 .family-modal-img {
     width: 100%;
-    max-height: 350px;
+    max-height: 400px;
     overflow: hidden;
     border-radius: 0 0 24px 24px;
 }
@@ -1718,23 +1723,35 @@ html.fh-transition-dissolve::view-transition-new(root) {
     padding: 2rem;
 }
 
+/* ========== 弹窗头部（标题+副标题+状态在同一行） ========== */
+.family-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
 .family-modal-info h2 {
     font-size: 1.8rem;
-    margin: 0 0 0.5rem 0;
+    margin: 0;
     color: #ffffff;
+    white-space: nowrap;
 }
 
 .family-modal-subtitle {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.6);
-    margin: 0 0 1rem 0;
+    margin: 0;
+    white-space: nowrap;
 }
 
 /* ========== 状态标签 ========== */
 .family-modal-stats {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 0.8rem;
+    margin: 0;
+    margin-left: auto;
 }
 
 .family-modal-stats span {
@@ -1743,6 +1760,27 @@ html.fh-transition-dissolve::view-transition-new(root) {
     font-size: 0.85rem;
     background: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .family-modal-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .family-modal-info h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .family-modal-subtitle {
+        margin-bottom: 0.5rem;
+    }
+    
+    .family-modal-stats {
+        margin-left: 0;
+    }
 }
 
 /* ========== 故事区域 ========== */
