@@ -1837,3 +1837,299 @@ html.fh-transition-dissolve::view-transition-new(root) {
     left: 0;
     color: #ffd700;
 }
+
+/* ========== 观影笔记页面样式 (卡片+弹窗模式) ========== */
+
+/* 电影卡片网格 - 4列布局 */
+.movie-card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 固定4列 */
+    gap: 1rem; /* 卡片间距 */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 电影卡片项 */
+.movie-card-item {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s;
+}
+
+.movie-card-item:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* 卡片海报区域 - 固定2:3比例 */
+.movie-card-poster {
+    width: 100%;
+    aspect-ratio: 2/3; /* 竖版海报标准比例 */
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.movie-card-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.movie-card-item:hover .movie-card-poster img {
+    transform: scale(1.08);
+}
+
+/* 卡片内容区域 - 单行布局 */
+.movie-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.6rem;
+}
+
+.movie-card-title {
+    font-size: 0.85rem;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+.movie-card-year {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    margin-left: 0.4rem;
+    flex-shrink: 0;
+}
+
+/* ========== 电影详情弹窗样式 ========== */
+
+/* 弹窗遮罩 */
+.movie-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.movie-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* 弹窗主体 */
+.movie-modal {
+    background: linear-gradient(135deg, rgba(30, 30, 40, 0.98), rgba(40, 40, 60, 0.98));
+    border-radius: 24px;
+    max-width: 1100px;
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: scale(0.9) translateY(30px);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+}
+
+.movie-modal-overlay.active .movie-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* 关闭按钮 */
+.movie-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s, transform 0.3s;
+    z-index: 10;
+}
+
+.movie-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+/* 弹窗内容 */
+.movie-modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 弹窗顶部区域 - 海报+基本信息并排 */
+.movie-modal-top {
+    display: flex;
+}
+
+/* 弹窗海报 */
+.movie-modal-poster {
+    flex: 0 0 280px; /* 固定宽度 */
+    aspect-ratio: 2/3; /* 保持2:3比例 */
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 1.5rem; /* 海报边距 */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.movie-modal-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 弹窗基本信息区域 */
+.movie-modal-info {
+    flex: 1;
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 弹窗头部 */
+.movie-modal-header {
+    margin-bottom: 1rem;
+}
+
+.movie-modal-header h2 {
+    font-size: 1.6rem;
+    margin: 0 0 0.6rem 0;
+    color: #ffffff;
+}
+
+.movie-modal-meta {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.movie-modal-meta span {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55);
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+/* 剧情简介 */
+.movie-modal-summary {
+    flex: 1;
+}
+
+.movie-modal-summary h3 {
+    font-size: 1rem;
+    margin: 0 0 0.6rem 0;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.movie-modal-summary p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* 弹窗底部区域 - 个人影评 */
+.movie-modal-bottom {
+    padding: 1.5rem 2rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 个人感想 */
+.movie-modal-thoughts {
+    padding-top: 0;
+}
+
+.movie-modal-thoughts h3 {
+    font-size: 1.1rem;
+    margin: 0 0 0.8rem 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.movie-modal-thoughts p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* ========== 响应式适配 ========== */
+@media (max-width: 950px) {
+    .movie-card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 750px) {
+    .movie-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .movie-modal-top {
+        flex-direction: column;
+    }
+    
+    .movie-modal-poster {
+        flex: none;
+        width: 100%;
+        border-radius: 24px 24px 0 0;
+    }
+    
+    .movie-modal-info {
+        padding: 1.5rem;
+    }
+    
+    .movie-modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .movie-modal-bottom {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .movie-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .movie-card-grid {
+        grid-template-columns: 1fr;
+    }
+}

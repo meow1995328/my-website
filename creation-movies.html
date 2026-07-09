@@ -1,0 +1,123 @@
+<!-- 版本：v0.3.5 -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 观影笔记</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">薛大侠</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="creation.html" class="nav-link active">内容创作</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resources.html" class="nav-link">资源工具</a>
+                </li>
+                <li class="nav-item">
+                    <a href="interaction.html" class="nav-link">互动服务</a>
+                </li>
+                <li class="nav-item">
+                    <a href="site-info.html" class="nav-link">站点信息</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1>🎬 观影笔记</h1>
+            <p>记录每一部打动我的电影，分享我的观影感受和思考。</p>
+        </div>
+
+        <!-- 电影卡片网格 -->
+        <div class="movie-card-grid">
+            <div class="movie-card-item" data-movie="interstellar">
+                <div class="movie-card-poster">
+                    <img src="images/movie-the pursuit of happyness1.jpg" alt="当幸福来敲门" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=movie%20poster%20the%20pursuit%20of%20happyness%20inspirational%20drama%20vertical%20professional&image_size=portrait_2_3'">
+                </div>
+                <div class="movie-card-content">
+                    <span class="movie-card-title">当幸福来敲门</span>
+                    <span class="movie-card-year">2006</span>
+                </div>
+
+            </div>
+
+            <div class="movie-card-item" data-movie="parasite">
+                <div class="movie-card-poster">
+                    <img src="images/movie-parasite.jpg" alt="寄生虫" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=parasite%20movie%20poster%20dark%20thriller%20social%20commentary%20korean%20cinema%20vertical&image_size=portrait_2_3'">
+                </div>
+                <div class="movie-card-content">
+                    <span class="movie-card-title">寄生虫</span>
+                    <span class="movie-card-year">2019</span>
+                </div>
+            </div>
+
+            <div class="movie-card-item" data-movie="soul">
+                <div class="movie-card-poster">
+                    <img src="images/movie-spirited.jpg" alt="心灵奇旅" onerror="this.src='https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=soul%20disney%20pixar%20movie%20poster%20jazz%20music%20spiritual%20inspirational%20vertical&image_size=portrait_2_3'">
+                </div>
+                <div class="movie-card-content">
+                    <span class="movie-card-title">心灵奇旅</span>
+                    <span class="movie-card-year">2020</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 电影详情弹窗 -->
+        <div class="movie-modal-overlay" id="movieModalOverlay">
+            <div class="movie-modal" id="movieModal">
+                <button class="movie-modal-close" id="movieModalClose">&times;</button>
+                <div class="movie-modal-content">
+                    <!-- 顶部：海报+基本信息并排 -->
+                    <div class="movie-modal-top">
+                        <div class="movie-modal-poster">
+                            <img id="movieModalImg" src="" alt="">
+                        </div>
+                        <div class="movie-modal-info">
+                            <div class="movie-modal-header">
+                                <h2 id="movieModalTitle"></h2>
+                                <div class="movie-modal-meta" id="movieModalMeta"></div>
+                            </div>
+                            <div class="movie-modal-summary">
+                                <h3>📖 剧情简介</h3>
+                                <p id="movieModalSummary"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 底部：个人影评 -->
+                    <div class="movie-modal-bottom">
+                        <div class="movie-modal-thoughts">
+                            <h3>💭 我的感想</h3>
+                            <p id="movieModalThoughts"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="text-align: center;">
+            <a href="creation.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
+                ← 返回内容创作
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
+        <p>v0.3.5</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

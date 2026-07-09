@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化家庭生活弹窗
     initFamilyModal();
     
+    // 初始化电影详情弹窗
+    initMovieModal();
+    
     // 初始化项目分类筛选
     initProjectFilters();
 });
@@ -714,6 +717,102 @@ function initFamilyModal() {
                 modalMemories.appendChild(li);
             });
 
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    function closeModal() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}
+
+// ============================================
+// 电影详情弹窗交互逻辑 (v0.3.5)
+// ============================================
+
+const movieData = {
+    'interstellar': {
+        title: '🎬 当幸福来敲门',
+        subtitle: 'The Pursuit of Happyness',
+        image: 'images/movie-the pursuit of happyness2.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=movie%20poster%20the%20pursuit%20of%20happyness%20inspirational%20drama%20vertical%20professional&image_size=portrait_2_3',
+        meta: ['🎥 2006', '🎬 加布里埃莱·穆奇诺', '🎭 威尔·史密斯', '📍 美国', '📁 剧情/家庭/传记', '⭐ 豆瓣9.4 / 个人7'],
+        summary: '影片改编自真实故事，讲述了一位父亲在经历事业失败、婚姻破裂后，依然不放弃希望，带着儿子在逆境中拼搏奋斗，最终获得成功的感人故事。克里斯·加德纳用自己的坚持和努力，诠释了什么是真正的父爱和梦想。',
+        thoughts: '这部电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试电影让我重新思考了时间、爱与生命的意义。诺兰用科学的严谨和艺术的浪漫，编织了一个关于父女情深的宇宙级故事。"爱是唯一能够穿越时空维度的东西"，这句话至今仍让我动容。电影中的每一个细节都充满了匠心，从黑洞的视觉呈现到时间膨胀的科学设定，都展现了导演对细节的极致追求。最打动我的是父女之间那份跨越时空的情感联结，无论身处何方，爱总能找到回家的路。测试'
+    },
+    'parasite': {
+        title: '🎬 寄生虫',
+        subtitle: 'Parasite',
+        image: 'images/movie-parasite.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=parasite%20movie%20poster%20dark%20thriller%20social%20commentary%20korean%20cinema%20vertical&image_size=portrait_2_3',
+        meta: ['🎥 2019', '🎬 奉俊昊', '📍 韩国', '📁 剧情/惊悚/黑色幽默', '⭐ 豆瓣9.0 / 个人8'],
+        summary: '一个贫穷的家庭通过精心策划，逐步渗透到富裕家庭的生活中，两个家庭的命运由此交织在一起。随着剧情的发展，一场意外让原本平静的伪装逐渐崩塌，揭示了阶层差异背后的残酷现实。',
+        thoughts: '奉俊昊用黑色幽默解构了阶级差异这个沉重的话题。电影前半段让你笑，后半段让你惊，最后让你深思。那个雨夜的蒙太奇镜头，将贫富差距具象化到了令人窒息的程度。地下室的设计堪称神来之笔，它不仅仅是一个物理空间，更是社会底层的隐喻。电影没有给出答案，却留下了无尽的思考——我们真的能摆脱自己的出身吗？'
+    },
+    'soul': {
+        title: '🎬 心灵奇旅',
+        subtitle: 'Soul',
+        image: 'images/movie-spirited.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=soul%20disney%20pixar%20movie%20poster%20jazz%20music%20spiritual%20inspirational%20vertical&image_size=portrait_2_3',
+        meta: ['🎥 2020', '🎬 彼特·道格特', '📍 美国', '📁 动画/奇幻/音乐', '⭐ 豆瓣8.7 / 个人9'],
+        summary: '梦想成为爵士钢琴家的乔伊意外来到灵魂世界，在寻找重返地球之路的过程中，他遇到了一个渴望体验生活的灵魂22。两人结伴同行，在这段旅程中重新审视了生命的意义和人生的价值。',
+        thoughts: '这是一部温暖到骨子里的电影。它告诉我们，生命的火花不在于宏大的梦想，而在于那些平凡而美好的瞬间——一片飘落的树叶、一口美味的披萨、一次与陌生人的微笑。乔伊的故事让我反思：我们常常为了所谓的"目标"而忽略了身边的美好，却忘记了生活本身就是目的。电影的音乐也非常出色，爵士乐的灵动与灵魂世界的奇幻完美融合，每一首曲子都触动人心。'
+    }
+};
+
+function initMovieModal() {
+    const cards = document.querySelectorAll('.movie-card-item');
+    const overlay = document.getElementById('movieModalOverlay');
+    const closeBtn = document.getElementById('movieModalClose');
+    
+    if (!cards.length || !overlay || !closeBtn) return;
+    
+    const modal = document.getElementById('movieModal');
+    const modalImg = document.getElementById('movieModalImg');
+    const modalTitle = document.getElementById('movieModalTitle');
+    const modalMeta = document.getElementById('movieModalMeta');
+    const modalSummary = document.getElementById('movieModalSummary');
+    const modalThoughts = document.getElementById('movieModalThoughts');
+
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const movieId = this.getAttribute('data-movie');
+            const data = movieData[movieId];
+            
+            if (!data) return;
+
+            // 设置海报
+            modalImg.src = data.image;
+            modalImg.onerror = function() {
+                this.src = data.fallbackImage;
+            };
+            
+            // 设置标题
+            modalTitle.innerHTML = `${data.title} <span style="font-size: 0.7em; color: rgba(255,255,255,0.5)">${data.subtitle}</span>`;
+            
+            // 设置元信息
+            modalMeta.innerHTML = data.meta.map(item => `<span>${item}</span>`).join('');
+            
+            // 设置内容
+            modalSummary.textContent = data.summary;
+            modalThoughts.textContent = data.thoughts;
+
+            // 显示弹窗
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
