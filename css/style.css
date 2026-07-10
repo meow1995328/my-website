@@ -1576,14 +1576,15 @@ html.fh-transition-dissolve::view-transition-new(root) {
     backdrop-filter: blur(10px); /* 毛玻璃效果 */
     border-radius: 16px; /* 卡片圆角大小 */
     overflow: hidden; /* 超出部分隐藏 */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* 边框透明度 */
+    border: 2px solid rgba(255, 255, 255, 0.1); /* 边框透明度 */
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2); /* 阴影大小 */
-    transition: border-color 0.3s, box-shadow 0.3s; /* 边框和阴影过渡 */
+    transition: border-width 0.3s, border-color 0.3s, box-shadow 0.3s; /* 边框和阴影过渡 */
 }
 
 .family-card:hover .family-card-inner {
-    border-color: rgba(255, 215, 0, 0.5); /* 悬停时边框变成金色 */
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 0 16px rgba(255, 215, 0, 0.1); /* 悬停时阴影加强 */
+    border-width: 3px; /* 悬停时边框加粗 */
+    border-color: rgba(255, 215, 0, 0.8); /* 悬停时边框变成金色 */
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2); /* 悬停时金色光晕效果 */
 }
 
 /* ========== 卡片图片区域 ========== */
@@ -1856,15 +1857,16 @@ html.fh-transition-dissolve::view-transition-new(root) {
     backdrop-filter: blur(10px);
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-width 0.3s, border-color 0.3s;
 }
 
 .movie-card-item:hover {
     transform: translateY(-6px);
-    border-color: rgba(255, 215, 0, 0.4);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border-width: 3px;
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.2);
 }
 
 /* 卡片海报区域 - 固定2:3比例 */
@@ -1896,7 +1898,8 @@ html.fh-transition-dissolve::view-transition-new(root) {
 
 .movie-card-title {
     font-size: 0.85rem;
-    color: #ffffff;
+    color: #ffd700;
+    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1950,6 +1953,25 @@ html.fh-transition-dissolve::view-transition-new(root) {
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+    padding-right: 8px;
+}
+
+.movie-modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.movie-modal::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+}
+
+.movie-modal::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.movie-modal::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .movie-modal-overlay.active .movie-modal {
@@ -1995,10 +2017,10 @@ html.fh-transition-dissolve::view-transition-new(root) {
 
 /* 弹窗海报 */
 .movie-modal-poster {
-    flex: 0 0 280px; /* 固定宽度 */
+    flex: 0 0 300px; /* 固定宽度 */
     aspect-ratio: 2/3; /* 保持2:3比例 */
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 16px;
     margin: 1.5rem; /* 海报边距 */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
@@ -2012,9 +2034,13 @@ html.fh-transition-dissolve::view-transition-new(root) {
 /* 弹窗基本信息区域 */
 .movie-modal-info {
     flex: 1;
-    padding: 1.5rem 1.5rem 1.5rem 0;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
+    margin: 1.5rem 1.5rem 1.5rem 0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* 弹窗头部 */
@@ -2023,21 +2049,31 @@ html.fh-transition-dissolve::view-transition-new(root) {
 }
 
 .movie-modal-header h2 {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     margin: 0 0 0.6rem 0;
     color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.movie-modal-header h2 .movie-modal-subtitle {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #ffffff;
+    opacity: 0.9;
 }
 
 .movie-modal-meta {
-    display: flex;
-    gap: 0.6rem;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
 }
 
 .movie-modal-meta span {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.55);
-    padding: 0.2rem 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.25rem 0.6rem;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 6px;
     white-space: nowrap;
@@ -2059,6 +2095,30 @@ html.fh-transition-dissolve::view-transition-new(root) {
     color: rgba(255, 255, 255, 0.65);
     line-height: 1.7;
     margin: 0;
+    text-indent: 2em;
+}
+
+/* 影评提示 */
+.movie-modal-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    padding: 0.6rem;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.movie-modal-hint .hint-icon {
+    font-size: 0.9rem;
+    animation: bounce 1.5s ease-in-out infinite;
+}
+
+.movie-modal-hint span:last-child {
+    font-size: 0.85rem;
+    color: rgba(255, 215, 0, 0.8);
 }
 
 /* 弹窗底部区域 - 个人影评 */
@@ -2078,11 +2138,17 @@ html.fh-transition-dissolve::view-transition-new(root) {
     color: rgba(255, 255, 255, 0.9);
 }
 
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
 .movie-modal-thoughts p {
     font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.75);
     line-height: 1.8;
     margin: 0;
+    text-indent: 2em;
 }
 
 /* ========== 响应式适配 ========== */
@@ -2132,4 +2198,35 @@ html.fh-transition-dissolve::view-transition-new(root) {
     .movie-card-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ============================================
+   更新日志页面紧凑布局 (v0.3.6)
+   ============================================ */
+.site-info-changelog .container {
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.site-info-changelog .container h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.site-info-changelog .container ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+}
+
+.site-info-changelog .container li {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.3rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.site-info-changelog .container li:last-child {
+    margin-bottom: 0;
 }
