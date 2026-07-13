@@ -1,10 +1,10 @@
-<!-- 版本：v0.3.0 -->
+<!-- 版本：v0.3.8-dev -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎨 兴趣与收藏品 - 薛大侠</title>
+    <title>🎨 兴趣与特长 - 薛大侠</title>
     <script>
         if (new URLSearchParams(window.location.search).get('transition') === 'dissolve') {
             document.documentElement.classList.add('fh-transition-dissolve');
@@ -46,14 +46,248 @@
     <!-- 主内容区域 -->
     <main class="main-content">
         <div class="container">
-            <h1>🎨 兴趣与个人收藏品</h1>
-            <p>兴趣爱好、收藏爱好等</p>
+            <h1>🎨 兴趣与特长</h1>
+            <p>每个人都有自己的兴趣爱好，它们构成了丰富多彩的人生。这里记录了我热爱的事物和所取得的小小成就。</p>
         </div>
         
-        <!-- 更多详细内容容器 -->
-        <div class="container">
-            <h2>章节标题</h2>
-            <p>详细内容占位符...</p>
+        <!-- 兴趣特长区域 -->
+        <div class="interests-grid">
+            <!-- 音乐 -->
+            <div class="interest-card" data-id="music">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=harmonica%20music%20instrument%20artistic%20dark%20background&image_size=portrait_4_3" alt="口琴">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🎵 口琴</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 运动 -->
+            <div class="interest-card" data-id="sports-pingpong">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ping%20pong%20table%20tennis%20sports%20dynamic%20dark%20background&image_size=portrait_4_3" alt="乒乓球">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🏓 乒乓球</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="sports-rope">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=jumping%20rope%20fitness%20exercise%20dynamic%20dark%20background&image_size=portrait_4_3" alt="跳绳">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🪢 跳绳</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="sports-soccer">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=soccer%20football%20sports%20dynamic%20dark%20background&image_size=portrait_4_3" alt="足球">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>⚽ 足球</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 表演 -->
+            <div class="interest-card" data-id="performance-host">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=host%20emcee%20presentation%20stage%20professional%20dark%20background&image_size=portrait_4_3" alt="主持人">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🎤 主持人</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="performance-drama">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=theater%20drama%20acting%20stage%20performance%20dark%20background&image_size=portrait_4_3" alt="话剧表演">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🎭 话剧表演</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 智力 -->
+            <div class="interest-card" data-id="intellect-cube">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=rubiks%20cube%20puzzle%20colorful%20brain%20dark%20background&image_size=portrait_4_3" alt="魔方">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🧊 魔方</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="intellect-typing">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=keyboard%20typing%20fast%20technology%20dark%20background&image_size=portrait_4_3" alt="五笔打字">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>⌨️ 五笔打字</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="intellect-maze">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=maze%20puzzle%20art%20drawing%20creative%20dark%20background&image_size=portrait_4_3" alt="画迷宫">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🏰 画迷宫</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 科学 -->
+            <div class="interest-card" data-id="science-nature">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=natural%20science%20biology%20microscope%20knowledge%20dark%20background&image_size=portrait_4_3" alt="自然科学">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🔬 自然科学</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="science-astronomy">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=astronomy%20stars%20universe%20telescope%20cosmos%20dark%20background&image_size=portrait_4_3" alt="天文学">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🌌 天文学</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 动物 -->
+            <div class="interest-card" data-id="animal-cat">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cat%20pet%20adorable%20fluffy%20dark%20background&image_size=portrait_4_3" alt="猫咪">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🐱 猫咪</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="animal-pig">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20pig%20animal%20adorable%20pink%20dark%20background&image_size=portrait_4_3" alt="猪">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🐷 猪</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 动漫 -->
+            <div class="interest-card" data-id="anime-naruto">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=naruto%20anime%20ninja%20action%20fantasy%20dark%20background&image_size=portrait_4_3" alt="火影忍者">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🍥 火影忍者</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="anime-bleach">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bleach%20anime%20soul%20reaper%20action%20dark%20background&image_size=portrait_4_3" alt="死神">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>💀 死神</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interest-card" data-id="anime-bluecat">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=blue%20cat%20cartoon%20anime%20chinese%20classic%20dark%20background&image_size=portrait_4_3" alt="蓝猫淘气三千问">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🐱 蓝猫淘气三千问</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 美食 -->
+            <div class="interest-card" data-id="food-mcdonalds">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mcdonalds%20food%20burger%20fries%20fast%20food%20dark%20background&image_size=portrait_4_3" alt="麦当劳">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🍔 麦当劳</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 科幻 -->
+            <div class="interest-card" data-id="science-scifi">
+                <div class="interest-card-inner">
+                    <div class="interest-card-img">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=sci-fi%20science%20fiction%20futuristic%20spaceship%20dark%20background&image_size=portrait_4_3" alt="科幻">
+                    </div>
+                    <div class="interest-card-content">
+                        <h3>🚀 科幻</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 兴趣详情弹窗 -->
+        <div class="interest-modal-overlay" id="interestModalOverlay">
+            <div class="interest-modal" id="interestModal">
+                <button class="interest-modal-close" id="interestModalClose">&times;</button>
+                <div class="interest-modal-content">
+                    <div class="interest-modal-image">
+                        <img id="interestModalImg" src="" alt="">
+                    </div>
+                    <div class="interest-modal-info">
+                        <div class="interest-modal-header">
+                            <h2 id="interestModalTitle"></h2>
+                            <span id="interestModalCategory" class="interest-modal-category"></span>
+                        </div>
+                        <div class="interest-modal-experience">
+                            <h3>📝 学习经历</h3>
+                            <p id="interestModalExperience"></p>
+                        </div>
+                        <div class="interest-modal-honors">
+                            <h3>🏆 所获荣誉</h3>
+                            <ul id="interestModalHonors"></ul>
+                        </div>
+                        <div class="interest-modal-thoughts">
+                            <h3>💭 个人感想</h3>
+                            <p id="interestModalThoughts"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <!-- 返回按钮 -->
@@ -67,7 +301,7 @@
     <!-- 页脚 -->
     <footer class="footer">
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
-        <p>v0.3.0</p>
+        <p>v0.3.8</p>
     </footer>
 
     <script src="js/script.js"></script>

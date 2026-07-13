@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化电影详情弹窗
     initMovieModal();
     
+    // 初始化兴趣特长弹窗
+    initInterestModal();
+    
     // 初始化项目分类筛选
     initProjectFilters();
 });
@@ -833,6 +836,210 @@ function initMovieModal() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && overlay.classList.contains('active')) {
             closeModal();
+        }
+    });
+}
+
+// ============================================
+// 兴趣特长弹窗交互逻辑 (v0.3.8)
+// ============================================
+
+const interestData = {
+    'music': {
+        title: '🎵 口琴',
+        category: '音乐',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=harmonica%20music%20instrument%20artistic%20dark%20background&image_size=portrait_4_3',
+        experience: '从小学习口琴，喜欢吹奏各种流行歌曲和经典曲目。口琴小巧便携，随时随地都能演奏，是我生活中不可或缺的伙伴。',
+        honors: ['校音乐节口琴独奏三等奖', '自学掌握多种吹奏技巧', '能演奏50+首曲目'],
+        thoughts: '口琴是一种很有魅力的乐器，它的音色独特而富有感染力。当我吹奏时，所有的烦恼都会随着音符飘散。音乐是最好的治愈剂，而口琴就是我的治愈神器。'
+    },
+    'sports-pingpong': {
+        title: '🏓 乒乓球',
+        category: '运动',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ping%20pong%20table%20tennis%20sports%20dynamic%20dark%20background&image_size=portrait_4_3',
+        experience: '从小喜欢打乒乓球，小学开始参加校队训练，一直坚持到大学。乒乓球不仅锻炼了我的反应能力，也让我认识了很多志同道合的朋友。',
+        honors: ['校运会乒乓球单打亚军', '班级联赛冠军', '参加市级比赛'],
+        thoughts: '乒乓球是中国的国球，也是我最喜欢的运动。在球桌上，每一次挥拍都是一种享受。乒乓球教会我专注和坚持，只有不断练习才能进步。'
+    },
+    'sports-rope': {
+        title: '🪢 跳绳',
+        category: '运动',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=jumping%20rope%20fitness%20exercise%20dynamic%20dark%20background&image_size=portrait_4_3',
+        experience: '从小学开始练习跳绳，曾经达到每分钟200+的成绩。跳绳是一项简单而有效的运动，不需要场地，随时可以开始。',
+        honors: ['校运会跳绳比赛冠军', '一分钟跳绳200+', '学会多种花式跳法'],
+        thoughts: '跳绳看似简单，实则需要很好的协调性和耐力。每次跳绳都是一次自我挑战，当我突破自己的记录时，那种成就感是无法形容的。'
+    },
+    'sports-soccer': {
+        title: '⚽ 足球',
+        category: '运动',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=soccer%20football%20sports%20dynamic%20dark%20background&image_size=portrait_4_3',
+        experience: '热爱足球运动，喜欢踢前锋位置。从中学开始参加校足球队，享受在绿茵场上奔跑的感觉。',
+        honors: ['校足球联赛最佳射手', '带领班级获得亚军', '参加业余足球联赛'],
+        thoughts: '足球是一项团队运动，它教会我合作和拼搏。在球场上，每个人都有自己的角色，只有团结一心才能赢得比赛。足球让我感受到了团队的力量和胜利的喜悦。'
+    },
+    'performance-host': {
+        title: '🎤 主持人',
+        category: '表演',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=host%20emcee%20presentation%20stage%20professional%20dark%20background&image_size=portrait_4_3',
+        experience: '大学期间担任校学生会主持人，主持过多场大型活动和晚会。从紧张到从容，逐渐爱上了站在舞台上的感觉。',
+        honors: ['校级优秀主持人', '主持过10+场大型活动', '获得演讲比赛三等奖'],
+        thoughts: '主持是一种挑战，也是一种享受。当我站在舞台中央，面对台下数百观众时，那种紧张和兴奋交织的感觉让人着迷。主持让我变得更加自信和善于表达。'
+    },
+    'performance-drama': {
+        title: '🎭 话剧表演',
+        category: '表演',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=theater%20drama%20acting%20stage%20performance%20dark%20background&image_size=portrait_4_3',
+        experience: '大学加入话剧社，参演过多部话剧作品。从配角到主角，逐渐体会到表演的魅力和乐趣。',
+        honors: ['话剧节最佳男配角提名', '参演3部大型话剧', '担任话剧社副社长'],
+        thoughts: '表演是一种艺术，也是一种自我探索。当我扮演不同角色时，我能体验到不同的人生，理解不同的情感。话剧让我更加细腻地感受生活，也让我变得更加开朗和自信。'
+    },
+    'intellect-cube': {
+        title: '🧊 魔方',
+        category: '智力',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=rubiks%20cube%20puzzle%20colorful%20brain%20dark%20background&image_size=portrait_4_3',
+        experience: '初中开始接触魔方，从入门到速拧，一直保持着浓厚的兴趣。魔方不仅锻炼了我的空间思维能力，也培养了我的耐心和专注力。',
+        honors: ['三阶魔方速拧30秒以内', '学会多种高阶魔方', '教会身边朋友玩魔方'],
+        thoughts: '魔方是一个神奇的玩具，它看似简单，却蕴含着无穷的变化。当我成功还原一个打乱的魔方时，那种满足感是无法形容的。魔方教会我，任何复杂的问题都可以分解成简单的步骤来解决。'
+    },
+    'intellect-typing': {
+        title: '⌨️ 五笔打字',
+        category: '智力',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=keyboard%20typing%20fast%20technology%20dark%20background&image_size=portrait_4_3',
+        experience: '大学期间学习五笔打字，经过刻苦练习，达到每分钟120+字的速度。五笔打字不仅提高了我的工作效率，也让我对汉字有了更深的理解。',
+        honors: ['五笔打字每分钟120+字', '参加打字比赛获得第三名', '教会多人学习五笔'],
+        thoughts: '五笔打字是一项实用的技能，它让我在工作和学习中事半功倍。打字的过程也是一种享受，当手指在键盘上飞舞时，感觉自己像在弹奏一首美妙的曲子。'
+    },
+    'intellect-maze': {
+        title: '🏰 画迷宫',
+        category: '智力',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=maze%20puzzle%20art%20drawing%20creative%20dark%20background&image_size=portrait_4_3',
+        experience: '从小喜欢画迷宫，从简单到复杂，乐此不疲。画迷宫不仅锻炼了我的空间思维能力，也让我体验到了创造的乐趣。',
+        honors: ['创作50+个迷宫作品', '设计过大型迷宫游戏', '作品被朋友收藏'],
+        thoughts: '画迷宫是一种创造性的活动，每一个迷宫都是一个独特的世界。当我设计一个迷宫时，我不仅是创造者，也是第一个探险者。迷宫教会我思考和规划，也让我感受到创造的无限可能。'
+    },
+    'science-nature': {
+        title: '🔬 自然科学',
+        category: '科学',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=natural%20science%20biology%20microscope%20knowledge%20dark%20background&image_size=portrait_4_3',
+        experience: '从小对自然科学充满好奇，喜欢观察动植物，阅读科普书籍。自然科学让我了解了世界的奥秘，也培养了我的探索精神。',
+        honors: ['参加科学竞赛获得优秀奖', '阅读200+本科普书籍', '制作过多个科学实验'],
+        thoughts: '自然科学是人类认识世界的窗口，它让我明白万物皆有规律。每一次发现都让我感到兴奋和惊叹，这种对未知的好奇和探索，是我前进的动力。'
+    },
+    'science-astronomy': {
+        title: '🌌 天文学',
+        category: '科学',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=astronomy%20stars%20universe%20telescope%20cosmos%20dark%20background&image_size=portrait_4_3',
+        experience: '对天文学充满热爱，喜欢观察星空，了解宇宙的奥秘。从肉眼观测到使用天文望远镜，逐渐深入了解这个浩瀚的宇宙。',
+        honors: ['观测过多次流星雨', '认识100+颗星星', '阅读大量天文学书籍'],
+        thoughts: '仰望星空，我感受到自己的渺小，也感受到宇宙的无限可能。天文学让我明白，人类只是宇宙中的一粒尘埃，但我们的智慧却可以探索整个宇宙。这种宏大的视角，让我更加珍惜生活，也更加渴望探索未知。'
+    },
+    'animal-cat': {
+        title: '🐱 猫咪',
+        category: '动物',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20cat%20pet%20adorable%20fluffy%20dark%20background&image_size=portrait_4_3',
+        experience: '从小喜欢猫咪，家里养过好几只猫。猫咪的优雅、独立和温柔，让我深深着迷。',
+        honors: ['养过3只猫咪', '学会给猫咪洗澡剪指甲', '制作猫咪美食'],
+        thoughts: '猫咪是一种神奇的动物，它们既有独立的个性，又能给予人温暖的陪伴。和猫咪在一起，我学会了耐心和温柔。它们用自己的方式表达爱，让生活变得更加美好。'
+    },
+    'animal-pig': {
+        title: '🐷 猪',
+        category: '动物',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20pig%20animal%20adorable%20pink%20dark%20background&image_size=portrait_4_3',
+        experience: '对小猪特别有好感，觉得它们聪明可爱。曾经养过宠物猪，也去过农场接触过真正的猪。',
+        honors: ['养过宠物猪', '参观过大型养猪场', '了解猪的智商很高'],
+        thoughts: '猪是一种被误解的动物，它们其实非常聪明和可爱。和猪接触后，我发现它们有着丰富的情感和智慧。每一种动物都值得被尊重和爱护，它们都是大自然的精灵。'
+    },
+    'anime-naruto': {
+        title: '🍥 火影忍者',
+        category: '动漫',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=naruto%20anime%20ninja%20action%20fantasy%20dark%20background&image_size=portrait_4_3',
+        experience: '从初中开始追火影忍者，一直追到完结。这部动漫陪伴我度过了整个青春，也教会了我很多道理。',
+        honors: ['完整追完720集', '收集了多本漫画', 'cosplay过漩涡鸣人'],
+        thoughts: '火影忍者不仅仅是一部动漫，它是一种精神。鸣人的坚持、佐助的成长、卡卡西的温柔，每一个角色都让我感动。"说到做到，这就是我的忍道！"这句话一直激励着我，让我在面对困难时永不放弃。'
+    },
+    'anime-bleach': {
+        title: '💀 死神',
+        category: '动漫',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=bleach%20anime%20soul%20reaper%20action%20dark%20background&image_size=portrait_4_3',
+        experience: '大学期间开始看死神，被精彩的战斗和深刻的剧情所吸引。每一场战斗都充满激情，每一个角色都有自己的故事。',
+        honors: ['完整追完366集', '收集了全套漫画', '学会了卍解的日语发音'],
+        thoughts: '死神教会我，每个人都有自己的使命和责任。一护的守护、露琪亚的坚强、恋次的成长，都让我深受感动。战斗不仅仅是力量的较量，更是信念的对决。这种热血和激情，让我在现实生活中也充满动力。'
+    },
+    'anime-bluecat': {
+        title: '🐱 蓝猫淘气三千问',
+        category: '动漫',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=blue%20cat%20cartoon%20anime%20chinese%20classic%20dark%20background&image_size=portrait_4_3',
+        experience: '童年的经典动画，陪伴我度过了美好的童年时光。蓝猫淘气三千问以幽默风趣的方式讲述科学知识，让我从小就对科学产生了浓厚的兴趣。',
+        honors: ['完整看过500+集', '学会了很多科学知识', '收藏了蓝猫周边'],
+        thoughts: '蓝猫淘气三千问不仅仅是一部动画片，它是我童年的启蒙老师。通过这部动画，我学到了很多自然科学知识，培养了对科学的好奇心。每当想起蓝猫和淘气的冒险故事，都会勾起美好的童年回忆。'
+    },
+    'food-mcdonalds': {
+        title: '🍔 麦当劳',
+        category: '美食',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=mcdonalds%20food%20burger%20fries%20fast%20food%20dark%20background&image_size=portrait_4_3',
+        experience: '从小就喜欢吃麦当劳，它不仅仅是快餐，更是一种生活方式。每次吃到麦当劳都会感到开心和满足，它是我童年最美好的回忆之一。',
+        honors: ['吃过100+次麦当劳', '尝试过所有套餐', '收集过麦当劳玩具'],
+        thoughts: '麦当劳对我来说不仅仅是食物，它代表着快乐和童年。金黄酥脆的薯条、香气四溢的汉堡、冰凉可口的可乐，这些都是我最爱的味道。每次走进麦当劳，都会让我想起小时候那个无忧无虑的自己。'
+    },
+    'science-scifi': {
+        title: '🚀 科幻',
+        category: '科学',
+        image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=sci-fi%20science%20fiction%20futuristic%20spaceship%20dark%20background&image_size=portrait_4_3',
+        experience: '对科幻作品有着浓厚的兴趣，喜欢阅读科幻小说、观看科幻电影、玩科幻游戏。科幻作品让我看到了未来的无限可能，也激发了我的想象力和创造力。',
+        honors: ['阅读50+本科幻小说', '看过100+部科幻电影', '参与科幻社团活动'],
+        thoughts: '科幻是一种思维方式，它让我敢于想象未来，敢于挑战现有的认知。每一部优秀的科幻作品都是一次思想的旅行，让我在虚拟的世界中探索人类的命运和宇宙的奥秘。科幻不仅仅是娱乐，更是对人类未来的思考和探索。'
+    }
+};
+
+function initInterestModal() {
+    const cards = document.querySelectorAll('.interest-card');
+    const overlay = document.getElementById('interestModalOverlay');
+    const modal = document.getElementById('interestModal');
+    const closeBtn = document.getElementById('interestModalClose');
+    
+    const modalImg = document.getElementById('interestModalImg');
+    const modalTitle = document.getElementById('interestModalTitle');
+    const modalCategory = document.getElementById('interestModalCategory');
+    const modalExperience = document.getElementById('interestModalExperience');
+    const modalHonors = document.getElementById('interestModalHonors');
+    const modalThoughts = document.getElementById('interestModalThoughts');
+    
+    if (!overlay || !modal || !closeBtn) return;
+    
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const data = interestData[id];
+            
+            if (!data) return;
+            
+            modalImg.src = data.image;
+            modalTitle.textContent = data.title;
+            modalCategory.textContent = data.category;
+            modalExperience.textContent = data.experience;
+            modalHonors.innerHTML = data.honors.map(item => `<li>${item}</li>`).join('');
+            modalThoughts.textContent = data.thoughts;
+            
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    function closeInterestModal() {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    closeBtn.addEventListener('click', closeInterestModal);
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            closeInterestModal();
+        }
+    });
+    
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            closeInterestModal();
         }
     });
 }
