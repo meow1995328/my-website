@@ -1043,3 +1043,64 @@ function initInterestModal() {
         }
     });
 }
+
+// ============================================
+// 书籍详情数据 (v0.4.0)
+// ============================================
+
+const bookData = {
+    '1984': {
+        title: '📚 1984',
+        subtitle: '乔治·奥威尔',
+        image: 'images/book-1984.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%201984%20george%20orwell%20dystopian%20dark%20surveillance%20big%20brother%20vertical&image_size=portrait_2_3',
+        meta: ['📖 小说', '📅 1949', '🏷️ 反乌托邦', '⭐ 豆瓣9.3'],
+        summary: '《1984》是乔治·奥威尔于1949年出版的反乌托邦小说。故事发生在一个被极权主义统治的虚构国家"大洋国"，主人公温斯顿·史密斯在真理部工作，负责修改历史以符合党的宣传。随着对现状的不满和对自由的渴望，他开始了一段危险的秘密恋情，并加入了地下反抗组织。',
+        thoughts: '这本书被誉为反乌托邦的经典之作，读完后让人不寒而栗。奥威尔对极权主义的预言如此精准，以至于今天读来仍然具有强烈的现实意义。"战争即和平，自由即奴役，无知即力量"——这些口号在书中反复出现，揭示了权力如何通过控制思想来维持统治。最令人震撼的是"老大哥在看着你"这句话，它成为了监视社会的代名词。这本书提醒我们，自由和真理是多么宝贵，值得我们去捍卫。'
+    },
+    'sapiens': {
+        title: '📚 人类简史',
+        subtitle: '尤瓦尔·赫拉利',
+        image: 'images/book-sapiens.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20sapiens%20human%20history%20civilization%20evolution%20colorful%20artistic%20vertical&image_size=portrait_2_3',
+        meta: ['📖 历史', '📅 2011', '🏷️ 人类学', '⭐ 豆瓣9.2'],
+        summary: '《人类简史》从认知革命、农业革命、科学革命三个阶段讲述了人类从史前时代到现代社会的发展历程。作者尤瓦尔·赫拉利提出了许多颠覆性的观点，挑战了我们对人类历史和自身的认知。',
+        thoughts: '这本书彻底改变了我对人类历史的认知。赫拉利用宏大的视角审视人类的发展，提出了许多引人深思的问题。"农业革命是史上最大骗局"这个观点让我印象深刻——农业带来了稳定的食物供应，却也让人类陷入了更加辛苦的劳作和更大的社会不平等。书中关于"人类是如何通过虚构的故事来构建大规模协作"的论述更是精彩绝伦。读完这本书，我重新审视了人类在地球上的位置，以及我们未来的走向。'
+    },
+    'thinking': {
+        title: '📚 思考，快与慢',
+        subtitle: '丹尼尔·卡尼曼',
+        image: 'images/book-thinking.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20thinking%20fast%20and%20slow%20psychology%20brain%20cognitive%20science%20professional%20vertical&image_size=portrait_2_3',
+        meta: ['📖 心理学', '📅 2011', '🏷️ 行为经济学', '⭐ 豆瓣8.1'],
+        summary: '诺贝尔经济学奖得主丹尼尔·卡尼曼在这本书中介绍了人类思维的两种模式：系统1（快速、直觉、无意识）和系统2（缓慢、理性、有意识）。通过大量的实验和案例，揭示了我们在判断和决策中存在的各种认知偏差。',
+        thoughts: '这是一本让我重新认识自己思维方式的书。卡尼曼用通俗易懂的语言解释了复杂的心理学概念，让我意识到自己每天都在犯各种认知错误。锚定效应、损失厌恶、确认偏误——这些概念帮助我理解了为什么我们会做出不理性的决策。最有价值的是，这本书教会了我如何识别和避免这些偏差，让我在生活和工作中做出更明智的选择。'
+    },
+    'deepwork': {
+        title: '📚 深度工作',
+        subtitle: '卡尔·纽波特',
+        image: 'images/book-deepwork.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20deep%20work%20productivity%20focus%20minimalist%20professional%20workspace%20vertical&image_size=portrait_2_3',
+        meta: ['📖 自我提升', '📅 2016', '🏷️ 时间管理', '⭐ 豆瓣7.9'],
+        summary: '在这个信息爆炸的时代，深度工作能力变得越来越稀缺。卡尔·纽波特提出了深度工作的概念——在无干扰的状态下进行专注的职业活动，从而创造新价值、提升技能。书中介绍了如何培养深度工作习惯，提高工作效率。',
+        thoughts: '这本书改变了我的工作方式。在读完这本书之前，我习惯了随时处理邮件和消息，以为这样效率更高。但实际上，这种碎片化的工作方式严重影响了我的专注力和创造力。深度工作让我意识到，真正有价值的工作需要长时间的专注。现在，我每天都会安排一段不受打扰的深度工作时间，专注于最重要的任务。这种改变让我的工作效率和质量都有了显著提升。'
+    },
+    'atomic': {
+        title: '📚 原子习惯',
+        subtitle: '詹姆斯·克利尔',
+        image: 'images/book-atomic.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20atomic%20habits%20self%20improvement%20success%20minimalist%20modern%20clean%20vertical&image_size=portrait_2_3',
+        meta: ['📖 自我提升', '📅 2018', '🏷️ 习惯养成', '⭐ 豆瓣8.3'],
+        summary: '《原子习惯》提出了一个简单而强大的观点：微小的改变可以带来惊人的结果。作者詹姆斯·克利尔介绍了如何通过建立良好的习惯、消除不良习惯来实现个人成长和成功。书中提供了实用的方法和技巧，帮助读者养成持久的好习惯。',
+        thoughts: '这本书让我明白了习惯的力量。我们常常追求大的改变，却忽略了每天微小的进步。"每天进步1%，一年后就是37倍"——这个公式深深震撼了我。书中关于"习惯叠加"和"环境设计"的方法非常实用，让我能够轻松地将新习惯融入日常生活。现在，我更加注重培养那些看似微小但意义深远的习惯，相信时间会带来巨大的改变。'
+    },
+    'hobbit': {
+        title: '📚 霍比特人',
+        subtitle: 'J.R.R.托尔金',
+        image: 'images/book-hobbit.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20the%20hobbit%20fantasy%20adventure%20middle%20earth%20magical%20elves%20vertical&image_size=portrait_2_3',
+        meta: ['📖 奇幻', '📅 1937', '🏷️ 中土世界', '⭐ 豆瓣9.2'],
+        summary: '《霍比特人》是托尔金中土世界系列的开篇之作。故事讲述了霍比特人比尔博·巴金斯在巫师甘道夫的引导下，加入了一支矮人远征队，踏上了夺回孤山宝藏的冒险之旅。途中，他遇到了各种神奇的生物，经历了无数惊险的挑战。',
+        thoughts: '这是一本充满奇幻色彩的冒险故事。托尔金创造了一个完整而丰富的中土世界，让我沉浸其中无法自拔。比尔博的成长历程让我深受感动——从一个安逸的霍比特人到勇敢的冒险家，他的转变激励着我勇敢面对生活中的挑战。书中的角色形象鲜明，情节跌宕起伏，每一次阅读都让我仿佛置身于那个神奇的世界。这是一本适合所有年龄段读者的经典之作。'
+    }
+};
