@@ -522,6 +522,132 @@ p {
     font-size: 0.7rem;
 }
 
+/* ========== 服务中心页面卡片样式 ========== */
+.fh-card-resources-free {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    background: linear-gradient(135deg, #00c853 0%, #009624 50%, #00691e 100%);
+}
+
+.fh-card-resources-free h3 {
+    font-size: 1.4rem;
+}
+
+.fh-card-resources-free p {
+    font-size: 0.9rem;
+}
+
+.fh-card-resources-open {
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    background: linear-gradient(135deg, #536dfe 0%, #3949ab 100%);
+}
+
+.fh-card-resources-paid {
+    grid-column: 4 / 5;
+    grid-row: 1 / 4;
+    background: linear-gradient(135deg, #aa00ff 0%, #7b1fa2 100%);
+}
+
+.fh-card-resources-links {
+    grid-column: 2 / 3;
+    grid-row: 2 / 4;
+    background: linear-gradient(135deg, #ff9800 0%, #e65100 100%);
+}
+
+.fh-card-resources-5 {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+}
+
+.fh-card-resources-5 h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.fh-card-resources-5 p {
+    font-size: 0.7rem;
+}
+
+.fh-card-resources-6 {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+    background: linear-gradient(135deg, #ffeb3b 0%, #fbc02d 100%);
+}
+
+.fh-card-resources-6 h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.fh-card-resources-6 p {
+    font-size: 0.7rem;
+}
+
+/* ========== 站点信息页面卡片样式 ========== */
+.fh-card-site-changelog {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    background: linear-gradient(135deg, #e91e63 0%, #c2185b 50%, #880e4f 100%);
+}
+
+.fh-card-site-changelog h3 {
+    font-size: 1.4rem;
+}
+
+.fh-card-site-changelog p {
+    font-size: 0.9rem;
+}
+
+.fh-card-site-subscribe {
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+}
+
+.fh-card-site-compliance {
+    grid-column: 4 / 5;
+    grid-row: 1 / 4;
+    background: linear-gradient(135deg, #795548 0%, #5d4037 100%);
+}
+
+.fh-card-site-4 {
+    grid-column: 2 / 3;
+    grid-row: 2 / 4;
+    background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);
+}
+
+.fh-card-site-5 {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+}
+
+.fh-card-site-5 h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.fh-card-site-5 p {
+    font-size: 0.7rem;
+}
+
+.fh-card-site-6 {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+    background: linear-gradient(135deg, #3f51b5 0%, #303f9f 100%);
+}
+
+.fh-card-site-6 h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.fh-card-site-6 p {
+    font-size: 0.7rem;
+}
+
 /* ============================================
    精选作品展示（首页）
    ============================================ */
@@ -1156,6 +1282,28 @@ li {
     background: rgba(0, 120, 212, 0.2); /* 悬停背景：蓝色半透明 */
     border-color: var(--primary-color);  /* 悬停边框：蓝色 */
     transform: translateX(5px);          /* 悬停：向右移动5px */
+}
+
+.link-icon {
+    font-size: 1.5rem;             /* 图标大小：1.5rem */
+    flex-shrink: 0;                /* 不收缩 */
+}
+
+.link-info {
+    display: flex;                 /* 弹性布局 */
+    flex-direction: column;        /* 垂直排列 */
+    gap: 0.25rem;                  /* 间距：0.25rem */
+}
+
+.link-name {
+    font-weight: bold;             /* 加粗 */
+    font-size: 1.05rem;            /* 字体稍大 */
+    color: var(--accent-color);    /* 亮色 */
+}
+
+.link-desc {
+    font-size: 0.85rem;            /* 字体稍小 */
+    color: var(--text-secondary);  /* 灰色 */
 }
 
 /* ============================================
@@ -2602,26 +2750,27 @@ html.fh-transition-dissolve::view-transition-new(root) {
    更新日志页面紧凑布局 (v0.3.6)
    ============================================ */
 .site-info-changelog .container {
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1rem;
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 0.6rem;
 }
 
 .site-info-changelog .container h2 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0;
     color: rgba(255, 255, 255, 0.9);
 }
 
 .site-info-changelog .container ul {
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 1.2rem;
+    padding-left: 1rem;
 }
 
 .site-info-changelog .container li {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 0.2rem;
     color: rgba(255, 255, 255, 0.7);
 }
 
