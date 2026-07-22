@@ -1,11 +1,12 @@
-<!-- 版本：v0.3.5-dev -->
+<!-- 版本：v0.4.2-dev -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XueXue的个人空间</title>
+    <title>XueXue的小窝</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <!-- 顶部导航栏 -->
@@ -36,41 +37,104 @@
 
     <!-- 主内容区域 -->
     <main class="main-content">
+        <!-- 左侧竖条导航按钮 -->
+        <nav class="side-nav">
+            <a href="#quick-nav" class="side-nav-item" data-target="quick-nav">快速导航</a>
+            <a href="#contact-section" class="side-nav-item" data-target="contact">联系我</a>
+            <a href="#latest" class="side-nav-item" data-target="latest">最新创作</a>
+            <a href="#featured" class="side-nav-item" data-target="featured">精选作品</a>
+        </nav>
+
         <!-- 主页介绍卡片 -->
-        <div class="hero-card">
-            <h1>欢迎来到薛大侠的个人空间</h1>
-            <p class="slogan">"探索、学习、成长、分享"</p>
-            <p class="subtitle">记录技术、生活与成长的点点滴滴</p>
-            <p>在这里，我会分享我的技术心得、生活感悟、阅读体验，以及各种有趣的资源和工具。</p>
+        <div class="hero-card" id="hero">
+            <div class="hero-card-decoration"></div>
+            <h1>欢迎来到XueXue的秘密基地</h1>
+            <p>这是我的个人数字空间，旨在沉淀知识、分享价值、记录成长足迹，探索技术与创作的无限可能。在这里，我会分享技术心得、生活感悟、阅读体验，以及有趣的资源和工具。</p>
+            <div class="hero-card-badge">
+                <span class="badge-icon">🎉</span>
+                <span class="badge-text">近期活动：暂无活动预告，敬请期待</span>
+            </div>
         </div>
 
-        <!-- 建站初衷 -->
-        <div class="container">
-            <h2>🏠 建站初衷</h2>
-            <p>这个网站是我的个人数字空间，用于记录和分享我的成长历程。我希望通过这个平台：</p>
-            <ul>
-                <li>沉淀自己的知识和经验，形成系统化的知识体系</li>
-                <li>与他人分享有价值的内容，帮助有需要的朋友</li>
-                <li>记录生活中的美好瞬间，留下成长的足迹</li>
-                <li>探索技术与创作的乐趣，不断提升自己</li>
-            </ul>
+        <!-- 二级页面导航 -->
+        <div class="container site-nav-container" id="quick-nav">
+            <h2>� 快速导航</h2>
+            <div class="quick-nav-grid">
+                <div class="quick-nav-group">
+                    <h3>👤 关于我</h3>
+                    <div class="quick-nav-links">
+                        <a href="about-growth.html">📈 成长经历</a>
+                        <a href="about-career.html">💼 职业经历</a>
+                        <a href="about-skills.html">🎯 专业技能</a>
+                        <a href="about-honors.html">🏆 荣誉证书</a>
+                        <a href="about-interests.html">🎨 兴趣爱好</a>
+                        <a href="about-family.html">👨‍👩‍👧 家庭生活</a>
+                    </div>
+                </div>
+                
+                <div class="quick-nav-group">
+                    <h3>✍️ 内容创作</h3>
+                    <div class="quick-nav-links">
+                        <a href="creation-articles.html">📝 干货分享</a>
+                        <a href="creation-reading.html">📚 读书笔记</a>
+                        <a href="creation-thoughts.html">💭 随想碎念</a>
+                        <a href="creation-movies.html">🎬 影评</a>
+                        <a href="creation-videos.html">🎥 视频作品</a>
+                        <a href="creation-projects.html">🔧 个人项目</a>
+                    </div>
+                </div>
+                
+                <div class="quick-nav-group">
+                    <h3>🛠️ 服务中心</h3>
+                    <div class="quick-nav-links">
+                        <a href="resources-free.html">🆓 免费资源</a>
+                        <a href="resources-opensource.html">🔓 开源项目</a>
+                        <a href="resources-paid.html">💎 付费专栏</a>
+                        <a href="resources-links.html">🔗 友情链接</a>
+                    </div>
+                </div>
+                
+                <div class="quick-nav-group">
+                    <h3>📋 站点信息</h3>
+                    <div class="quick-nav-links">
+                        <a href="site-info-changelog.html">📅 更新日志</a>
+                        <a href="site-info-subscribe.html">📮 订阅服务</a>
+                        <a href="site-info-compliance.html">📜 合规声明</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- 简短公告 -->
-        <div class="announcement-card">
-            <h3>📢 站点公告</h3>
-            <p>网站已完成重大更新，全新的内容结构和页面设计，欢迎探索！</p>
-            <p>如果你有任何建议或想法，欢迎在服务中心页面留言反馈。</p>
-        </div>
-
-        <!-- 活动预告 -->
-        <div class="event-card">
-            <h3>🎉 近期活动</h3>
-            <p>暂无活动预告，敬请期待...</p>
+        <!-- 联系方式 -->
+        <div class="container contact-container" id="contact-section">
+            <h2>📞 联系我</h2>
+            <p>欢迎通过以下方式与我取得联系，期待与你的交流！</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>📧 邮箱</h3>
+                    <p>通过邮箱与我联系，通常24小时内回复</p>
+                    <a href="mailto:hello@暂不公开">hello@暂不公开</a>
+                </div>
+                <div class="contact-item">
+                    <h3>💬 微信</h3>
+                    <p>添加微信好友，备注来源和目的</p>
+                    <p>微信号：暂不公开</p>
+                </div>
+                <div class="contact-item">
+                    <h3>🐙 GitHub</h3>
+                    <p>查看我的开源项目和代码</p>
+                    <a href="https://github.com/暂不公开" target="_blank">github.com/暂不公开</a>
+                </div>
+                <div class="contact-item">
+                    <h3>📱 公众号</h3>
+                    <p>关注公众号，获取最新动态</p>
+                    <p>暂不公开</p>
+                </div>
+            </div>
         </div>
 
         <!-- 最新创作 -->
-        <div class="container">
+        <div class="container" id="latest">
             <h2>📝 最新创作</h2>
             <div class="featured-grid">
                 <div class="featured-item">
@@ -103,7 +167,7 @@
         </div>
 
         <!-- 精选作品 -->
-        <div class="container">
+        <div class="container" id="featured">
             <h2>🏆 精选作品</h2>
             <div class="featured-grid">
                 <div class="featured-item">
@@ -125,61 +189,10 @@
                 </div>
             </div>
         </div>
-
-        <!-- 全站导航入口 -->
-        <div class="container">
-            <h2>🗺️ 全站导航</h2>
-            <div class="modules-grid">
-                <a href="about.html" class="module-card">
-                    <h3>� 关于我</h3>
-                    <p>成长生活经历、职业经历、专业技能、荣誉证书、兴趣收藏、家庭生活</p>
-                </a>
-                
-                <a href="creation.html" class="module-card">
-                    <h3>✍️ 内容创作</h3>
-                    <p>干货分享、读书笔记、随想碎碎念、视频作品、个人项目、活动预告</p>
-                </a>
-                
-                <a href="resources.html" class="module-card">
-                    <h3>🛠️ 服务中心</h3>
-                    <p>资源工具、互动交流、商务合作等服务中心</p>
-                </a>
-                
-                <a href="site-info.html" class="module-card">
-                    <h3>� 站点信息</h3>
-                    <p>更新日志、RSS订阅、版权隐私、免责声明、ICP备案</p>
-                </a>
-            </div>
-        </div>
-
-        <!-- 联系方式 -->
-        <div class="container" id="contact-section">
-            <h2>📞 联系我</h2>
-            <p>欢迎通过以下方式与我取得联系，期待与你的交流！</p>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <h3>📧 邮箱</h3>
-                    <p>通过邮箱与我联系，通常24小时内回复</p>
-                    <a href="mailto:hello@xuexue.fun">hello@xuexue.fun</a>
-                </div>
-                <div class="contact-item">
-                    <h3>💬 微信</h3>
-                    <p>添加微信好友，备注来源和目的</p>
-                    <p>微信号：xuexue_cool</p>
-                </div>
-                <div class="contact-item">
-                    <h3>🐙 GitHub</h3>
-                    <p>查看我的开源项目和代码</p>
-                    <a href="https://github.com/xuexue" target="_blank">github.com/xuexue</a>
-                </div>
-                <div class="contact-item">
-                    <h3>📱 公众号</h3>
-                    <p>关注公众号，获取最新动态</p>
-                    <p>薛大侠的小窝</p>
-                </div>
-            </div>
-        </div>
     </main>
+
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()">↑</button>
 
     <!-- 页脚 -->
     <footer class="footer">
@@ -188,7 +201,7 @@
             <a href="site-info.html" class="footer-link">站点信息</a>
             <a href="#contact-section" class="footer-link">联系我</a>
         </div>
-        <p>v0.3.2</p>
+        <p>v0.4.2</p>
     </footer>
 
     <script src="js/script.js"></script>

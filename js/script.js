@@ -349,7 +349,7 @@ function initSideNav() {
     const triggerOffset = 200;
     
     function updateHighlight() {
-        const sections = document.querySelectorAll('.timeline-section[id]');
+        const sections = document.querySelectorAll('.timeline-section[id], .hero-card[id], .container[id]');
         let currentSectionId = '';
         
         sections.forEach(section => {

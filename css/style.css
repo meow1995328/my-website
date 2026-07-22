@@ -133,7 +133,7 @@ body {
 .main-content {
     max-width: 1400px;              /* 最大宽度：1400px */
     margin: 0 auto;                 /* 水平居中 */
-    padding: 3rem 2rem 1rem;        /* 内边距：上7rem（避开导航栏），左右2rem，下3rem */
+    padding: 3rem 2rem 1rem 50px;   /* 内边距：上3rem，右2rem，下1rem，左50px（避开左侧导航） */
     min-height: calc(100vh - 200px); /* 最小高度：视口高度-200px */
 }
 
@@ -218,23 +218,145 @@ p {
    ============================================ */
 .hero-card {
     text-align: center;                                   /* 文字居中 */
-    padding: 4rem 2rem;                                  /* 内边距：上下4rem，左右2rem */
-    background: linear-gradient(135deg, rgba(0, 120, 212, 0.2), rgba(0, 188, 242, 0.1)); /* 蓝色渐变背景 */
-    border: 2px solid var(--primary-color);              /* 蓝色边框 */
-    border-radius: 16px;                                 /* 圆角：16px */
-    margin-bottom: 3rem;                                 /* 下边距：3rem */
+    padding: 3rem 2rem;                                  /* 内边距：上下3rem，左右2rem */
+    background: linear-gradient(135deg, rgba(0, 120, 212, 0.3), rgba(0, 188, 242, 0.15), rgba(156, 39, 176, 0.1)); /* 多彩渐变背景 */
+    border: 2px solid transparent;                       /* 透明边框 */
+    border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color), #9c27b0) 1; /* 渐变边框 */
+    border-radius: 20px 20px 0 0;                        /* 圆角：只有顶部圆角 */
+    margin-bottom: 0;                                    /* 去掉下边距，完全紧贴 */
+    box-shadow: 0 8px 32px rgba(0, 120, 212, 0.15), 0 0 60px rgba(0, 188, 242, 0.05); /* 双层阴影 */
+    position: relative;                                  /* 相对定位 */
+    overflow: hidden;                                    /* 隐藏溢出 */
+}
+
+.hero-card-decoration {
+    position: absolute;                                  /* 绝对定位 */
+    top: -50%;                                          /* 顶部偏移 */
+    right: -20%;                                        /* 右侧偏移 */
+    width: 300px;                                       /* 宽度 */
+    height: 300px;                                      /* 高度 */
+    background: radial-gradient(circle, rgba(0, 188, 242, 0.2) 0%, transparent 70%); /* 径向渐变 */
+    border-radius: 50%;                                  /* 圆形 */
+    animation: float 6s ease-in-out infinite;            /* 浮动动画 */
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }      /* 初始和结束状态 */
+    50% { transform: translateY(-20px) scale(1.1); }     /* 中间状态 */
 }
 
 .hero-card h1 {
-    font-size: 2.8rem;   /* 标题字体大小：2.8rem */
+    font-size: 2.6rem;   /* 标题字体大小：2.6rem */
     border: none;        /* 去掉底部边框 */
-    margin-bottom: 1rem; /* 下边距：1rem */
+    margin-bottom: 1.5rem; /* 下边距：1.5rem */
+    background: linear-gradient(135deg, #fff, var(--accent-color), #ffd700); /* 多彩渐变文字 */
+    -webkit-background-clip: text;                       /* 背景裁剪 */
+    -webkit-text-fill-color: transparent;                /* 文字透明 */
+    background-clip: text;                               /* 背景裁剪 */
+    text-shadow: 0 0 40px rgba(0, 188, 242, 0.3);       /* 文字发光 */
+    position: relative;                                  /* 相对定位 */
+    z-index: 1;                                          /* 层级 */
 }
 
-.hero-card .subtitle {
-    font-size: 1.3rem;              /* 副标题字体大小：1.3rem */
-    color: var(--text-secondary);   /* 副标题颜色：灰色 */
-    margin-bottom: 2rem;            /* 下边距：2rem */
+.hero-card p {
+    font-size: 1.05rem;            /* 字体大小：1.05rem */
+    line-height: 1.9;              /* 行高：1.9 */
+    color: var(--text-secondary);   /* 颜色：灰色 */
+    max-width: 750px;              /* 最大宽度：750px */
+    margin: 0 auto;                /* 居中 */
+    position: relative;            /* 相对定位 */
+    z-index: 1;                    /* 层级 */
+    padding: 1rem 1.5rem;          /* 内边距 */
+    background: rgba(0, 0, 0, 0.1);                     /* 半透明背景 */
+    border-radius: 10px;            /* 圆角 */
+    border: 1px solid rgba(0, 188, 242, 0.15);          /* 边框 */
+}
+
+.hero-card-badge {
+    display: inline-flex;           /* 弹性布局 */
+    align-items: center;            /* 垂直居中 */
+    gap: 0.5rem;                    /* 间距：0.5rem */
+    margin-top: 1.5rem;             /* 上边距：1.5rem */
+    padding: 0.4rem 1rem;          /* 内边距 */
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.1)); /* 金色渐变背景 */
+    border: 1px solid rgba(255, 215, 0, 0.4);           /* 金色边框 */
+    border-radius: 20px;            /* 圆角：20px */
+    position: relative;            /* 相对定位 */
+    z-index: 1;                    /* 层级 */
+}
+
+.badge-icon {
+    font-size: 1.1rem;             /* 图标大小：1.1rem */
+    animation: bounce 2s ease-in-out infinite; /* 弹跳动画 */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }    /* 初始和结束状态 */
+    50% { transform: translateY(-3px); }      /* 中间状态 */
+}
+
+.badge-text {
+    font-size: 0.85rem;            /* 字体大小：0.85rem */
+    color: #ffd700;                /* 金色文字 */
+    font-weight: 500;              /* 中等粗细 */
+}
+
+/* ============================================
+   二级页面导航容器
+   ============================================ */
+.site-nav-container {
+    margin-top: 0;                    /* 去掉顶部边距 */
+    margin-bottom: 1.5rem;            /* 下边距：1.5rem */
+    border-top-left-radius: 0;        /* 左上角圆角为0，与hero-card连接 */
+    border-top-right-radius: 0;       /* 右上角圆角为0，与hero-card连接 */
+    border-top: none;                 /* 去掉顶部边框 */
+    padding-top: 1.5rem;              /* 顶部内边距：1.5rem */
+    background: rgba(0, 120, 212, 0.08); /* 淡蓝色背景 */
+    border-color: rgba(0, 120, 212, 0.3); /* 边框颜色 */
+}
+
+.quick-nav-grid {
+    display: grid;                    /* 网格布局 */
+    grid-template-columns: repeat(2, 1fr); /* 两列布局 */
+    gap: 1.5rem;                      /* 间距：1.5rem */
+}
+
+.quick-nav-group {
+    background: rgba(0, 0, 0, 0.1);   /* 深色背景 */
+    border-radius: 10px;              /* 圆角：10px */
+    padding: 1rem 1.2rem;            /* 内边距 */
+    border: 1px solid rgba(0, 120, 212, 0.2); /* 边框 */
+}
+
+.quick-nav-group h3 {
+    font-size: 1rem;                 /* 字体大小：1rem */
+    color: var(--accent-color);      /* 颜色：亮色 */
+    margin: 0 0 0.8rem 0;           /* 下边距：0.8rem */
+    padding-bottom: 0.5rem;          /* 底部内边距 */
+    border-bottom: 1px dashed rgba(0, 188, 242, 0.3); /* 底部虚线边框 */
+}
+
+.quick-nav-links {
+    display: flex;                   /* 弹性布局 */
+    flex-wrap: wrap;                 /* 自动换行 */
+    gap: 0.5rem 0.8rem;              /* 间距：上下0.5rem，左右0.8rem */
+}
+
+.quick-nav-links a {
+    font-size: 0.85rem;              /* 字体大小：0.85rem */
+    color: var(--text-secondary);    /* 颜色：灰色 */
+    text-decoration: none;           /* 去掉下划线 */
+    padding: 0.3rem 0.6rem;          /* 内边距 */
+    background: rgba(0, 120, 212, 0.1); /* 蓝色背景 */
+    border-radius: 6px;              /* 圆角：6px */
+    transition: all 0.3s ease;       /* 过渡效果 */
+    white-space: nowrap;             /* 不换行 */
+}
+
+.quick-nav-links a:hover {
+    background: rgba(0, 188, 242, 0.25); /* 悬停背景变深 */
+    color: var(--accent-color);      /* 悬停颜色变亮 */
+    transform: translateY(-1px);     /* 轻微上浮 */
 }
 
 /* ============================================
@@ -1229,31 +1351,45 @@ li {
    ============================================ */
 .contact-grid {
     display: grid;                              /* 网格布局 */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 自动填充：最小250px */
-    gap: 2rem;                                 /* 间距：2rem */
-    margin-top: 2rem;                          /* 上边距：2rem */
+    grid-template-columns: repeat(4, 1fr);      /* 4列布局 */
+    gap: 0.8rem;                               /* 间距：0.8rem */
+    margin-top: 0.8rem;                        /* 上边距：0.8rem */
 }
 
 .contact-item {
-    background: var(--bg-card);           /* 背景：卡片色 */
-    padding: 1.5rem;                      /* 内边距：1.5rem */
-    border-radius: 8px;                   /* 圆角：8px */
-    text-align: center;                   /* 文字居中 */
-    border: 1px solid var(--border-color); /* 边框：灰色 */
+    background: rgba(0, 120, 212, 0.1);        /* 淡蓝色背景 */
+    padding: 0.6rem 0.8rem;                    /* 紧凑内边距 */
+    border-radius: 6px;                         /* 圆角：6px */
+    text-align: center;                         /* 文字居中 */
+    border: 1px solid rgba(0, 188, 242, 0.2);   /* 淡青色边框 */
+    transition: all 0.3s ease;                  /* 过渡效果 */
+}
+
+.contact-item:hover {
+    background: rgba(0, 188, 242, 0.15);       /* 悬停背景变深 */
+    transform: translateY(-2px);                /* 轻微上浮 */
 }
 
 .contact-item h3 {
-    margin-top: 0; /* 去掉上边距 */
+    margin: 0 0 0.3rem 0;                      /* 紧凑边距 */
+    font-size: 0.9rem;                          /* 字体稍小 */
+    color: var(--accent-color);                 /* 亮色 */
 }
 
-.contact-item a {
-    color: var(--accent-color); /* 链接颜色：亮青色 */
-    text-decoration: none;      /* 去掉下划线 */
-    font-size: 1.1rem;          /* 字体大小：1.1rem */
+.contact-item p {
+    margin: 0;                                  /* 去掉边距 */
+    font-size: 0.8rem;                          /* 小字体 */
+    color: var(--text-secondary);               /* 灰色 */
 }
 
-.contact-item a:hover {
-    text-decoration: underline; /* 悬停：下划线 */
+/* 联系方式容器 */
+.contact-container {
+    padding: 1rem 1.5rem;                       /* 紧凑内边距 */
+    margin-bottom: 1rem;                        /* 紧凑下边距 */
+}
+
+.contact-container h2 {
+    margin-bottom: 0;                           /* 去掉标题下边距 */
 }
 
 /* ============================================
@@ -1551,6 +1687,10 @@ li {
     .modules-grid,
     .featured-grid {
         grid-template-columns: 1fr; /* 网格变为单列 */
+    }
+    
+    .quick-nav-grid {
+        grid-template-columns: 1fr; /* 快速导航单列布局 */
     }
     
     h1 {
