@@ -1,4 +1,4 @@
-<!-- 版本：v0.4.2-dev -->
+<!-- 版本：v0.4.3-dev -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -47,13 +47,24 @@
     <main class="main-content">
         <div class="container">
             <h1>🏆 荣誉证书</h1>
-            <p>获得的奖项、证书、认证等</p>
+            <p>记录成长路上的每一份荣誉与成就</p>
         </div>
         
-        <!-- 更多详细内容容器 -->
+        <!-- 分类筛选标签 -->
         <div class="container">
-            <h2>章节标题</h2>
-            <p>详细内容占位符...</p>
+            <div class="honor-filter">
+                <button class="filter-btn active" data-category="all">全部</button>
+                <button class="filter-btn" data-category="award">奖状</button>
+                <button class="filter-btn" data-category="scholarship">奖学金</button>
+                <button class="filter-btn" data-category="competition">比赛</button>
+                <button class="filter-btn" data-category="certification">工作认证</button>
+            </div>
+        </div>
+        
+        <!-- 荣誉证书网格 -->
+        <div class="container">
+            <div class="honor-grid" id="honorGrid">
+            </div>
         </div>
         
         <!-- 返回按钮 -->
@@ -64,12 +75,121 @@
         </div>
     </main>
 
+    <!-- 图片弹窗 -->
+    <div id="honorModal" class="honor-modal">
+        <div class="honor-modal-content">
+            <button class="honor-modal-close" onclick="closeHonorModal()">&times;</button>
+            <div class="honor-modal-nav honor-modal-prev" onclick="prevHonor()">&#10094;</div>
+            <img id="honorModalImg" src="" alt="" class="honor-modal-img">
+            <div class="honor-modal-nav honor-modal-next" onclick="nextHonor()">&#10095;</div>
+            <div class="honor-modal-info">
+                <h3 id="honorModalTitle"></h3>
+                <p id="honorModalDesc"></p>
+            </div>
+        </div>
+    </div>
+
     <!-- 页脚 -->
     <footer class="footer">
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
-        <p>v0.4.2</p>
+        <p>v0.4.3</p>
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        const honorsData = [
+            { id: 1, category: 'award', title: '小学三好学生', desc: '连续三年获得校级三好学生称号', image: 'images/honors/honor-001.jpg' },
+            { id: 2, category: 'award', title: '初中优秀班干部', desc: '担任班长期间表现优秀', image: 'images/honors/honor-002.jpg' },
+            { id: 3, category: 'scholarship', title: '一等奖学金', desc: '大学期间学业成绩优异', image: 'images/honors/honor-003.jpg' },
+            { id: 4, category: 'scholarship', title: '国家奖学金', desc: '荣获国家级奖学金', image: 'images/honors/honor-004.jpg' },
+            { id: 5, category: 'competition', title: '编程比赛一等奖', desc: '省级程序设计竞赛获奖', image: 'images/honors/honor-005.jpg' },
+            { id: 6, category: 'competition', title: '乒乓球锦标赛冠军', desc: '校运动会乒乓球男单冠军', image: 'images/honors/honor-006.jpg' },
+            { id: 7, category: 'award', title: '话剧表演优秀奖', desc: '校园戏剧节最佳男演员', image: 'images/honors/honor-007.jpg' },
+            { id: 8, category: 'award', title: '口琴演奏二等奖', desc: '市青少年器乐比赛获奖', image: 'images/honors/honor-008.jpg' },
+            { id: 9, category: 'certification', title: '工程师认证', desc: '获得专业技术资格认证', image: 'images/honors/honor-009.jpg' },
+            { id: 10, category: 'certification', title: '志愿者服务证书', desc: '累计志愿服务超过200小时', image: 'images/honors/honor-010.jpg' },
+            { id: 11, category: 'scholarship', title: '优秀毕业生', desc: '毕业时荣获优秀毕业生称号', image: 'images/honors/honor-011.jpg' },
+            { id: 12, category: 'competition', title: '科技创新大赛二等奖', desc: '大学生创新创业大赛获奖', image: 'images/honors/honor-012.jpg' }
+        ];
+
+        let currentCategory = 'all';
+        let currentHonorIndex = 0;
+
+        function initHonors() {
+            renderHonors();
+            bindFilterEvents();
+        }
+
+        function renderHonors() {
+            const grid = document.getElementById('honorGrid');
+            const filtered = honorsData.filter(h => currentCategory === 'all' || h.category === currentCategory);
+            
+            grid.innerHTML = filtered.map((honor, index) => `
+                <div class="honor-card" onclick="openHonorModal(${filtered.findIndex(h => h.id === honor.id)})">
+                    <div class="honor-card-img">
+                        <img src="${honor.image}" alt="${honor.title}" loading="lazy">
+                    </div>
+                    <div class="honor-card-info">
+                        <h4>${honor.title}</h4>
+                        <p>${honor.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function bindFilterEvents() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.category;
+                    renderHonors();
+                });
+            });
+        }
+
+        function openHonorModal(index) {
+            const filtered = honorsData.filter(h => currentCategory === 'all' || h.category === currentCategory);
+            currentHonorIndex = index;
+            const honor = filtered[index];
+            
+            document.getElementById('honorModalImg').src = honor.image;
+            document.getElementById('honorModalTitle').textContent = honor.title;
+            document.getElementById('honorModalDesc').textContent = honor.desc;
+            document.getElementById('honorModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeHonorModal() {
+            document.getElementById('honorModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function prevHonor() {
+            const filtered = honorsData.filter(h => currentCategory === 'all' || h.category === currentCategory);
+            currentHonorIndex = (currentHonorIndex - 1 + filtered.length) % filtered.length;
+            openHonorModal(currentHonorIndex);
+        }
+
+        function nextHonor() {
+            const filtered = honorsData.filter(h => currentCategory === 'all' || h.category === currentCategory);
+            currentHonorIndex = (currentHonorIndex + 1) % filtered.length;
+            openHonorModal(currentHonorIndex);
+        }
+
+        document.getElementById('honorModal').addEventListener('click', function(e) {
+            if (e.target === this) closeHonorModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('honorModal').style.display === 'flex') {
+                if (e.key === 'Escape') closeHonorModal();
+                if (e.key === 'ArrowLeft') prevHonor();
+                if (e.key === 'ArrowRight') nextHonor();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', initHonors);
+    </script>
 </body>
 </html>

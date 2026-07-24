@@ -1,0 +1,257 @@
+<!-- 版本：v0.4.3-dev -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 收集簿 - 薛大侠</title>
+    <script>
+        if (new URLSearchParams(window.location.search).get('transition') === 'dissolve') {
+            document.documentElement.classList.add('fh-transition-dissolve');
+            setTimeout(() => {
+                document.documentElement.classList.remove('fh-transition-dissolve');
+            }, 600);
+        }
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body class="fh-subpage-enter">
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">薛大侠</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link active">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="creation.html" class="nav-link">内容创作</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resources.html" class="nav-link">服务中心</a>
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                    <a href="site-info.html" class="nav-link">站点信息</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1>📚 我的私人博物馆</h1>
+            <p>记录生活中的每一份珍藏与感动</p>
+        </div>
+        
+        <div class="container">
+            <div class="collection-stats">
+                <div class="stat-item">
+                    <span class="stat-number">48</span>
+                    <span class="stat-label">藏品总数</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">收藏类别</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">年收藏史</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="collection-grid" id="collectionGrid">
+            </div>
+        </div>
+        
+        <div class="collection-detail" id="collectionDetail">
+            <div class="container">
+                <button class="detail-close" onclick="closeCollectionDetail()">&times;</button>
+                <h2 id="detailTitle">类别详情</h2>
+                <div class="detail-grid" id="detailGrid">
+                </div>
+            </div>
+        </div>
+        
+        <div class="container" style="text-align: center;">
+            <a href="about.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
+                ← 返回关于我
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
+        <p>v0.4.3</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        const collectionsData = [
+            {
+                id: 'art',
+                name: '艺术类',
+                icon: '🎨',
+                count: 8,
+                color: 'linear-gradient(135deg, #ff6b6b, #ee5a5a)',
+                items: [
+                    { name: '油画《星空》复制品', desc: '梵高经典作品，手工临摹', year: '2023' },
+                    { name: '青花瓷花瓶', desc: '景德镇手工瓷器', year: '2022' },
+                    { name: '手绘明信片套装', desc: '旅途中收集的手绘作品', year: '2024' },
+                    { name: '水彩画工具套装', desc: '专业级水彩颜料和画笔', year: '2021' },
+                    { name: '木雕摆件', desc: '云南大理手工木雕', year: '2020' },
+                    { name: '剪纸艺术作品', desc: '非遗传承人作品', year: '2025' },
+                    { name: '书法作品', desc: '书法家亲笔题字', year: '2023' },
+                    { name: '陶艺杯', desc: '自己亲手制作的杯子', year: '2021' }
+                ]
+            },
+            {
+                id: 'books',
+                name: '书籍类',
+                icon: '📚',
+                count: 12,
+                color: 'linear-gradient(135deg, #4ecdc4, #44a08d)',
+                items: [
+                    { name: '《活着》', desc: '余华经典作品', year: '2019' },
+                    { name: '《三体》三部曲', desc: '刘慈欣科幻巨作', year: '2020' },
+                    { name: '《百年孤独》', desc: '马尔克斯魔幻现实主义', year: '2021' },
+                    { name: '《人类简史》', desc: '尤瓦尔·赫拉利', year: '2022' },
+                    { name: '《设计心理学》', desc: '唐纳德·诺曼', year: '2023' },
+                    { name: '《JavaScript高级程序设计》', desc: '前端开发经典', year: '2021' },
+                    { name: '《原则》', desc: '瑞·达利欧', year: '2020' },
+                    { name: '《小王子》', desc: '圣埃克苏佩里', year: '2018' },
+                    { name: '《围城》', desc: '钱钟书', year: '2019' },
+                    { name: '《红楼梦》', desc: '曹雪芹', year: '2024' },
+                    { name: '《枪炮、病菌与钢铁》', desc: '贾雷德·戴蒙德', year: '2022' },
+                    { name: '《苏菲的世界》', desc: '乔斯坦·贾德', year: '2025' }
+                ]
+            },
+            {
+                id: 'music',
+                name: '音乐类',
+                icon: '🎵',
+                count: 6,
+                color: 'linear-gradient(135deg, #a29bfe, #6c5ce7)',
+                items: [
+                    { name: '口琴', desc: '德国进口复音口琴', year: '2019' },
+                    { name: '吉他', desc: '雅马哈民谣吉他', year: '2021' },
+                    { name: '黑胶唱片', desc: '披头士经典专辑', year: '2022' },
+                    { name: '耳机', desc: '森海塞尔HD600', year: '2023' },
+                    { name: '乐谱收藏', desc: '经典钢琴曲谱', year: '2020' },
+                    { name: '音乐盒', desc: '瑞士手工音乐盒', year: '2024' }
+                ]
+            },
+            {
+                id: 'games',
+                name: '游戏类',
+                icon: '🎮',
+                count: 10,
+                color: 'linear-gradient(135deg, #fd79a8, #e84393)',
+                items: [
+                    { name: 'Switch游戏机', desc: '任天堂Switch', year: '2020' },
+                    { name: 'PS5', desc: '索尼PlayStation 5', year: '2021' },
+                    { name: '经典游戏卡带', desc: 'FC红白机游戏', year: '2019' },
+                    { name: '手柄收藏', desc: '多款经典手柄', year: '2022' },
+                    { name: '游戏周边', desc: '塞尔达传说手办', year: '2023' },
+                    { name: '桌游套装', desc: '卡坦岛、璀璨宝石等', year: '2024' },
+                    { name: '街机摇杆', desc: '专业游戏摇杆', year: '2021' },
+                    { name: '游戏海报', desc: '经典游戏宣传海报', year: '2022' },
+                    { name: '限定版游戏', desc: '收藏版游戏套装', year: '2023' },
+                    { name: '游戏攻略书', desc: '经典游戏攻略', year: '2020' }
+                ]
+            },
+            {
+                id: 'gifts',
+                name: '礼品类',
+                icon: '🎁',
+                count: 8,
+                color: 'linear-gradient(135deg, #fdcb6e, #f39c12)',
+                items: [
+                    { name: '生日礼物 - 手表', desc: '朋友送的机械手表', year: '2022' },
+                    { name: '毕业礼物 - 钢笔', desc: '恩师赠送的钢笔', year: '2021' },
+                    { name: '纪念日礼物 - 项链', desc: '女朋友送的项链', year: '2023' },
+                    { name: '新年礼物 - 红包', desc: '长辈给的红包收藏', year: '2024' },
+                    { name: '入职礼物 - 笔记本', desc: '公司入职礼物', year: '2021' },
+                    { name: '旅行礼物 - 特产', desc: '各地朋友带回的特产', year: '2025' },
+                    { name: '手工礼物 - 织围巾', desc: '妈妈织的围巾', year: '2020' },
+                    { name: '惊喜礼物 - 盲盒', desc: '朋友送的惊喜盲盒', year: '2023' }
+                ]
+            },
+            {
+                id: 'other',
+                name: '其他',
+                icon: '🏷️',
+                count: 4,
+                color: 'linear-gradient(135deg, #74b9ff, #0984e3)',
+                items: [
+                    { name: '旅行车票收藏', desc: '各地火车票、机票', year: '2018-2025' },
+                    { name: '电影票根', desc: '印象深刻的电影票', year: '2019-2025' },
+                    { name: '门票收藏', desc: '景区门票、展览门票', year: '2020-2025' },
+                    { name: '徽章收藏', desc: '各类活动纪念徽章', year: '2021-2025' }
+                ]
+            }
+        ];
+
+        function initCollection() {
+            renderCollectionGrid();
+        }
+
+        function renderCollectionGrid() {
+            const grid = document.getElementById('collectionGrid');
+            grid.innerHTML = collectionsData.map(cat => `
+                <div class="collection-card" onclick="openCollectionDetail('${cat.id}')">
+                    <div class="collection-card-icon">${cat.icon}</div>
+                    <div class="collection-card-info">
+                        <h3>${cat.name}</h3>
+                        <p>${cat.count}件藏品</p>
+                    </div>
+                    <div class="collection-card-bg" style="background: ${cat.color}"></div>
+                </div>
+            `).join('');
+        }
+
+        function openCollectionDetail(catId) {
+            const category = collectionsData.find(c => c.id === catId);
+            const detail = document.getElementById('collectionDetail');
+            const title = document.getElementById('detailTitle');
+            const grid = document.getElementById('detailGrid');
+            
+            title.innerHTML = `${category.icon} ${category.name}`;
+            grid.innerHTML = category.items.map(item => `
+                <div class="detail-item">
+                    <span class="detail-item-year">${item.year}</span>
+                    <div class="detail-item-info">
+                        <h4>${item.name}</h4>
+                        <p>${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            detail.style.display = 'block';
+            setTimeout(() => {
+                detail.classList.add('active');
+            }, 10);
+        }
+
+        function closeCollectionDetail() {
+            const detail = document.getElementById('collectionDetail');
+            detail.classList.remove('active');
+            setTimeout(() => {
+                detail.style.display = 'none';
+            }, 300);
+        }
+
+        document.getElementById('collectionDetail').addEventListener('click', function(e) {
+            if (e.target === this) closeCollectionDetail();
+        });
+
+        document.addEventListener('DOMContentLoaded', initCollection);
+    </script>
+</body>
+</html>
