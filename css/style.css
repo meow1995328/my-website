@@ -64,24 +64,51 @@ body {
 }
 
 .nav {
-    max-width: 1400px; /* 最大宽度：1400px */
-    margin: 0 auto;    /* 水平居中 */
-    display: flex;     /* 弹性布局 */
-    align-items: center; /* 垂直居中 */
-    justify-content: center; /* 水平居中 */
-    padding: 0 2rem;   /* 上下0，左右2rem */
-    height: 60px;      /* 固定高度 */
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 2rem;
+    height: 60px;
 }
 
 /* ========== Logo样式 ========== */
 /* 网站Logo，当前设计不需要显示，故隐藏 */
 .logo {
-    display: none; /* Logo隐藏（当前设计不需要） */
+    display: none;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00d4ff, #7c4dff, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+.header-subtitle {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.75);
+    margin-left: 0.8rem;
+    max-width: 400px;
+    line-height: 1.3;
+}
+
+@keyframes titleGlow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
 }
 
 /* ========== 导航菜单容器 ========== */
 /* 包含所有一级导航按钮的无序列表容器 */
 .nav-menu {
+    margin-left: auto;
     display: flex;     /* 弹性布局：水平排列所有菜单项 */
     list-style: none;  /* 去掉列表项默认圆点 */
     gap: 0.5rem;       /* 列表项之间的间距 */
@@ -131,9 +158,9 @@ body {
    主内容区域
    ============================================ */
 .main-content {
-    max-width: 1400px;              /* 最大宽度：1400px */
-    margin: 0 auto;                 /* 水平居中 */
-    padding: 3rem 2rem 1rem 50px;   /* 内边距：上3rem，右2rem，下1rem，左50px（避开左侧导航） */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 2rem 1rem 50px;
     min-height: calc(100vh - 200px); /* 最小高度：视口高度-200px */
 }
 
@@ -217,8 +244,8 @@ p {
    主页介绍卡片
    ============================================ */
 .hero-card {
-    text-align: center;                                   /* 文字居中 */
-    padding: 3rem 2rem;                                  /* 内边距：上下3rem，左右2rem */
+    text-align: center;
+    padding: 1.5rem 2rem;
     background: linear-gradient(135deg, rgba(0, 120, 212, 0.3), rgba(0, 188, 242, 0.15), rgba(156, 39, 176, 0.1)); /* 多彩渐变背景 */
     border: 2px solid transparent;                       /* 透明边框 */
     border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color), #9c27b0) 1; /* 渐变边框 */
@@ -443,31 +470,31 @@ p {
    地平线6风格卡片网格布局（关于我页面）
    ============================================ */
 .fh-grid {
-    display: grid;                               /* 网格布局 */
-    grid-template-columns: 1.5fr 1.5fr 1.5fr 1.5fr; /* 4列：比例1.5:2:1.8:1.5 */
-    grid-template-rows: 220px 110px 110px;      /* 3行：高度280px, 160px, 160px（增大行高） */
-    gap: 7px;                                    /* 网格间距：6px */
-    width: 100%;                                 /* 宽度：100% */
-    max-width: 1400px;                           /* 最大宽度：1400px（增大宽度覆盖更多页面） */
-    margin: 0.5rem auto;                         /* 水平居中，上下0.5rem（减少上下边距） */
-    padding: 6px;                                /* 内边距：6px */
-    background: rgba(255, 255, 255, 0.05);      /* 背景：白色极淡透明 */
-    border-radius: 16px;                         /* 圆角：16px */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 180px 100px 100px;
+    gap: 6px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0.3rem auto;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
 }
 
 .fh-card {
-    border-radius: 12px;           /* 圆角：12px */
-    padding: 1.2rem;               /* 内边距：1.2rem */
-    text-decoration: none;         /* 去掉下划线 */
-    border: 2px solid transparent; /* 默认透明边框 */
-    color: #ffffff;                /* 文字颜色：白色 */
-    cursor: pointer;               /* 鼠标指针：手型 */
-    transition: all 0.2s ease;     /* 过渡动画：0.2秒 */
-    display: flex;                 /* 弹性布局 */
-    flex-direction: column;        /* 垂直排列 */
-    justify-content: flex-start;   /* 顶部对齐 */
-    position: relative;            /* 相对定位：为伪元素做准备 */
-    overflow: hidden;              /* 溢出隐藏 */
+    border-radius: 10px;
+    padding: 0.8rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
 }
 
 .fh-card::before {
@@ -487,21 +514,21 @@ p {
 }
 
 .fh-card h3 {
-    color: #ffffff;       /* 标题颜色：白色 */
-    margin-top: 0;        /* 去掉上边距 */
-    font-size: 1.1rem;    /* 字体大小：1.1rem */
-    font-weight: 700;     /* 字体粗细：粗 */
-    z-index: 1;           /* 层级：1（在渐变覆盖层之上） */
-    margin-bottom: 0.3rem; /* 下边距：0.3rem */
+    color: #ffffff;
+    margin-top: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    z-index: 1;
+    margin-bottom: 0.2rem;
 }
 
 .fh-card p {
-    color: rgba(255, 255, 255, 0.75); /* 文字颜色：半透明白色 */
-    font-size: 0.8rem;                 /* 字体大小：0.8rem */
-    margin-top: 0;                     /* 去掉上边距 */
-    z-index: 1;                        /* 层级：1 */
-    line-height: 1.4;                  /* 行高：1.4 */
-    flex-shrink: 1;                    /* 允许缩小 */
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.75rem;
+    margin-top: 0;
+    z-index: 1;
+    line-height: 1.3;
+    flex-shrink: 1;
 }
 
 /* ========== 个人简历卡片 ========== */
@@ -3329,5 +3356,198 @@ html.fh-transition-dissolve::view-transition-new(root) {
     .collection-stats {
         flex-direction: column;
         gap: 1rem;
+    }
+}
+
+/* ============================================
+   时间线样式
+   ============================================ */
+.timeline-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    padding: 2rem 0;
+}
+
+.timeline-stat-item {
+    text-align: center;
+}
+
+.timeline-stat-num {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.timeline-stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg-primary);
+    border: 3px solid var(--accent-color);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-content {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.timeline-year {
+    position: absolute;
+    left: -60px;
+    top: 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    white-space: nowrap;
+}
+
+.timeline-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.timeline-content h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+}
+
+.timeline-subtitle {
+    margin: 0 0 1rem 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.timeline-item-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.tag-type {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.tag-achievement { background: rgba(255, 107, 107, 0.2); }
+.tag-insight { background: rgba(162, 155, 254, 0.2); }
+.tag-plan { background: rgba(78, 205, 196, 0.2); }
+.tag-challenge { background: rgba(253, 203, 110, 0.2); }
+.tag-travel { background: rgba(116, 185, 255, 0.2); }
+.tag-learning { background: rgba(78, 205, 196, 0.2); }
+.tag-life { background: rgba(253, 121, 168, 0.2); }
+.tag-honor { background: rgba(255, 193, 7, 0.2); }
+.tag-project { background: rgba(78, 205, 196, 0.2); }
+.tag-growth { background: rgba(82, 183, 136, 0.2); }
+.tag-career { background: rgba(116, 185, 255, 0.2); }
+.tag-adapt { background: rgba(162, 155, 254, 0.2); }
+.tag-goal { background: rgba(253, 203, 110, 0.2); }
+.tag-intern { background: rgba(116, 185, 255, 0.2); }
+.tag-harvest { background: rgba(82, 183, 136, 0.2); }
+.tag-decision { background: rgba(255, 107, 107, 0.2); }
+.tag-community { background: rgba(253, 121, 168, 0.2); }
+.tag-competition { background: rgba(255, 193, 7, 0.2); }
+.tag-exam { background: rgba(116, 185, 255, 0.2); }
+.tag-choice { background: rgba(162, 155, 254, 0.2); }
+.tag-dream { background: rgba(253, 203, 110, 0.2); }
+.tag-other { background: rgba(134, 142, 150, 0.2); }
+
+.tag-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .timeline-stats {
+        gap: 2rem;
+    }
+    .timeline-stat-num {
+        font-size: 1.8rem;
+    }
+    .timeline {
+        padding-left: 30px;
+    }
+    .timeline::before {
+        left: 8px;
+    }
+    .timeline-item::before {
+        left: -25px;
+    }
+    .timeline-year {
+        left: -45px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .timeline-content {
+        padding: 1rem;
     }
 }
