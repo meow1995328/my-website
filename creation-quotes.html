@@ -1,0 +1,376 @@
+<!-- 版本：v0.4.5-dev -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典语录 - 薛大侠</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+        
+        .quote-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            border-left: 4px solid #e94560;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quote-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(233, 69, 96, 0.3);
+        }
+        
+        .quote-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 4rem;
+            color: rgba(233, 69, 96, 0.3);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .quote-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote-author {
+            text-align: right;
+            color: #00d4ff;
+            font-weight: 500;
+            font-style: italic;
+        }
+        
+        .quote-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(233, 69, 96, 0.2);
+            color: #e94560;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .quote-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #e94560;
+            border-color: #e94560;
+        }
+        
+        .quote-stats {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00d4ff, #7c4dff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">XueXue</a>
+            <div class="header-title">经典语录</div>
+            <div class="header-subtitle">记录值得铭记的智慧之言</div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="creation.html" class="nav-link active">内容创作</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resources.html" class="nav-link">服务中心</a>
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                    <a href="site-info.html" class="nav-link">站点信息</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 统计信息 -->
+        <div class="container">
+            <div class="quote-stats">
+                <div class="stat-item">
+                    <span class="stat-number">24</span>
+                    <span class="stat-label">经典语录</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">分类</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">名人名言</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 分类筛选 -->
+        <div class="container">
+            <div class="quote-filters">
+                <button class="filter-btn active" data-category="all">全部</button>
+                <button class="filter-btn" data-category="inspiration">励志</button>
+                <button class="filter-btn" data-category="philosophy">哲理</button>
+                <button class="filter-btn" data-category="emotion">情感</button>
+                <button class="filter-btn" data-category="celebrity">名人</button>
+                <button class="filter-btn" data-category="life">生活</button>
+                <button class="filter-btn" data-category="work">职场</button>
+            </div>
+        </div>
+        
+        <!-- 语录列表 -->
+        <div class="container">
+            <div class="quotes-grid" id="quotesGrid">
+                <!-- 语录卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 返回按钮 -->
+        <div class="container" style="text-align: center;">
+            <a href="creation.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
+                ← 返回内容创作
+            </a>
+        </div>
+    </main>
+
+    <!-- 返回上一级按钮 -->
+    <button id="backToParent" class="back-to-parent" onclick="goToParent('creation.html')" title="返回上一级">←</button>
+    
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()">↑</button>
+    
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
+        <p>v0.4.5-dev</p>
+    </footer>
+
+    <script>
+        // 经典语录数据
+        const quotes = [
+            {
+                content: '生活不是等待风暴过去，而是学会在雨中起舞。',
+                author: '佚名',
+                category: 'inspiration'
+            },
+            {
+                content: '你所浪费的今天，是昨天死去的人奢望的明天。',
+                author: '佚名',
+                category: 'philosophy'
+            },
+            {
+                content: '世界上只有一种真正的英雄主义，那就是在认清生活真相之后依然热爱生活。',
+                author: '罗曼·罗兰',
+                category: 'inspiration'
+            },
+            {
+                content: '人生就像一盒巧克力，你永远不知道下一颗是什么味道。',
+                author: '阿甘正传',
+                category: 'life'
+            },
+            {
+                content: '不要等待机会，而要创造机会。',
+                author: '萧伯纳',
+                category: 'work'
+            },
+            {
+                content: '千里之行，始于足下。',
+                author: '老子',
+                category: 'philosophy'
+            },
+            {
+                content: '世上无难事，只怕有心人。',
+                author: '佚名',
+                category: 'inspiration'
+            },
+            {
+                content: '人生如逆旅，我亦是行人。',
+                author: '苏轼',
+                category: 'philosophy'
+            },
+            {
+                content: '明月几时有？把酒问青天。',
+                author: '苏轼',
+                category: 'emotion'
+            },
+            {
+                content: '海内存知己，天涯若比邻。',
+                author: '王勃',
+                category: 'emotion'
+            },
+            {
+                content: '落红不是无情物，化作春泥更护花。',
+                author: '龚自珍',
+                category: 'philosophy'
+            },
+            {
+                content: '长风破浪会有时，直挂云帆济沧海。',
+                author: '李白',
+                category: 'inspiration'
+            },
+            {
+                content: '会当凌绝顶，一览众山小。',
+                author: '杜甫',
+                category: 'inspiration'
+            },
+            {
+                content: '欲穷千里目，更上一层楼。',
+                author: '王之涣',
+                category: 'inspiration'
+            },
+            {
+                content: '不识庐山真面目，只缘身在此山中。',
+                author: '苏轼',
+                category: 'philosophy'
+            },
+            {
+                content: '纸上得来终觉浅，绝知此事要躬行。',
+                author: '陆游',
+                category: 'work'
+            },
+            {
+                content: '问渠那得清如许？为有源头活水来。',
+                author: '朱熹',
+                category: 'philosophy'
+            },
+            {
+                content: '宝剑锋从磨砺出，梅花香自苦寒来。',
+                author: '《警世贤文》',
+                category: 'inspiration'
+            },
+            {
+                content: '少壮不努力，老大徒伤悲。',
+                author: '《长歌行》',
+                category: 'work'
+            },
+            {
+                content: '一寸光阴一寸金，寸金难买寸光阴。',
+                author: '《增广贤文》',
+                category: 'life'
+            },
+            {
+                content: '三人行，必有我师焉。',
+                author: '孔子',
+                category: 'work'
+            },
+            {
+                content: '己所不欲，勿施于人。',
+                author: '孔子',
+                category: 'life'
+            },
+            {
+                content: '学而不思则罔，思而不学则殆。',
+                author: '孔子',
+                category: 'work'
+            },
+            {
+                content: '温故而知新，可以为师矣。',
+                author: '孔子',
+                category: 'work'
+            }
+        ];
+        
+        // 分类名称映射
+        const categoryNames = {
+            inspiration: '励志',
+            philosophy: '哲理',
+            emotion: '情感',
+            celebrity: '名人',
+            life: '生活',
+            work: '职场'
+        };
+        
+        // 渲染语录
+        function renderQuotes(category = 'all') {
+            const grid = document.getElementById('quotesGrid');
+            const filtered = category === 'all' 
+                ? quotes 
+                : quotes.filter(q => q.category === category);
+            
+            grid.innerHTML = filtered.map(quote => `
+                <div class="quote-card">
+                    <span class="quote-category">${categoryNames[quote.category]}</span>
+                    <p class="quote-content">${quote.content}</p>
+                    <p class="quote-author">— ${quote.author}</p>
+                </div>
+            `).join('');
+        }
+        
+        // 筛选按钮事件
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderQuotes(btn.dataset.category);
+            });
+        });
+        
+        // 初始渲染
+        renderQuotes();
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

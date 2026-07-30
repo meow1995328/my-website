@@ -1,4 +1,4 @@
-<!-- 版本：v0.4.4-dev -->
+<!-- 版本：v0.4.5-dev -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -349,16 +349,16 @@
         </div>
 
         <!-- 返回顶部按钮 -->
-        <button class="back-to-top" id="backToTop">↑</button>
+        <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
         
         <!-- 返回上一层页面按钮 -->
-        <button class="back-to-parent" id="backToParent">←</button>
+        <button class="back-to-parent" id="backToParent" onclick="goToParent('about.html')" title="返回上一级">←</button>
     </main>
 
     <!-- 页脚 -->
     <footer class="footer">
         <p>&copy; 2026 XueXue喵 - 用心记录生活</p>
-        <p>v0.4.3</p>
+        <p>v0.4.5-dev</p>
     </footer>
 
     <script src="js/script.js"></script>

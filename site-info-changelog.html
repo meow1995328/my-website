@@ -1,4 +1,4 @@
-<!-- 版本：v0.4.4-dev -->
+<!-- 版本：v0.4.5-dev -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -39,6 +39,15 @@
 
     <!-- 主内容区域 -->
     <main class="main-content">
+        
+        <div class="container">
+            <h2>💬 [v0.4.5-dev] - 2026-07-30</h2>
+            <ul>
+                <li>新增经典语录页面，支持分类筛选和卡片展示24条语录。</li>
+                <li>个人项目从内容创作移至服务中心，优化网站结构。</li>
+                <li>所有二级页面添加返回顶部和返回上一级按钮。</li>
+            </ul>
+        </div>
         
         <div class="container">
             <h2>🚀 [v0.4.4-dev] - 2026-07-27</h2>
@@ -197,10 +206,16 @@
         </div>
     </main>
 
+    <!-- 返回上一级按钮 -->
+    <button id="backToParent" class="back-to-parent" onclick="goToParent('site-info.html')" title="返回上一级">←</button>
+    
+    <!-- 返回顶部按钮 -->
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()">↑</button>
+    
     <!-- 页脚 -->
     <footer class="footer">
         <p>&copy; 2026 XueXue - 用心记录生活</p>
-        <p>v0.4.3</p>
+        <p>v0.4.5-dev</p>
     </footer>
 
     <script src="js/script.js"></script>
