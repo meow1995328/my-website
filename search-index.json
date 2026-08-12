@@ -1,0 +1,550 @@
+[
+  {
+    "id": "index",
+    "title": "首页",
+    "category": "主页",
+    "url": "index.html",
+    "desc": "XueXue的秘密基地 - 个人数字空间，沉淀知识、分享价值、记录成长足迹",
+    "keywords": "首页 主页 导航 快速导航 关于我 内容创作 服务中心 站点信息 联系方式 最新创作 精选作品"
+  },
+  {
+    "id": "about",
+    "title": "关于我",
+    "category": "关于我",
+    "url": "about.html",
+    "desc": "了解作者 - 个人简介、成长经历、职业经历、兴趣爱好、家庭生活、荣誉证书、收集簿",
+    "keywords": "关于我 个人简介 个人简历 兴趣爱好 家庭生活 荣誉证书 收集簿 成长经历 职业经历"
+  },
+  {
+    "id": "about-growth",
+    "title": "成长经历",
+    "category": "关于我",
+    "url": "about-growth.html",
+    "desc": "记录人生的每一个重要时刻，从童年到成年的成长轨迹",
+    "keywords": "成长经历 成长 童年 学生时代 重要时刻 人生轨迹 蜕变"
+  },
+  {
+    "id": "about-career",
+    "title": "职业经历",
+    "category": "关于我",
+    "url": "about-career.html",
+    "desc": "职场路上的点点滴滴 - 教育经历、工作经历、项目经历、专业技能",
+    "keywords": "职业经历 工作 教育 项目 技能 简历 职场"
+  },
+  {
+    "id": "about-interests",
+    "title": "兴趣爱好",
+    "category": "关于我",
+    "url": "about-interests.html",
+    "desc": "我的多彩生活 - 音乐、运动、表演、智力、科学、动物、动漫、美食",
+    "keywords": "兴趣爱好 音乐 运动 表演 智力 科学 动物 动漫 美食 口琴 乒乓球 足球 魔方 打字 天文学"
+  },
+  {
+    "id": "about-honors",
+    "title": "荣誉证书",
+    "category": "关于我",
+    "url": "about-honors.html",
+    "desc": "努力的见证 - 奖状、奖学金、比赛、工作认证",
+    "keywords": "荣誉证书 奖状 奖学金 比赛 获奖 工作认证 成就"
+  },
+  {
+    "id": "about-collection",
+    "title": "收集簿",
+    "category": "关于我",
+    "url": "about-collection.html",
+    "desc": "我的私人博物馆 - 艺术类、书籍类、音乐类、游戏类、礼品类、其他",
+    "keywords": "收集簿 博物馆 藏品 收藏 艺术类 书籍 音乐 游戏 礼品"
+  },
+  {
+    "id": "about-family",
+    "title": "家庭生活",
+    "category": "关于我",
+    "url": "about-family.html",
+    "desc": "温馨的港湾 - 家人和可爱的宠物们",
+    "keywords": "家庭生活 家人 妈妈 爸爸 宠物 仓鼠 猫咪 家庭"
+  },
+  {
+    "id": "creation",
+    "title": "内容创作",
+    "category": "内容创作",
+    "url": "creation.html",
+    "desc": "分享知识与感悟 - 干货分享、读书笔记、随想碎念、观影笔记、视频作品、经典语录",
+    "keywords": "内容创作 干货分享 读书笔记 随想碎念 观影笔记 视频作品 经典语录"
+  },
+  {
+    "id": "creation-articles",
+    "title": "干货分享",
+    "category": "内容创作",
+    "url": "creation-articles.html",
+    "desc": "技术文章与实用技巧 - 技术文章、实用教程、经验分享",
+    "keywords": "干货分享 技术文章 实用教程 经验分享 编程 开发 教程"
+  },
+  {
+    "id": "creation-reading",
+    "title": "读书笔记",
+    "category": "内容创作",
+    "url": "creation-reading.html",
+    "desc": "阅读心得与思考 - 1984、人类简史等书籍分享",
+    "keywords": "读书笔记 阅读 书籍 1984 人类简史 读书心得 思考"
+  },
+  {
+    "id": "creation-thoughts",
+    "title": "随想碎碎念",
+    "category": "内容创作",
+    "url": "creation-thoughts.html",
+    "desc": "生活感悟和思绪记录 - 关于学习、职业、生活的一些思考",
+    "keywords": "随想 碎碎念 感悟 生活思考 人生 随笔"
+  },
+  {
+    "id": "creation-movies",
+    "title": "观影笔记",
+    "category": "内容创作",
+    "url": "creation-movies.html",
+    "desc": "记录每一部打动我的电影 - 当幸福来敲门、寄生虫、心灵奇旅等",
+    "keywords": "观影笔记 电影 影评 当幸福来敲门 寄生虫 心灵奇旅 观影"
+  },
+  {
+    "id": "creation-videos",
+    "title": "视频作品",
+    "category": "内容创作",
+    "url": "creation-videos.html",
+    "desc": "视频创作作品展示",
+    "keywords": "视频作品 视频 创作"
+  },
+  {
+    "id": "creation-quotes",
+    "title": "经典语录",
+    "category": "内容创作",
+    "url": "creation-quotes.html",
+    "desc": "记录值得铭记的智慧之言 - 励志、哲理、情感、名人、生活、职场",
+    "keywords": "经典语录 语录 励志 哲理 情感 名人名言 生活 职场 名句 格言"
+  },
+  {
+    "id": "resources",
+    "title": "服务中心",
+    "category": "服务中心",
+    "url": "resources.html",
+    "desc": "提供有价值的服务 - 免费资源库、开源项目、付费专栏、友情链接、个人项目",
+    "keywords": "服务中心 免费资源 开源项目 付费专栏 友情链接 个人项目"
+  },
+  {
+    "id": "resources-free",
+    "title": "免费资源库",
+    "category": "服务中心",
+    "url": "resources-free.html",
+    "desc": "各类免费优质资源 - 学习资料、开发工具、设计素材",
+    "keywords": "免费资源 学习资料 开发工具 设计素材 免费"
+  },
+  {
+    "id": "resources-opensource",
+    "title": "开源项目",
+    "category": "服务中心",
+    "url": "resources-opensource.html",
+    "desc": "汇总优秀的开源项目 - 推荐项目和参与贡献的开源项目",
+    "keywords": "开源项目 开源 GitHub 贡献 项目"
+  },
+  {
+    "id": "resources-paid",
+    "title": "付费专栏",
+    "category": "服务中心",
+    "url": "resources-paid.html",
+    "desc": "付费资源专栏 - 深度内容和专业服务",
+    "keywords": "付费专栏 付费 专栏 深度内容"
+  },
+  {
+    "id": "resources-links",
+    "title": "友情链接",
+    "category": "服务中心",
+    "url": "resources-links.html",
+    "desc": "友情链接 - 推荐的朋友网站和资源",
+    "keywords": "友情链接 链接 朋友网站 推荐"
+  },
+  {
+    "id": "resources-projects",
+    "title": "个人项目",
+    "category": "服务中心",
+    "url": "resources-projects.html",
+    "desc": "个人开发项目作品集",
+    "keywords": "个人项目 作品集 开发 项目"
+  },
+  {
+    "id": "site-info",
+    "title": "站点信息",
+    "category": "站点信息",
+    "url": "site-info.html",
+    "desc": "网站相关信息 - 更新日志、订阅服务、网站声明",
+    "keywords": "站点信息 更新日志 订阅 RSS 网站声明 关于本站"
+  },
+  {
+    "id": "site-info-changelog",
+    "title": "更新日志",
+    "category": "站点信息",
+    "url": "site-info-changelog.html",
+    "desc": "记录网站的主要更新内容 - 新功能、界面优化等",
+    "keywords": "更新日志 版本 更新 变更 新功能"
+  },
+  {
+    "id": "site-info-subscribe",
+    "title": "订阅服务",
+    "category": "站点信息",
+    "url": "site-info-subscribe.html",
+    "desc": "通过RSS或邮件订阅第一时间获取最新内容更新",
+    "keywords": "订阅 RSS 邮件订阅 更新通知"
+  },
+  {
+    "id": "site-info-compliance",
+    "title": "网站声明",
+    "category": "站点信息",
+    "url": "site-info-compliance.html",
+    "desc": "网站使用声明、版权声明、隐私政策",
+    "keywords": "网站声明 版权 隐私 政策 合规"
+  },
+
+  {
+    "id": "quote-1",
+    "title": "生活不是等待风暴过去，而是学会在雨中起舞。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "励志类语录 - 佚名",
+    "keywords": "语录 励志 生活 风暴 雨中起舞 佚名"
+  },
+  {
+    "id": "quote-2",
+    "title": "你所浪费的今天，是昨天死去的人奢望的明天。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "哲理类语录 - 佚名",
+    "keywords": "语录 哲理 今天 浪费 昨天 明天 佚名"
+  },
+  {
+    "id": "quote-3",
+    "title": "世界上只有一种真正的英雄主义，那就是在认清生活真相之后依然热爱生活。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "励志类语录 - 罗曼·罗兰",
+    "keywords": "语录 励志 英雄主义 生活 罗曼罗兰"
+  },
+  {
+    "id": "quote-4",
+    "title": "人生就像一盒巧克力，你永远不知道下一颗是什么味道。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "生活类语录 - 阿甘正传",
+    "keywords": "语录 生活 人生 巧克力 阿甘正传"
+  },
+  {
+    "id": "quote-5",
+    "title": "不要等待机会，而要创造机会。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "职场类语录 - 萧伯纳",
+    "keywords": "语录 职场 机会 创造 萧伯纳"
+  },
+  {
+    "id": "quote-6",
+    "title": "千里之行，始于足下。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "哲理类语录 - 老子",
+    "keywords": "语录 哲理 千里 足下 老子"
+  },
+  {
+    "id": "quote-7",
+    "title": "世上无难事，只怕有心人。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "励志类语录 - 佚名",
+    "keywords": "语录 励志 难事 有心人 佚名"
+  },
+  {
+    "id": "quote-8",
+    "title": "人生如逆旅，我亦是行人。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "哲理类语录 - 苏轼",
+    "keywords": "语录 哲理 人生 逆旅 行人 苏轼"
+  },
+  {
+    "id": "quote-9",
+    "title": "明月几时有？把酒问青天。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "情感类语录 - 苏轼",
+    "keywords": "语录 情感 明月 苏轼 诗词"
+  },
+  {
+    "id": "quote-10",
+    "title": "海内存知己，天涯若比邻。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "情感类语录 - 王勃",
+    "keywords": "语录 情感 知己 天涯 王勃"
+  },
+  {
+    "id": "quote-11",
+    "title": "落红不是无情物，化作春泥更护花。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "哲理类语录 - 龚自珍",
+    "keywords": "语录 哲理 落红 春泥 龚自珍"
+  },
+  {
+    "id": "quote-12",
+    "title": "长风破浪会有时，直挂云帆济沧海。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "励志类语录 - 李白",
+    "keywords": "语录 励志 长风 破浪 云帆 李白"
+  },
+  {
+    "id": "quote-13",
+    "title": "会当凌绝顶，一览众山小。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "励志类语录 - 杜甫",
+    "keywords": "语录 励志 绝顶 众山 杜甫"
+  },
+  {
+    "id": "quote-14",
+    "title": "欲穷千里目，更上一层楼。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "励志类语录 - 王之涣",
+    "keywords": "语录 励志 千里 上层楼 王之涣"
+  },
+  {
+    "id": "quote-15",
+    "title": "不识庐山真面目，只缘身在此山中。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "哲理类语录 - 苏轼",
+    "keywords": "语录 哲理 庐山 苏轼"
+  },
+  {
+    "id": "quote-16",
+    "title": "纸上得来终觉浅，绝知此事要躬行。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "职场类语录 - 陆游",
+    "keywords": "语录 职场 纸上 躬行 陆游"
+  },
+  {
+    "id": "quote-17",
+    "title": "问渠那得清如许？为有源头活水来。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "哲理类语录 - 朱熹",
+    "keywords": "语录 哲理 源头 活水 朱熹"
+  },
+  {
+    "id": "quote-18",
+    "title": "宝剑锋从磨砺出，梅花香自苦寒来。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "励志类语录 - 警世贤文",
+    "keywords": "语录 励志 宝剑 梅花 磨砺 苦寒"
+  },
+  {
+    "id": "quote-19",
+    "title": "少壮不努力，老大徒伤悲。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "职场类语录 - 长歌行",
+    "keywords": "语录 职场 少壮 努力 老大 伤悲"
+  },
+  {
+    "id": "quote-20",
+    "title": "一寸光阴一寸金，寸金难买寸光阴。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "生活类语录 - 增广贤文",
+    "keywords": "语录 生活 光阴 时间 珍惜"
+  },
+  {
+    "id": "quote-21",
+    "title": "三人行，必有我师焉。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "职场类语录 - 孔子",
+    "keywords": "语录 职场 三人行 师 孔子"
+  },
+  {
+    "id": "quote-22",
+    "title": "己所不欲，勿施于人。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "生活类语录 - 孔子",
+    "keywords": "语录 生活 己所不欲 施于人 孔子"
+  },
+  {
+    "id": "quote-23",
+    "title": "学而不思则罔，思而不学则殆。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "职场类语录 - 孔子",
+    "keywords": "语录 职场 学而不思 思而不学 孔子"
+  },
+  {
+    "id": "quote-24",
+    "title": "温故而知新，可以为师矣。",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "职场类语录 - 孔子",
+    "keywords": "语录 职场 温故知新 师 孔子"
+  },
+
+  {
+    "id": "movie-interstellar",
+    "title": "当幸福来敲门",
+    "category": "观影笔记",
+    "url": "creation-movies.html",
+    "desc": "2006年美国电影 - 加布里埃莱·穆奇诺导演 - 威尔·史密斯主演 - 豆瓣9.4分",
+    "keywords": "电影 当幸福来敲门 威尔史密斯 加布里埃莱穆奇诺 美国 剧情 家庭 传记 豆瓣9.4"
+  },
+  {
+    "id": "movie-parasite",
+    "title": "寄生虫",
+    "category": "观影笔记",
+    "url": "creation-movies.html",
+    "desc": "2019年韩国电影 - 奉俊昊导演 - 豆瓣9.0分 - 阶级差异黑色幽默",
+    "keywords": "电影 寄生虫 奉俊昊 韩国 剧情 惊悚 黑色幽默 豆瓣9.0 阶级"
+  },
+  {
+    "id": "movie-soul",
+    "title": "心灵奇旅",
+    "category": "观影笔记",
+    "url": "creation-movies.html",
+    "desc": "2020年美国动画电影 - 彼特·道格特导演 - 豆瓣8.7分 - 爵士乐灵魂",
+    "keywords": "电影 心灵奇旅 Soul 迪士尼 皮克斯 动画 奇幻 音乐 爵士乐 豆瓣8.7"
+  },
+
+  {
+    "id": "interest-music-harmonica",
+    "title": "口琴",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "音乐类兴趣 - 从小学习口琴，喜欢吹奏流行歌曲和经典曲目",
+    "keywords": "兴趣 音乐 口琴 乐器 吹奏 经典曲目"
+  },
+  {
+    "id": "interest-sports-pingpong",
+    "title": "乒乓球",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "运动类兴趣 - 从小打乒乓球，参加校队训练",
+    "keywords": "兴趣 运动 乒乓球 国球 校队 单打"
+  },
+  {
+    "id": "interest-sports-rope",
+    "title": "跳绳",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "运动类兴趣 - 每分钟200+成绩，多种花式跳法",
+    "keywords": "兴趣 运动 跳绳 花式 健身"
+  },
+  {
+    "id": "interest-sports-soccer",
+    "title": "足球",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "运动类兴趣 - 喜欢踢前锋，参加校足球队",
+    "keywords": "兴趣 运动 足球 前锋 校队 联赛"
+  },
+  {
+    "id": "interest-performance-host",
+    "title": "主持人",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "表演类兴趣 - 担任校学生会主持人，主持10+场大型活动",
+    "keywords": "兴趣 表演 主持 演讲 舞台 学生会"
+  },
+  {
+    "id": "interest-performance-drama",
+    "title": "话剧表演",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "表演类兴趣 - 参演3部大型话剧，话剧社副社长",
+    "keywords": "兴趣 表演 话剧 舞台 戏剧"
+  },
+  {
+    "id": "interest-intellect-cube",
+    "title": "魔方",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "智力类兴趣 - 三阶速拧30秒以内，学会多种高阶魔方",
+    "keywords": "兴趣 智力 魔方 速拧 空间思维  puzzle"
+  },
+  {
+    "id": "interest-intellect-typing",
+    "title": "五笔打字",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "智力类兴趣 - 每分钟120+字，参加打字比赛获第三名",
+    "keywords": "兴趣 智力 五笔打字 打字 技能 输入法"
+  },
+  {
+    "id": "interest-science-nature",
+    "title": "自然科学",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "科学类兴趣 - 喜欢观察动植物，阅读200+本科普书籍",
+    "keywords": "兴趣 科学 自然科学 生物 科普 书籍"
+  },
+  {
+    "id": "interest-science-astronomy",
+    "title": "天文学",
+    "category": "兴趣爱好",
+    "url": "about-interests.html",
+    "desc": "科学类兴趣 - 对星空和宇宙充满好奇",
+    "keywords": "兴趣 科学 天文学 星空 宇宙 望远镜"
+  },
+
+  {
+    "id": "family-me",
+    "title": "薛大侠",
+    "category": "家庭生活",
+    "url": "about-family.html",
+    "desc": "网站作者 - 热爱生活与技术",
+    "keywords": "家庭 作者 薛大侠 本人 技术"
+  },
+  {
+    "id": "family-mom",
+    "title": "妈妈",
+    "category": "家庭生活",
+    "url": "about-family.html",
+    "desc": "亲切热情的家庭主妇 - 温暖的家庭守护者",
+    "keywords": "家庭 妈妈 家庭主妇 温暖 爱"
+  },
+  {
+    "id": "family-dad",
+    "title": "爸爸",
+    "category": "家庭生活",
+    "url": "about-family.html",
+    "desc": "勤劳朴实的劳动工人 - 资深工程师",
+    "keywords": "家庭 爸爸 工程师 勤劳 责任"
+  },
+  {
+    "id": "family-hamster-lalada",
+    "title": "小拉达",
+    "category": "家庭生活",
+    "url": "about-family.html",
+    "desc": "仓鼠 - 已去吱星 - 金黄色金丝熊",
+    "keywords": "家庭 宠物 仓鼠 小拉达 金丝熊"
+  },
+  {
+    "id": "family-hamster-maodou",
+    "title": "毛豆",
+    "category": "家庭生活",
+    "url": "about-family.html",
+    "desc": "仓鼠 - 已去吱星 - 浅棕色活泼仓鼠",
+    "keywords": "家庭 宠物 仓鼠 毛豆"
+  },
+  {
+    "id": "family-cat-caidou",
+    "title": "彩豆",
+    "category": "家庭生活",
+    "url": "about-family.html",
+    "desc": "猫咪 - 现役 - 虎斑串串，傲娇又粘人",
+    "keywords": "家庭 宠物 猫咪 彩豆 虎斑"
+  }
+]

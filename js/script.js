@@ -66,6 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化项目分类筛选
     initProjectFilters();
+    
+    // 初始化站内搜索
+    initSearch();
 });
 
 /**
@@ -1067,6 +1070,202 @@ function initInterestModal() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && overlay.classList.contains('active')) {
             closeInterestModal();
+        }
+    });
+}
+
+// ============================================
+// 站内搜索功能 (v0.4.6-dev)
+// 使用 Fuse.js 实现模糊搜索，支持中文
+// 统一接口 searchWebsite() 便于未来迁移后端
+// ============================================
+
+let searchIndexData = null;
+let searchFuse = null;
+let searchInitialized = false;
+
+async function searchWebsite(keyword) {
+    if (!searchIndexData) {
+        try {
+            const response = await fetch('search-index.json');
+            if (!response.ok) throw new Error('Failed to load search index');
+            searchIndexData = await response.json();
+        } catch (err) {
+            console.error('搜索索引加载失败:', err);
+            return [];
+        }
+    }
+
+    if (!searchFuse) {
+        if (typeof Fuse === 'undefined') {
+            console.error('Fuse.js 未加载');
+            return [];
+        }
+        searchFuse = new Fuse(searchIndexData, {
+            keys: ['title', 'desc', 'keywords', 'category'],
+            threshold: 0.3,
+            distance: 100,
+            includeScore: true
+        });
+    }
+
+    if (!keyword.trim()) return [];
+    const results = searchFuse.search(keyword.trim());
+    return results.slice(0, 15).map(r => r.item);
+}
+
+function initSearch() {
+    if (searchInitialized) return;
+    searchInitialized = true;
+
+    const searchWrapper = document.querySelector('.search-wrapper');
+    if (!searchWrapper) return;
+
+    const searchInput = searchWrapper.querySelector('.search-input');
+    const searchResults = searchWrapper.querySelector('.search-results');
+    const searchClear = searchWrapper.querySelector('.search-clear');
+
+    if (!searchInput || !searchResults) return;
+
+    let debounceTimer = null;
+    let activeResultIndex = -1;
+    let currentResults = [];
+
+    function renderResults(results, keyword) {
+        searchResults.innerHTML = '';
+
+        if (!results || results.length === 0) {
+            searchResults.innerHTML = `
+                <div class="search-empty">
+                    未找到相关结果
+                    <div class="suggestion">试试其他关键词，如"语录"、"电影"、"兴趣"</div>
+                </div>
+            `;
+            searchResults.classList.add('active');
+            return;
+        }
+
+        const resultsHTML = results.map((item, index) => {
+            const highlightTitle = keyword
+                ? item.title.replace(new RegExp(escapeRegExp(keyword), 'gi'), m => `<mark>${m}</mark>`)
+                : item.title;
+            const highlightDesc = keyword && item.desc
+                ? item.desc.replace(new RegExp(escapeRegExp(keyword), 'gi'), m => `<mark>${m}</mark>`)
+                : (item.desc || '');
+
+            return `
+                <div class="search-result-item ${index === activeResultIndex ? 'active' : ''}" data-url="${item.url}">
+                    <div class="result-title">${highlightTitle}</div>
+                    <div class="result-meta">
+                        <span class="result-category">${item.category}</span>
+                    </div>
+                    <div class="result-desc">${highlightDesc}</div>
+                </div>
+            `;
+        }).join('');
+
+        searchResults.innerHTML = resultsHTML;
+        searchResults.classList.add('active');
+
+        searchResults.querySelectorAll('.search-result-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const url = el.getAttribute('data-url');
+                if (url) {
+                    window.location.href = url;
+                }
+            });
+        });
+    }
+
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    async function handleSearch() {
+        const keyword = searchInput.value.trim();
+
+        if (!keyword) {
+            searchResults.classList.remove('active');
+            searchResults.innerHTML = '';
+            activeResultIndex = -1;
+            currentResults = [];
+            searchClear.classList.remove('visible');
+            return;
+        }
+
+        searchClear.classList.add('visible');
+        searchResults.innerHTML = '<div class="search-loading">搜索中...</div>';
+        searchResults.classList.add('active');
+
+        activeResultIndex = -1;
+        currentResults = await searchWebsite(keyword);
+        renderResults(currentResults, keyword);
+    }
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(handleSearch, 200);
+    });
+
+    searchInput.addEventListener('focus', function() {
+        if (searchInput.value.trim()) {
+            handleSearch();
+        }
+    });
+
+    searchInput.addEventListener('keydown', function(e) {
+        if (!searchResults.classList.contains('active') || currentResults.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            activeResultIndex = (activeResultIndex + 1) % currentResults.length;
+            updateActiveItem();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            activeResultIndex = activeResultIndex <= 0 ? currentResults.length - 1 : activeResultIndex - 1;
+            updateActiveItem();
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (activeResultIndex >= 0 && activeResultIndex < currentResults.length) {
+                const url = currentResults[activeResultIndex].url;
+                window.location.href = url;
+            }
+        } else if (e.key === 'Escape') {
+            searchResults.classList.remove('active');
+        }
+    });
+
+    function updateActiveItem() {
+        const items = searchResults.querySelectorAll('.search-result-item');
+        items.forEach((item, index) => {
+            item.classList.toggle('active', index === activeResultIndex);
+            if (index === activeResultIndex) {
+                item.scrollIntoView({ block: 'nearest' });
+            }
+        });
+    }
+
+    if (searchClear) {
+        searchClear.addEventListener('click', function() {
+            searchInput.value = '';
+            searchResults.classList.remove('active');
+            searchResults.innerHTML = '';
+            activeResultIndex = -1;
+            currentResults = [];
+            searchClear.classList.remove('visible');
+            searchInput.focus();
+        });
+    }
+
+    document.addEventListener('click', function(e) {
+        if (!searchWrapper.contains(e.target)) {
+            searchResults.classList.remove('active');
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            searchResults.classList.remove('active');
         }
     });
 }

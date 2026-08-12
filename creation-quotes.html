@@ -118,6 +118,7 @@
             font-size: 0.85rem;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3/dist/fuse.min.js"></script>
 </head>
 <body>
     <!-- 顶部导航栏 -->
@@ -126,6 +127,14 @@
             <a href="index.html" class="logo">XueXue</a>
             <div class="header-title">经典语录</div>
             <div class="header-subtitle">记录值得铭记的智慧之言</div>
+            <div class="search-wrapper">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="搜索网站内容..." autocomplete="off">
+                    <button class="search-clear" type="button" title="清除">✕</button>
+                </div>
+                <div class="search-results"></div>
+            </div>
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="index.html" class="nav-link">首页</a>
@@ -371,6 +380,6 @@
         // 初始渲染
         renderQuotes();
     </script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=20260811"></script>
 </body>
 </html>
