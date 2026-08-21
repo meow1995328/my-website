@@ -96,6 +96,22 @@
     "keywords": "随想 碎碎念 感悟 生活思考 人生 随笔"
   },
   {
+    "id": "thought-article-1",
+    "title": "褪去道德绑架，让座方显本心温度",
+    "category": "随想碎碎念",
+    "url": "creation-thoughts.html",
+    "desc": "社会观察 - 关于公共交通让座的深度思考，探讨道德绑架与自愿善意的边界，2026年8月20日",
+    "keywords": "让座 道德绑架 尊老爱幼 公共交通 社会观察 善意 美德 年轻人 老年人 打工人 通勤 2026"
+  },
+  {
+    "id": "growth-story-dongguantou",
+    "title": "东管头幼年旧事",
+    "category": "关于我",
+    "url": "about-growth.html",
+    "desc": "童年回忆 - 出生于上世纪九十年代的北京，记录在丰台区东管头平房社区的幼年时光，一段关于茅厕与顽劣孩童的难忘幼年记忆",
+    "keywords": "幼年 童年 回忆 北京 丰台 东管头 平房 宣武医院 竹车 姥姥 童年故事 个人回忆 90年代"
+  },
+  {
     "id": "creation-movies",
     "title": "观影笔记",
     "category": "内容创作",

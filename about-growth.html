@@ -55,11 +55,6 @@
 
     <main class="main-content">
         <div class="container">
-            <h1>🌱 成长生活经历</h1>
-            <p>记录人生中每个重要的时刻，见证成长与蜕变</p>
-        </div>
-        
-        <div class="container">
             <div class="timeline-stats">
                 <div class="timeline-stat-item">
                     <span class="timeline-stat-num">12</span>
@@ -98,6 +93,18 @@
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
         <p>v0.4.5-dev</p>
     </footer>
+
+    <!-- 故事弹窗 -->
+    <div class="story-modal" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="storyModalTitle">
+        <div class="story-modal-overlay" id="storyModalOverlay"></div>
+        <div class="story-modal-content">
+            <button class="story-modal-close" id="storyModalClose" type="button" aria-label="关闭" title="关闭 (Esc)">✕</button>
+            <article class="thought-article" id="storyModalArticle">
+                <h3 id="storyModalTitle" class="sr-only">故事详情</h3>
+                <!-- 内容由 openStory 动态填充 -->
+            </article>
+        </div>
+    </div>
 
     <script src="js/script.js?v=20260811"></script>
     <script>
@@ -221,6 +228,19 @@
                     { type: '选择', text: '选择计算机专业，开启技术之路' },
                     { type: '梦想', text: '立志成为一名优秀的工程师' }
                 ]
+            },
+            {
+                year: '2000年前',
+                icon: '🧸',
+                title: '东管头幼年旧事',
+                subtitle: '出生在北京的最初记忆',
+                color: '#ffb6c1',
+                items: [
+                    { type: '出生', text: '出生在北京宣武医院的普通下午' },
+                    { type: '住所', text: '在平房社区渡过的懵懂幼年时光' },
+                    { type: '挑战', text: '一段关于茅厕与坏人的惊险回忆' },
+                    { type: '故事', text: '📖 点击阅读完整故事', story: 'dongguantou' }
+                ]
             }
         ];
 
@@ -234,16 +254,29 @@
                 <div class="timeline-item ${index % 2 === 0 ? 'timeline-item-left' : 'timeline-item-right'}">
                     <div class="timeline-content">
                         <div class="timeline-year">${item.year}</div>
-                        <div class="timeline-icon" style="background: ${item.color}">${item.icon}</div>
-                        <h3>${item.title}</h3>
-                        <p class="timeline-subtitle">${item.subtitle}</p>
+                        <div class="timeline-header-row">
+                            <div class="timeline-icon" style="background: ${item.color}">${item.icon}</div>
+                            <h3>${item.title}</h3>
+                            <span class="timeline-subtitle">${item.subtitle}</span>
+                        </div>
                         <div class="timeline-items">
-                            ${item.items.map(i => `
-                                <div class="timeline-item-tag">
-                                    <span class="tag-type ${getTagClass(i.type)}">${getTagIcon(i.type)}</span>
-                                    <span class="tag-text">${i.text}</span>
-                                </div>
-                            `).join('')}
+                            ${item.items.map(i => {
+                                if (i.type === '故事' && i.story) {
+                                    return `
+                                        <div class="timeline-item-tag tag-story" data-story="${i.story}" role="button" tabindex="0">
+                                            <span class="tag-type ${getTagClass(i.type)}">${getTagIcon(i.type)}</span>
+                                            <span class="tag-text">${i.text}</span>
+                                            <span class="tag-story-arrow">›</span>
+                                        </div>
+                                    `;
+                                }
+                                return `
+                                    <div class="timeline-item-tag">
+                                        <span class="tag-type ${getTagClass(i.type)}">${getTagIcon(i.type)}</span>
+                                        <span class="tag-text">${i.text}</span>
+                                    </div>
+                                `;
+                            }).join('')}
                         </div>
                     </div>
                 </div>
@@ -272,7 +305,10 @@
                 '竞赛': 'tag-competition',
                 '高考': 'tag-exam',
                 '选择': 'tag-choice',
-                '梦想': 'tag-dream'
+                '梦想': 'tag-dream',
+                '出生': 'tag-birth',
+                '住所': 'tag-home',
+                '故事': 'tag-story'
             };
             return classes[type] || 'tag-other';
         }
@@ -299,12 +335,89 @@
                 '竞赛': '🏅',
                 '高考': '📝',
                 '选择': '🔍',
-                '梦想': '🌟'
+                '梦想': '🌟',
+                '出生': '👶',
+                '住所': '🏠',
+                '故事': '📖'
             };
             return icons[type] || '📌';
         }
 
         document.addEventListener('DOMContentLoaded', initTimeline);
+
+        // 幼年故事完整内容
+        const stories = {
+            'dongguantou': {
+                title: '东管头幼年旧事',
+                date: '📅 2000年前 · 幼年时光',
+                tags: ['个人回忆', '童年'],
+                paragraphs: [
+                    `我出生于上世纪九十年代的一个下午，降生在北京宣武医院。我3岁前的幼年时光，是和家人在北京丰台区东管头的一间平房里缓缓度过的。`,
+                    `那是一片朴素的平房小社区，几户人家比邻而居，烟火气息细碎又温热。幼时的大多画面早已在时光里变得模糊、漫漶不清，只剩零星细碎的残影散在记忆深处。唯独一段惊悚的片段，历经岁月沉淀，依旧清晰得仿佛昨日，深深烙印在我的心底。`,
+                    `这片平房院落的的尽头，坐落着一座老旧破败的露天茅厕，是整片社区最晦暗的角落。坑边污秽堆积、脏乱不堪，地面随处是淤积的污物，潮湿阴暗的角落里蛆虫攒动、肆意爬行，扑面而来的恶臭气息，让人本能地心生厌恶与惊惧。那时的我年纪尚小，常常被大人安置在小竹车里，安置在过道，动弹不得，全然没有自保的能力。邻里有个顽劣的孩童，生性调皮霸道，总刻意欺负年幼无助的我。他常常趁大人不备、无人照看之时，推着我的竹车，飞速往这座令人反胃的茅厕方向跑去。`,
+                    `我被困在狭小的竹车之中，无力挣扎，只能眼睁睁看着自己不断靠近肮脏可怖的茅厕。我吓得放声哭喊，却丝毫撼动不了前行的竹车，更拦不住对方的恶意捉弄。年幼的我心底被巨大的慌张与绝望彻底裹挟，懵懂地以为一旦被推进肮脏的茅坑，自己会彻底陷落，再也无法脱身。万幸地是，在危急时刻，我记得姥姥及时出现，她厉声喝斥制止那个顽劣的孩子，护住年幼受惊的我。在记忆里，我始终没有跌落进茅坑之中，但那段被步步推向污秽之地的窒息感、无助感，以及周遭令人作呕的画面与气息，早已深深刻印在脑海里，成为幼年记忆中最难忘的一段阴影，时隔多年，依旧清晰真切，历历在目。`
+                ]
+            }
+        };
+
+        function openStory(storyId) {
+            const story = stories[storyId];
+            if (!story) return;
+            const modal = document.getElementById('storyModal');
+            const article = document.getElementById('storyModalArticle');
+            const paragraphsHtml = story.paragraphs.map(p => `<p>${p}</p>`).join('');
+            const tagsHtml = story.tags.map(t => `<span class="thought-article-tag">${t}</span>`).join('');
+            article.innerHTML = `
+                <div class="thought-article-header">
+                    <h3 class="thought-article-title">${story.title}</h3>
+                    <div class="thought-article-meta">
+                        <span class="thought-article-date">${story.date}</span>
+                        ${tagsHtml}
+                    </div>
+                </div>
+                <div class="thought-article-content">
+                    ${paragraphsHtml}
+                </div>
+            `;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // 焦点移到关闭按钮，便于键盘用户
+            const closeBtn = document.getElementById('storyModalClose');
+            if (closeBtn) closeBtn.focus();
+        }
+
+        function closeStory() {
+            const modal = document.getElementById('storyModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('click', (e) => {
+            const storyTag = e.target.closest('.tag-story');
+            if (storyTag) {
+                openStory(storyTag.dataset.story);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('storyModal');
+            if (!modal || !modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeStory();
+            if (e.key === 'Enter') {
+                const focused = document.activeElement;
+                if (focused && focused.classList.contains('tag-story')) {
+                    openStory(focused.dataset.story);
+                }
+            }
+        });
+
+        // 绑定关闭按钮和遮罩点击
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeBtn = document.getElementById('storyModalClose');
+            const overlay = document.getElementById('storyModalOverlay');
+            if (closeBtn) closeBtn.addEventListener('click', closeStory);
+            if (overlay) overlay.addEventListener('click', closeStory);
+        });
     </script>
 </body>
 </html>

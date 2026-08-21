@@ -878,14 +878,30 @@ const interestData = {
     'music': {
         title: '🎵 口琴',
         category: '音乐',
+        layout: 'split',
         image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=harmonica%20music%20instrument%20artistic%20dark%20background&image_size=portrait_4_3',
-        experience: '从小学习口琴，喜欢吹奏各种流行歌曲和经典曲目。口琴小巧便携，随时随地都能演奏，是我生活中不可或缺的伙伴。',
-        honors: ['校音乐节口琴独奏三等奖', '自学掌握多种吹奏技巧', '能演奏50+首曲目'],
-        thoughts: '口琴是一种很有魅力的乐器，它的音色独特而富有感染力。当我吹奏时，所有的烦恼都会随着音符飘散。音乐是最好的治愈剂，而口琴就是我的治愈神器。'
+        experience: ['我的口琴经历缘起十八岁成人礼，父亲赠予我第一支口琴作为生日礼物，由此开启自学之路。大学期间加入校口琴社团，和一众爱好者交流精进演奏技术，逐步成长为社团骨干；在校内开设口琴教学课程，参与各类舞台演出，也策划举办过口琴专场音乐会。',
+                     '参加工作之后，我依旧坚持日常练琴，并历年在公司年会登台表演。沉淀演奏与授课经验后，打磨形成一套适配实操、落地性强、适合新手的口琴教学方案，面向社会开展口琴教学工作。'
+                    ],
+        honors: [
+            '演出 · 北京科技大学"夏日琴怀"口琴专场音乐会表演、"吾肆放歌"演出表演、学院毕业晚会表演',
+            '演出 · 对外经济贸易大学学院毕业晚会表演',
+            '演出 · 企业部门年会表演人',
+            '演出 · 国资单位520、七夕节大型联谊会口琴表演嘉宾',
+            '教学 · 北京科技大学口琴授课教师',
+            '教学 · 北京大学医学部口琴授课教师',
+            '教学 · 薛薛口琴班主讲教师'
+        ],
+        thoughts: [
+            '最初被种草口琴，是被《肖申克的救赎》瑞德、《数码宝贝》阿和的口琴片段打动，让我萌生学习这门乐器的想法。',
+            '口琴音色富有感染力，性价比高、新手友好、便携易带，可收纳于口袋随身演奏。',
+            '欢迎更多的朋友能够感受口琴的魅力，一同感受吹奏的乐趣。'
+        ]
     },
     'sports-pingpong': {
         title: '🏓 乒乓球',
         category: '运动',
+        layout: 'side',
         image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ping%20pong%20table%20tennis%20sports%20dynamic%20dark%20background&image_size=portrait_4_3',
         experience: '从小喜欢打乒乓球，小学开始参加校队训练，一直坚持到大学。乒乓球不仅锻炼了我的反应能力，也让我认识了很多志同道合的朋友。',
         honors: ['校运会乒乓球单打亚军', '班级联赛冠军', '参加市级比赛'],
@@ -1033,23 +1049,54 @@ function initInterestModal() {
     const modalExperience = document.getElementById('interestModalExperience');
     const modalHonors = document.getElementById('interestModalHonors');
     const modalThoughts = document.getElementById('interestModalThoughts');
-    
+
+    // 容器引用：用于 layout 切换时移动区块
+    const modalInfo = document.querySelector('.interest-modal-info');
+    const modalBottom = document.getElementById('interestModalBottom');
+    const honorsBlock = document.getElementById('interestModalHonorsBlock');
+    const thoughtsBlock = document.getElementById('interestModalThoughtsBlock');
+
     if (!overlay || !modal || !closeBtn) return;
-    
+
+    // 渲染段落：字符串渲染为单个 <p>，数组渲染为多个 <p>（支持分段）
+    function renderParagraphs(el, content) {
+        if (Array.isArray(content)) {
+            el.innerHTML = content.map(p => `<p>${p}</p>`).join('');
+        } else {
+            el.innerHTML = `<p>${content}</p>`;
+        }
+    }
+
     cards.forEach(card => {
         card.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
             const data = interestData[id];
-            
+
             if (!data) return;
-            
+
             modalImg.src = data.image;
             modalTitle.textContent = data.title;
             modalCategory.textContent = data.category;
-            modalExperience.textContent = data.experience;
+            renderParagraphs(modalExperience, data.experience);
             modalHonors.innerHTML = data.honors.map(item => `<li>${item}</li>`).join('');
-            modalThoughts.textContent = data.thoughts;
-            
+            renderParagraphs(modalThoughts, data.thoughts);
+
+            // 根据 layout 切换布局：side=全部内容在图片右侧；split（默认）=履历/感想移至下方
+            const layout = data.layout || 'split';
+            if (layout === 'side') {
+                if (modalInfo && honorsBlock && thoughtsBlock) {
+                    modalInfo.appendChild(honorsBlock);
+                    modalInfo.appendChild(thoughtsBlock);
+                }
+                if (modalBottom) modalBottom.style.display = 'none';
+            } else {
+                if (modalBottom && honorsBlock && thoughtsBlock) {
+                    modalBottom.appendChild(honorsBlock);
+                    modalBottom.appendChild(thoughtsBlock);
+                }
+                if (modalBottom) modalBottom.style.display = '';
+            }
+
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         });

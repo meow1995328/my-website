@@ -56,11 +56,6 @@
 
     <!-- 主内容区域 -->
     <main class="main-content">
-        <div class="container">
-            <h1>🎨 兴趣与特长</h1>
-            <p>每个人都有自己的兴趣爱好，它们构成了丰富多彩的人生。这里记录了我热爱的事物和所取得的小小成就。</p>
-        </div>
-        
         <!-- 兴趣特长区域 -->
         <div class="interests-grid">
             <!-- 音乐 -->
@@ -276,25 +271,31 @@
             <div class="interest-modal" id="interestModal">
                 <button class="interest-modal-close" id="interestModalClose">&times;</button>
                 <div class="interest-modal-content">
-                    <div class="interest-modal-image">
-                        <img id="interestModalImg" src="" alt="">
+                    <!-- 上方：图片 + 爱好与经历 -->
+                    <div class="interest-modal-top">
+                        <div class="interest-modal-image">
+                            <img id="interestModalImg" src="" alt="">
+                        </div>
+                        <div class="interest-modal-info">
+                            <div class="interest-modal-header">
+                                <h2 id="interestModalTitle"></h2>
+                                <span id="interestModalCategory" class="interest-modal-category"></span>
+                            </div>
+                            <div class="interest-modal-experience">
+                                <h3>📝 爱好与经历</h3>
+                                <div id="interestModalExperience"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="interest-modal-info">
-                        <div class="interest-modal-header">
-                            <h2 id="interestModalTitle"></h2>
-                            <span id="interestModalCategory" class="interest-modal-category"></span>
-                        </div>
-                        <div class="interest-modal-experience">
-                            <h3>📝 学习经历</h3>
-                            <p id="interestModalExperience"></p>
-                        </div>
-                        <div class="interest-modal-honors">
-                            <h3>🏆 所获荣誉</h3>
+                    <!-- 下方：舞台与教学经历 + 个人感想（layout=side 时由 JS 移入 info） -->
+                    <div class="interest-modal-bottom" id="interestModalBottom">
+                        <div class="interest-modal-honors" id="interestModalHonorsBlock">
+                            <h3>🎤 舞台与教学经历</h3>
                             <ul id="interestModalHonors"></ul>
                         </div>
-                        <div class="interest-modal-thoughts">
+                        <div class="interest-modal-thoughts" id="interestModalThoughtsBlock">
                             <h3>💭 个人感想</h3>
-                            <p id="interestModalThoughts"></p>
+                            <div id="interestModalThoughts"></div>
                         </div>
                     </div>
                 </div>
