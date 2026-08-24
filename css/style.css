@@ -158,9 +158,9 @@ body {
    导航栏搜索框样式
    ============================================ */
 .search-wrapper {
-    flex: 1;
-    max-width: 380px;
-    margin: 0 auto;
+    flex: 0 0 200px; /* 固定宽度：200px，不占用左侧标题区和右侧导航区空间 */
+    max-width: 200px;
+    margin: 0 1rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -339,7 +339,8 @@ body {
 /* ========== 响应式：搜索框 ========== */
 @media (max-width: 900px) {
     .search-wrapper {
-        max-width: 200px;
+        flex: 0 0 160px;
+        max-width: 160px;
     }
     .search-input {
         font-size: 0.75rem;
@@ -358,7 +359,8 @@ body {
         margin-left: 0.4rem;
     }
     .search-wrapper {
-        max-width: 140px;
+        flex: 0 0 110px;
+        max-width: 110px;
     }
     .search-input::placeholder {
         color: transparent;
@@ -373,7 +375,8 @@ body {
 
 @media (max-width: 550px) {
     .search-wrapper {
-        max-width: 100px;
+        flex: 0 0 90px;
+        max-width: 90px;
     }
     .search-icon {
         margin-right: 0.3rem;
@@ -1028,41 +1031,116 @@ p {
    ============================================ */
 .featured-grid {
     display: grid;                              /* 网格布局 */
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* 自动填充：最小350px */
-    gap: 2rem;                                 /* 间距：2rem */
-    margin-top: 2rem;                          /* 上边距：2rem */
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); /* 自动填充：最小310px */
+    gap: 1rem;                                  /* 间距：1rem */
+    margin-top: 1.25rem;                        /* 上边距：1.25rem */
 }
 
 .featured-item {
     background: var(--bg-card);           /* 背景：卡片色 */
     border: 1px solid var(--border-color); /* 边框：灰色 */
-    border-radius: 12px;                  /* 圆角：12px */
-    padding: 1.5rem;                      /* 内边距：1.5rem */
+    border-radius: 10px;                  /* 圆角：10px */
+    padding: 0.9rem 1rem;                 /* 内边距：纵向0.9rem 横向1rem */
     transition: all 0.3s ease;            /* 过渡动画：0.3秒 */
+    text-decoration: none;                /* 去掉链接下划线 */
+    color: inherit;                       /* 颜色继承 */
+    display: flex;                        /* 弹性布局：让 foot 可推到底部 */
+    flex-direction: column;               /* 垂直方向排列 */
+    cursor: pointer;                      /* 鼠标指针 */
 }
 
 .featured-item:hover {
     transform: translateY(-3px);              /* 悬停：向上移动3px */
     border-color: var(--primary-color);       /* 悬停边框：蓝色 */
+    box-shadow: 0 6px 20px rgba(0, 120, 212, 0.25); /* 悬停阴影：蓝色发光 */
+}
+
+/* 占位卡片：克制的待填充样式，与可点击内容卡片区分 */
+.featured-item-placeholder {
+    border: 1.5px dashed rgba(255, 255, 255, 0.2); /* 虚线边框：灰色 */
+    background: rgba(255, 255, 255, 0.02);        /* 背景：极淡 */
+    cursor: default;                               /* 默认指针：不可点击 */
+}
+
+.featured-item-placeholder:hover {
+    transform: none;                              /* 不上移 */
+    border-color: rgba(255, 255, 255, 0.25);       /* 边框微亮 */
+    box-shadow: none;                              /* 无阴影发光 */
+}
+
+.featured-item-placeholder .featured-item-title {
+    color: var(--text-secondary);                 /* 标题：灰色，弱化 */
+}
+
+.featured-item-placeholder .featured-item-tags span {
+    color: var(--text-secondary);                 /* 标签：灰色 */
+    background: rgba(255, 255, 255, 0.05);        /* 标签背景：淡灰 */
 }
 
 .featured-item-title {
     color: var(--text-primary); /* 标题颜色：白色 */
-    font-size: 1.1rem;          /* 字体大小：1.1rem */
-    margin-bottom: 0.5rem;      /* 下边距：0.5rem */
+    font-size: 1rem;          /* 字体大小：1rem */
+    font-weight: 600;          /* 加粗 */
+    margin-bottom: 0.4rem;     /* 下边距：0.4rem */
+    line-height: 1.4;          /* 行高：1.4 */
+    display: -webkit-box;      /* 弹性盒：用于截断 */
+    -webkit-line-clamp: 1;     /* 标题最多 1 行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
 }
 
 .featured-item-desc {
     color: var(--text-secondary); /* 描述颜色：灰色 */
-    font-size: 0.9rem;            /* 字体大小：0.9rem */
+    font-size: 0.82rem;            /* 字体大小：0.82rem */
+    line-height: 1.5;              /* 行高：1.5 */
+    display: -webkit-box;          /* 弹性盒：用于截断 */
+    -webkit-line-clamp: 4;         /* 最多显示4行 */
+    -webkit-box-orient: vertical;  /* 垂直方向 */
+    overflow: hidden;              /* 超出隐藏 */
+    margin-bottom: 0.55rem;        /* 下边距：0.55rem */
 }
 
+.featured-item-foot {
+    display: flex;                /* 弹性行布局：标签+时间 */
+    align-items: center;          /* 垂直居中 */
+    justify-content: space-between; /* 两端对齐 */
+    gap: 0.5rem;                  /* 间距：0.5rem */
+    margin-top: auto;             /* 顶边距自动：推到底部 */
+}
+
+.featured-item-tags {
+    display: flex;                /* 弹性布局：标签 */
+    flex-wrap: wrap;              /* 允许换行 */
+    gap: 0.35rem;                 /* 间距：0.35rem */
+}
+
+.featured-item-tags span {
+    display: inline-block;        /* 行内块 */
+    font-size: 0.68rem;           /* 字体大小：0.68rem（小标签） */
+    color: var(--accent-color);   /* 颜色：亮青色 */
+    background: rgba(0, 120, 212, 0.1); /* 背景：半透明蓝 */
+    padding: 0.15rem 0.45rem;      /* 内边距：纵向0.15rem 横向0.45rem */
+    border-radius: 4px;           /* 圆角：4px */
+    white-space: nowrap;          /* 不换行 */
+}
+
+.featured-item-time {
+    color: var(--text-secondary); /* 时间颜色：灰色 */
+    font-size: 0.7rem;            /* 字体大小：0.7rem */
+    white-space: nowrap;           /* 不换行 */
+    flex-shrink: 0;                /* 不收缩 */
+}
+
+/* 兼容旧结构：精选作品模块仍使用 .featured-item-meta */
 .featured-item-meta {
     display: flex;                /* 弹性布局 */
-    gap: 1rem;                   /* 间距：1rem */
-    margin-top: 1rem;            /* 上边距：1rem */
-    font-size: 0.85rem;          /* 字体大小：0.85rem */
+    gap: 0.6rem;                 /* 间距：0.6rem */
+    margin-top: auto;            /* 顶边距自动：推到底部 */
+    font-size: 0.75rem;          /* 字体大小：0.75rem */
     color: var(--accent-color);  /* 颜色：亮青色 */
+    flex-wrap: wrap;             /* 允许换行 */
 }
 
 /* ============================================

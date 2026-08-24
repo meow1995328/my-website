@@ -1037,12 +1037,22 @@ const interestData = {
     }
 };
 
-function initInterestModal() {
-    const cards = document.querySelectorAll('.interest-card');
+// 渲染段落：字符串渲染为单个 <p>，数组渲染为多个 <p>（支持分段）
+function renderInterestParagraphs(el, content) {
+    if (Array.isArray(content)) {
+        el.innerHTML = content.map(p => `<p>${p}</p>`).join('');
+    } else {
+        el.innerHTML = `<p>${content}</p>`;
+    }
+}
+
+// 打开兴趣详情弹窗（全局可用，首页与兴趣页共享）
+function openInterestModal(id) {
     const overlay = document.getElementById('interestModalOverlay');
-    const modal = document.getElementById('interestModal');
-    const closeBtn = document.getElementById('interestModalClose');
-    
+    if (!overlay) return;
+    const data = interestData[id];
+    if (!data) return;
+
     const modalImg = document.getElementById('interestModalImg');
     const modalTitle = document.getElementById('interestModalTitle');
     const modalCategory = document.getElementById('interestModalCategory');
@@ -1056,64 +1066,61 @@ function initInterestModal() {
     const honorsBlock = document.getElementById('interestModalHonorsBlock');
     const thoughtsBlock = document.getElementById('interestModalThoughtsBlock');
 
-    if (!overlay || !modal || !closeBtn) return;
+    if (modalImg) modalImg.src = data.image;
+    if (modalTitle) modalTitle.textContent = data.title;
+    if (modalCategory) modalCategory.textContent = data.category;
+    if (modalExperience) renderInterestParagraphs(modalExperience, data.experience);
+    if (modalHonors) modalHonors.innerHTML = data.honors.map(item => `<li>${item}</li>`).join('');
+    if (modalThoughts) renderInterestParagraphs(modalThoughts, data.thoughts);
 
-    // 渲染段落：字符串渲染为单个 <p>，数组渲染为多个 <p>（支持分段）
-    function renderParagraphs(el, content) {
-        if (Array.isArray(content)) {
-            el.innerHTML = content.map(p => `<p>${p}</p>`).join('');
-        } else {
-            el.innerHTML = `<p>${content}</p>`;
+    // 根据 layout 切换布局：side=全部内容在图片右侧；split（默认）=履历/感想移至下方
+    const layout = data.layout || 'split';
+    if (layout === 'side') {
+        if (modalInfo && honorsBlock && thoughtsBlock) {
+            modalInfo.appendChild(honorsBlock);
+            modalInfo.appendChild(thoughtsBlock);
         }
+        if (modalBottom) modalBottom.style.display = 'none';
+    } else {
+        if (modalBottom && honorsBlock && thoughtsBlock) {
+            modalBottom.appendChild(honorsBlock);
+            modalBottom.appendChild(thoughtsBlock);
+        }
+        if (modalBottom) modalBottom.style.display = '';
     }
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeInterestModal() {
+    const overlay = document.getElementById('interestModalOverlay');
+    if (!overlay) return;
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function initInterestModal() {
+    const cards = document.querySelectorAll('.interest-card');
+    const overlay = document.getElementById('interestModalOverlay');
+    const closeBtn = document.getElementById('interestModalClose');
+
+    if (!overlay) return;
 
     cards.forEach(card => {
         card.addEventListener('click', function() {
             const id = this.getAttribute('data-id');
-            const data = interestData[id];
-
-            if (!data) return;
-
-            modalImg.src = data.image;
-            modalTitle.textContent = data.title;
-            modalCategory.textContent = data.category;
-            renderParagraphs(modalExperience, data.experience);
-            modalHonors.innerHTML = data.honors.map(item => `<li>${item}</li>`).join('');
-            renderParagraphs(modalThoughts, data.thoughts);
-
-            // 根据 layout 切换布局：side=全部内容在图片右侧；split（默认）=履历/感想移至下方
-            const layout = data.layout || 'split';
-            if (layout === 'side') {
-                if (modalInfo && honorsBlock && thoughtsBlock) {
-                    modalInfo.appendChild(honorsBlock);
-                    modalInfo.appendChild(thoughtsBlock);
-                }
-                if (modalBottom) modalBottom.style.display = 'none';
-            } else {
-                if (modalBottom && honorsBlock && thoughtsBlock) {
-                    modalBottom.appendChild(honorsBlock);
-                    modalBottom.appendChild(thoughtsBlock);
-                }
-                if (modalBottom) modalBottom.style.display = '';
-            }
-
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            openInterestModal(id);
         });
     });
-    
-    function closeInterestModal() {
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    closeBtn.addEventListener('click', closeInterestModal);
+
+    if (closeBtn) closeBtn.addEventListener('click', closeInterestModal);
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
             closeInterestModal();
         }
     });
-    
+
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && overlay.classList.contains('active')) {
             closeInterestModal();

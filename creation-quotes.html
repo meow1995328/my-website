@@ -66,6 +66,14 @@
             font-size: 0.8rem;
             margin-bottom: 1rem;
         }
+
+        .quote-date {
+            display: block;
+            text-align: right;
+            color: #888;
+            font-size: 0.78rem;
+            margin-top: 0.4rem;
+        }
         
         .quote-filters {
             display: flex;
@@ -163,11 +171,11 @@
         <div class="container">
             <div class="quote-stats">
                 <div class="stat-item">
-                    <span class="stat-number">24</span>
+                    <span class="stat-number">25</span>
                     <span class="stat-label">经典语录</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">6</span>
+                    <span class="stat-number">7</span>
                     <span class="stat-label">分类</span>
                 </div>
                 <div class="stat-item">
@@ -187,6 +195,7 @@
                 <button class="filter-btn" data-category="celebrity">名人</button>
                 <button class="filter-btn" data-category="life">生活</button>
                 <button class="filter-btn" data-category="work">职场</button>
+                <button class="filter-btn" data-category="personal">个人语录</button>
             </div>
         </div>
         
@@ -220,6 +229,12 @@
     <script>
         // 经典语录数据
         const quotes = [
+            {
+                content: '现在打工上班的人都不叫"社畜"了，应该叫"畜牲"。之前好歹还在“社会”里混，现在光顾着干活，活得像头纯纯的牲口。（本条创意来自小方）',
+                author: 'XueXue',
+                category: 'personal',
+                date: '2026-08-24'
+            },
             {
                 content: '生活不是等待风暴过去，而是学会在雨中起舞。',
                 author: '佚名',
@@ -349,7 +364,8 @@
             emotion: '情感',
             celebrity: '名人',
             life: '生活',
-            work: '职场'
+            work: '职场',
+            personal: '个人语录'
         };
         
         // 渲染语录
@@ -364,6 +380,7 @@
                     <span class="quote-category">${categoryNames[quote.category]}</span>
                     <p class="quote-content">${quote.content}</p>
                     <p class="quote-author">— ${quote.author}</p>
+                    ${quote.date ? `<span class="quote-date">${quote.date}</span>` : ''}
                 </div>
             `).join('');
         }
