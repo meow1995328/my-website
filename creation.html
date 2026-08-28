@@ -1,4 +1,4 @@
-<!-- 版本：v0.4.5-dev -->
+<!-- 版本：v0.4.9-dev -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -8,6 +8,43 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3/dist/fuse.min.js"></script>
+    <style>
+        .creation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0.5rem auto;
+            padding: 0.5rem;
+        }
+        .creation-grid .fh-card {
+            min-height: 200px;
+            padding: 1.8rem 2rem;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.6rem;
+            grid-column: auto;
+            grid-row: auto;
+        }
+        .creation-grid .fh-card h3 {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+        .creation-grid .fh-card p {
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+        @media (max-width: 600px) {
+            .creation-grid { grid-template-columns: 1fr; }
+            .creation-grid .fh-card { min-height: 140px; padding: 1.2rem 1.4rem; }
+            .creation-grid .fh-card h3 { font-size: 1.15rem; }
+            .creation-grid .fh-card p { font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
     <!-- 顶部导航栏 -->
@@ -48,33 +85,38 @@
 
     <!-- 主内容区域 -->
     <main class="main-content">
-        <div class="fh-grid">
-            <a href="creation-movies.html" class="fh-card fh-card-reading">
-                <h3>🎬 观影笔记</h3>
-                <p>记录每一部打动我的电影，分享观影感受和思考。</p>
-            </a>
-            
+        <div class="creation-grid">
             <a href="creation-thoughts.html" class="fh-card fh-card-articles">
                 <h3>💭 随想碎碎念</h3>
                 <p>生活感悟和思绪记录，关于学习、职业、生活的一些思考。</p>
             </a>
-            
+
+            <a href="creation-moments.html" class="fh-card fh-card-moments">
+                <h3>📸 生活碎碎拍</h3>
+                <p>记录日常，定格瞬间——图文形式的生活点滴。</p>
+            </a>
+
+            <a href="creation-movies.html" class="fh-card fh-card-reading">
+                <h3>🎬 观影笔记</h3>
+                <p>记录每一部打动我的电影，分享观影感受和思考。</p>
+            </a>
+
             <a href="creation-reading.html" class="fh-card fh-card-thoughts">
                 <h3>📚 读书笔记</h3>
                 <p>阅读各类书籍的笔记心得，包括技术书籍、人文社科等。</p>
             </a>
-            
+
             <a href="creation-videos.html" class="fh-card fh-card-videos">
-                <h3>🎬 视频作品</h3>
+                <h3>🎥 视频作品</h3>
                 <p>技术分享视频和Vlog生活记录，包括教程系列和个人日常。</p>
             </a>
-            
+
             <a href="creation-quotes.html" class="fh-card fh-card-projects">
-                <h3>� 经典语录</h3>
+                <h3>💬 经典语录</h3>
                 <p>收集的名人名言、人生哲理、励志语录，记录值得铭记的智慧之言。</p>
             </a>
-            
-            <a href="creation-articles.html" class="fh-card fh-card-movies">
+
+            <a href="creation-articles.html" class="fh-card fh-card-movies" style="grid-column: 1 / -1;">
                 <h3>📝 干货分享</h3>
                 <p>技术文章和实用技巧总结，包括架构设计、编程语言、工程化实践等。</p>
             </a>
@@ -88,7 +130,7 @@
             <a href="site-info.html" class="footer-link">站点信息</a>
             <a href="resources.html" class="footer-link">联系我</a>
         </div>
-        <p>v0.4.5-dev</p>
+        <p>v0.4.9-dev</p>
     </footer>
 
     <script src="js/script.js?v=20260811"></script>

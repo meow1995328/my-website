@@ -92,38 +92,29 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
-        
+
         .filter-btn:hover,
         .filter-btn.active {
             background: #e94560;
             border-color: #e94560;
         }
-        
-        .quote-stats {
-            display: flex;
-            gap: 2rem;
-            padding: 1rem 0;
-            color: rgba(255, 255, 255, 0.7);
+
+        .filter-btn .filter-count {
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 10px;
+            padding: 0.05rem 0.45rem;
+            font-size: 0.72rem;
+            min-width: 1.3rem;
+            text-align: center;
         }
-        
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #00d4ff, #7c4dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .stat-label {
-            font-size: 0.85rem;
+
+        .filter-btn:hover .filter-count,
+        .filter-btn.active .filter-count {
+            background: rgba(255, 255, 255, 0.3);
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3/dist/fuse.min.js"></script>
@@ -167,27 +158,9 @@
 
     <!-- 主内容区域 -->
     <main class="main-content">
-        <!-- 统计信息 -->
+        <!-- 分类筛选（含各类数量统计） -->
         <div class="container">
-            <div class="quote-stats">
-                <div class="stat-item">
-                    <span class="stat-number">25</span>
-                    <span class="stat-label">经典语录</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">7</span>
-                    <span class="stat-label">分类</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">12</span>
-                    <span class="stat-label">名人名言</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 分类筛选 -->
-        <div class="container">
-            <div class="quote-filters">
+            <div class="quote-filters" id="quoteFilters">
                 <button class="filter-btn active" data-category="all">全部</button>
                 <button class="filter-btn" data-category="inspiration">励志</button>
                 <button class="filter-btn" data-category="philosophy">哲理</button>
@@ -229,6 +202,12 @@
     <script>
         // 经典语录数据
         const quotes = [
+            {
+                content: '人不是老了才会死，而是随时都可能会死的。生命没有预告，随时可能散场，我们唯一能把握的就是鲜活的"现在"。请珍视时光，珍爱身体，大胆追逐所想，用心享受生活。（本条创意来自互联网）',
+                author: 'XueXue',
+                category: 'personal',
+                date: '2026-08-28'
+            },
             {
                 content: '现在打工上班的人都不叫"社畜"了，应该叫"畜牲"。之前好歹还在“社会”里混，现在光顾着干活，活得像头纯纯的牲口。（本条创意来自小方）',
                 author: 'XueXue',
@@ -393,7 +372,19 @@
                 renderQuotes(btn.dataset.category);
             });
         });
-        
+
+        // 标签数量统计徽章
+        function countByCategory(cat) {
+            return cat === 'all' ? quotes.length : quotes.filter(q => q.category === cat).length;
+        }
+        document.querySelectorAll('#quoteFilters .filter-btn').forEach(btn => {
+            const count = countByCategory(btn.dataset.category);
+            const badge = document.createElement('span');
+            badge.className = 'filter-count';
+            badge.textContent = count;
+            btn.appendChild(badge);
+        });
+
         // 初始渲染
         renderQuotes();
     </script>

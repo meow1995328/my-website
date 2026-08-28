@@ -1,0 +1,449 @@
+<!-- 版本：v0.4.9-dev -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活碎碎拍 - 薛大侠</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .moments-columns {
+            columns: 3;
+            column-gap: 1.2rem;
+            padding: 1rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .moments-columns { columns: 2; }
+        }
+        @media (max-width: 600px) {
+            .moments-columns { columns: 1; }
+        }
+
+        .moment-card {
+            break-inside: avoid;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 0.9rem;
+            margin-bottom: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .moment-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+            border-color: rgba(0, 212, 255, 0.35);
+        }
+
+        .moment-images {
+            display: grid;
+            gap: 0.4rem;
+            margin-bottom: 0.7rem;
+        }
+        .moment-images.single { grid-template-columns: 1fr; }
+        .moment-images.double { grid-template-columns: 1fr 1fr; }
+        .moment-images.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+        .moment-images img,
+        .moment-placeholder {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            object-fit: cover;
+        }
+        .moment-images.single img,
+        .moment-images.single .moment-placeholder { aspect-ratio: 4/3; }
+        .moment-images.double img,
+        .moment-images.triple img,
+        .moment-images.double .moment-placeholder,
+        .moment-images.triple .moment-placeholder { aspect-ratio: 1/1; }
+
+        .moment-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        .moment-text {
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: #e0e0e0;
+            margin-bottom: 0.6rem;
+            white-space: pre-line;
+        }
+
+        .moment-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .moment-date {
+            font-size: 0.75rem;
+            color: #888;
+        }
+        .moment-tags {
+            display: flex;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+        }
+        .moment-tags span {
+            font-size: 0.68rem;
+            padding: 0.15rem 0.5rem;
+            background: rgba(0, 212, 255, 0.12);
+            color: #00d4ff;
+            border-radius: 10px;
+        }
+
+        /* Modal */
+        .moment-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .moment-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .moment-modal-content {
+            background: #1a1a2e;
+            border-radius: 18px;
+            max-width: 560px;
+            width: 90%;
+            max-height: 88vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .moment-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.4rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .moment-modal-close:hover { color: #fff; }
+        .moment-modal-images {
+            display: grid;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+        .moment-modal-images.single { grid-template-columns: 1fr; }
+        .moment-modal-images.double { grid-template-columns: 1fr 1fr; }
+        .moment-modal-images.triple { grid-template-columns: 1fr 1fr 1fr; }
+        .moment-modal-images img,
+        .moment-modal-images .moment-placeholder {
+            width: 100%;
+            border-radius: 12px;
+            display: block;
+            object-fit: cover;
+        }
+        .moment-modal-images.single img,
+        .moment-modal-images.single .moment-placeholder { aspect-ratio: 16/10; }
+        .moment-modal-images.double img,
+        .moment-modal-images.triple img,
+        .moment-modal-images.double .moment-placeholder,
+        .moment-modal-images.triple .moment-placeholder { aspect-ratio: 4/3; }
+        .moment-modal-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+            white-space: pre-line;
+        }
+        .moment-modal-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .moments-filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+        .moments-filter-btn {
+            padding: 0.4rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.85rem;
+        }
+        .moments-filter-btn .filter-count {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 0.05rem 0.4rem;
+            font-size: 0.72rem;
+            min-width: 1.2rem;
+            text-align: center;
+        }
+        .moments-filter-btn:hover,
+        .moments-filter-btn.active {
+            background: #00d4ff;
+            border-color: #00d4ff;
+            color: #0d0d1a;
+        }
+        .moments-filter-btn:hover .filter-count,
+        .moments-filter-btn.active .filter-count {
+            background: rgba(13, 13, 26, 0.2);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3/dist/fuse.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo">XueXue</a>
+            <div class="header-title">生活碎碎拍</div>
+            <div class="header-subtitle">记录日常，定格瞬间</div>
+            <div class="search-wrapper">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="搜索网站内容..." autocomplete="off">
+                    <button class="search-clear" type="button" title="清除">✕</button>
+                </div>
+                <div class="search-results"></div>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">关于我</a>
+                </li>
+                <li class="nav-item">
+                    <a href="creation.html" class="nav-link active">内容创作</a>
+                </li>
+                <li class="nav-item">
+                    <a href="resources.html" class="nav-link">服务中心</a>
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                    <a href="site-info.html" class="nav-link">站点信息</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="moments-filter-bar" id="momentsFilterBar">
+                <button class="moments-filter-btn active" data-category="all">全部</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="moments-columns" id="momentsColumns"></div>
+        </div>
+
+        <div class="container" style="text-align: center;">
+            <a href="creation.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
+                ← 返回内容创作
+            </a>
+        </div>
+    </main>
+
+    <button id="backToParent" class="back-to-parent" onclick="goToParent('creation.html')" title="返回上一级">←</button>
+
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()" title="返回顶部">↑</button>
+
+    <div class="moment-modal" id="momentModal">
+        <div class="moment-modal-content">
+            <button class="moment-modal-close" id="momentModalClose" aria-label="关闭">✕</button>
+            <div class="moment-modal-images" id="momentModalImages"></div>
+            <div class="moment-modal-text" id="momentModalText"></div>
+            <div class="moment-modal-meta">
+                <span class="moment-date" id="momentModalDate"></span>
+                <div class="moment-tags" id="momentModalTags"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
+        <p>v0.4.9-dev</p>
+    </footer>
+
+    <script>
+        const moments = [
+            {
+                id: 'm-1',
+                images: [
+                    { type: 'placeholder', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', icon: '📷' }
+                ],
+                text: '占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字。',
+                date: '2026-08-25',
+                tags: ['📷 日常']
+            },
+            {
+                id: 'm-2',
+                images: [
+                    { type: 'placeholder', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', icon: '📷' },
+                    { type: 'placeholder', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', icon: '📷' }
+                ],
+                text: '占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字。',
+                date: '2026-08-26',
+                tags: ['📷 日常']
+            },
+            {
+                id: 'm-3',
+                images: [
+                    { type: 'placeholder', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', icon: '🐾' }
+                ],
+                text: '占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字。',
+                date: '2026-08-27',
+                tags: ['🐾 萌宠']
+            },
+            {
+                id: 'm-4',
+                images: [
+                    { type: 'placeholder', gradient: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', icon: '🏆' }
+                ],
+                text: '占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字占位文字。',
+                date: '2026-08-28',
+                tags: ['🏆 成就']
+            }
+        ];
+
+        function getUniqueTags() {
+            const set = new Set();
+            moments.forEach(m => (m.tags || []).forEach(t => set.add(t)));
+            return Array.from(set);
+        }
+
+        function renderImageItem(img) {
+            if (img.type === 'placeholder') {
+                return `<div class="moment-placeholder" style="background: ${img.gradient}">${img.icon || ''}</div>`;
+            }
+            return `<img src="${img.src}" alt="" loading="lazy">`;
+        }
+
+        function renderMoments(category = 'all') {
+            const columns = document.getElementById('momentsColumns');
+            const filtered = category === 'all'
+                ? moments
+                : moments.filter(m => (m.tags || []).some(t => t === category));
+
+            columns.innerHTML = filtered.map(m => {
+                const count = m.images.length;
+                const gridClass = count === 1 ? 'single' : count === 2 ? 'double' : 'triple';
+                const imgsHtml = m.images.map(renderImageItem).join('');
+                const tagsHtml = (m.tags || []).map(t => `<span>${t}</span>`).join('');
+
+                return `
+                    <div class="moment-card" data-id="${m.id}">
+                        <div class="moment-images ${gridClass}">${imgsHtml}</div>
+                        <div class="moment-text">${m.text}</div>
+                        <div class="moment-meta">
+                            <span class="moment-date">${m.date}</span>
+                            <div class="moment-tags">${tagsHtml}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            columns.querySelectorAll('.moment-card').forEach(card => {
+                card.addEventListener('click', () => openMomentModal(card.dataset.id));
+            });
+        }
+
+        const tagCategories = ['📷 日常', '🐾 萌宠', '✈️ 旅行', '🏆 成就'];
+
+        function countByTag(tag) {
+            if (tag === 'all') return moments.length;
+            return moments.filter(m => (m.tags || []).some(t => t === tag)).length;
+        }
+
+        function renderFilterBar() {
+            const bar = document.getElementById('momentsFilterBar');
+            tagCategories.forEach(tag => {
+                const count = countByTag(tag);
+                const btn = document.createElement('button');
+                btn.className = 'moments-filter-btn';
+                btn.dataset.category = tag;
+                btn.innerHTML = `${tag} <span class="filter-count">${count}</span>`;
+                btn.addEventListener('click', () => {
+                    bar.querySelectorAll('.moments-filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderMoments(tag);
+                });
+                bar.appendChild(btn);
+            });
+
+            const allBtn = bar.querySelector('[data-category="all"]');
+            if (allBtn) {
+                allBtn.innerHTML = `全部 <span class="filter-count">${moments.length}</span>`;
+                allBtn.addEventListener('click', () => {
+                    bar.querySelectorAll('.moments-filter-btn').forEach(b => b.classList.remove('active'));
+                    allBtn.classList.add('active');
+                    renderMoments('all');
+                });
+            }
+        }
+
+        function openMomentModal(id) {
+            const m = moments.find(x => x.id === id);
+            if (!m) return;
+
+            const count = m.images.length;
+            const gridClass = count === 1 ? 'single' : count === 2 ? 'double' : 'triple';
+            document.getElementById('momentModalImages').className = `moment-modal-images ${gridClass}`;
+            document.getElementById('momentModalImages').innerHTML =
+                m.images.map(renderImageItem).join('');
+            document.getElementById('momentModalText').textContent = m.text;
+            document.getElementById('momentModalDate').textContent = m.date;
+            document.getElementById('momentModalTags').innerHTML =
+                (m.tags || []).map(t => `<span>${t}</span>`).join('');
+
+            document.getElementById('momentModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMomentModal() {
+            document.getElementById('momentModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('momentModalClose').addEventListener('click', closeMomentModal);
+        document.getElementById('momentModal').addEventListener('click', function(e) {
+            if (e.target === this) closeMomentModal();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeMomentModal();
+        });
+
+        renderFilterBar();
+        renderMoments();
+    </script>
+
+    <script src="js/script.js?v=20260821"></script>
+</body>
+</html>

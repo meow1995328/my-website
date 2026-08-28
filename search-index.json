@@ -136,6 +136,14 @@
     "keywords": "经典语录 语录 励志 哲理 情感 名人名言 生活 职场 名句 格言"
   },
   {
+    "id": "creation-moments",
+    "title": "生活碎碎拍",
+    "category": "内容创作",
+    "url": "creation-moments.html",
+    "desc": "记录日常，定格瞬间 - 图文形式的生活点滴、日常随拍",
+    "keywords": "生活碎碎拍 日常 随拍 图文 生活 碎片 瞬间 moments"
+  },
+  {
     "id": "resources",
     "title": "服务中心",
     "category": "服务中心",
@@ -415,6 +423,14 @@
     "url": "creation-quotes.html",
     "desc": "个人语录 - 薛大侠 - 2026-08-24",
     "keywords": "语录 个人语录 社畜 畜牲 打工 社会 牲口 薛大侠"
+  },
+  {
+    "id": "quote-26",
+    "title": "人不是老了才会死，而是随时都可能会死的",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "个人语录 - 薛大侠 - 2026-08-28",
+    "keywords": "语录 个人语录 生命 时光 珍惜 现在 生活 薛大侠"
   },
 
   {

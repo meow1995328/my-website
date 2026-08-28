@@ -35,6 +35,7 @@
     --fh-card-videos: #ff5722;      /* 视频作品卡片色 */
     --fh-card-projects: #00bcd4;    /* 个人项目卡片色 */
     --fh-card-movies: #ffeb3b;      /* 观影笔记卡片色 */
+    --fh-card-moments: #ff80ab;     /* 生活碎碎拍卡片色 */
 }
 
 html {
@@ -897,6 +898,21 @@ p {
 }
 
 .fh-card-movies p {
+    font-size: 0.7rem;
+}
+
+.fh-card-moments {
+    grid-column: 2 / 4;
+    grid-row: 4 / 5;
+    background: linear-gradient(135deg, #ff80ab 0%, #f06292 100%);
+}
+
+.fh-card-moments h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+}
+
+.fh-card-moments p {
     font-size: 0.7rem;
 }
 
@@ -2836,8 +2852,22 @@ html.fh-transition-dissolve::view-transition-new(root) {
     font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.75);
     line-height: 1.8;
-    margin: 0;
+    margin: 0 0 0.8rem 0;
     text-indent: 2em;
+}
+
+/* 影评落款 */
+.movie-modal-thoughts p.movie-modal-signature {
+    text-align: right;
+    text-indent: 0;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 1.2rem 0 0;
+}
+
+/* 影评重点标记 */
+.review-highlight {
+    color: #4da3ff;
+    font-weight: 600;
 }
 
 /* ========== 响应式适配 ========== */
