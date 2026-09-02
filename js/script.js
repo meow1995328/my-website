@@ -71,6 +71,31 @@ document.addEventListener('DOMContentLoaded', function() {
     initSearch();
 });
 
+// 浏览器后退/前进时重新触发 fh-card 弹入动画（全局生效）
+window.addEventListener('pageshow', function(e) {
+    if (e.persisted) {  // 从 bfcache 恢复（浏览器后退）
+        replayFhCardAnimation();
+    }
+});
+
+/**
+ * 重新触发 fh-card / ack-tag 弹入动画
+ * 用短延时清除 animation → 强制 reflow → 重新加 animation
+ */
+function replayFhCardAnimation() {
+    const cards = document.querySelectorAll('.fh-card, .ack-tag');
+    if (cards.length === 0) return;
+
+    // 先移除动画
+    cards.forEach(el => { el.style.animation = 'none'; });
+
+    // 强制 reflow（让浏览器必须重新计算样式）
+    void document.documentElement.offsetWidth;
+
+    // 恢复动画，浏览器会重新播放
+    cards.forEach(el => { el.style.animation = ''; });
+}
+
 /**
  * ============================================
  * View Transitions 页面切换动画
@@ -897,8 +922,12 @@ const interestData = {
         category: '音乐',
         layout: 'split',
         image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=harmonica%20music%20instrument%20artistic%20dark%20background&image_size=portrait_4_3',
-        experience: ['我的口琴经历缘起十八岁成人礼，父亲赠予我第一支口琴作为生日礼物，由此开启自学之路。大学期间加入校口琴社团，和一众爱好者交流精进演奏技术，逐步成长为社团骨干；在校内开设口琴教学课程，参与各类舞台演出，也策划举办过口琴专场音乐会。',
-                     '参加工作之后，我依旧坚持日常练琴，并历年在公司年会登台表演。沉淀演奏与授课经验后，打磨形成一套适配实操、落地性强、适合新手的口琴教学方案，面向社会开展口琴教学工作。'
+        experienceTitle: '📝 我的口琴之路',
+        honorsTitle: '🎤 舞台与教学经历',
+        thoughtsTitle: '💭 个人感想',
+        experience: ['我最初对口琴心生向往，是被经典作品中的演奏场景深深打动。《肖申克的救赎》中的瑞德和《数码宝贝》中阿和的吹奏片段让我心生憧憬，也由此萌生了学习口琴这门乐器的想法。',
+                     '我真正开启口琴学习之路是在十八岁成人礼，爸爸将一支蓝调口琴作为生日礼物赠予我，自此我正式踏上自学口琴的旅程。初期，我依托网络教程与学习资料自主钻研、反复练习，夯实基础演奏技巧。进入大学后，我有幸加入学校口琴社团，几年里与一众爱好者深入交流并精进技艺，日积月累下逐步成长为社团骨干成员。在校期间，我们不仅参与各类校园舞台演出、户外路演，还开设口琴教学课程，陆续带教了一批又一批的口琴学习者。我们还策划并举办了口琴专场音乐会，积累了充足的演奏与活动组织经验。',
+                     '大学毕业后，社团成员各奔东西，我重新回归独立练习、自主钻研的状态。步入职场以来，我始终保持日常练琴的习惯，坚持深耕热爱，多年来持续登台公司年会表演。我还经常开展户外路演活动，在不同场景打磨演奏功底，积累舞台经验。在长期的演奏实践与教学积累中，我不断复盘打磨、优化教学逻辑，沉淀出一套实操性强、适合零基础新手的口琴教学体系，目前也面向社会开展口琴教学工作，传递口琴音乐的温暖与魅力。'
                     ],
         honors: [
             '演出 · 北京科技大学"夏日琴怀"口琴专场音乐会表演、"吾肆放歌"演出表演、学院毕业晚会表演',
@@ -910,19 +939,27 @@ const interestData = {
             '教学 · 薛薛口琴班主讲教师'
         ],
         thoughts: [
-            '最初被种草口琴，是被《肖申克的救赎》瑞德、《数码宝贝》阿和的口琴片段打动，让我萌生学习这门乐器的想法。',
             '口琴音色富有感染力，性价比高、新手友好、便携易带，可收纳于口袋随身演奏。',
-            '欢迎更多的朋友能够感受口琴的魅力，一同感受吹奏的乐趣。'
+            '欢迎更多的朋友能够感受口琴的魅力，一同感受吹奏的乐趣。',
+            '我的口琴课程：10节课针对新手友好的半音阶口琴教学，让你能完整演奏自己喜欢的歌曲，详情见付费服务专栏。'
         ]
     },
     'sports-pingpong': {
         title: '🏓 乒乓球',
         category: '运动',
-        layout: 'side',
+        layout: 'split',
         image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=ping%20pong%20table%20tennis%20sports%20dynamic%20dark%20background&image_size=portrait_4_3',
-        experience: '从小喜欢打乒乓球，小学开始参加校队训练，一直坚持到大学。乒乓球不仅锻炼了我的反应能力，也让我认识了很多志同道合的朋友。',
-        honors: ['校运会乒乓球单打亚军', '班级联赛冠军', '参加市级比赛'],
-        thoughts: '乒乓球是中国的国球，也是我最喜欢的运动。在球桌上，每一次挥拍都是一种享受。乒乓球教会我专注和坚持，只有不断练习才能进步。'
+        experienceTitle: '📝 我的乒乓球经历',
+        honorsTitle: '🏆 获奖情况',
+        experience: [
+            '我与乒乓球的缘份始于十岁那年。当时爸爸给我报名了学校的乒乓球兴趣班，每周一节课。仅仅一学期的时间，我的球技便脱颖而出，稳居兴趣班顶尖水平。为帮助我精进球技，家人花钱支持我参加暑期训练。我日复一日地跟随教练系统训练，球技飞速进步，很快便跻身全校最强选手之一，也获得了代表学校外出参赛的宝贵机会。',
+            '小升初阶段，我暂停了乒乓球的系统化训练。复盘这段经历，我停下专业训练主要有三方面原因。首先，专业队选手大多五岁左右便开启全职系统化训练，我十岁才起步学习，早已错过职业发展黄金窗口期，即便有一定天赋，也很难成长为高水平专业运动员。其次，我的学业成绩始终名列前茅，顺利考入市重点中学，后续又免试保送市重点高中。随着学段升高，课业压力持续增大，加之乒乓球专业训练耗时耗财，所以我和家人选择专注学业发展，放弃体育专项路线。最后，中学阶段校内鲜有与我水平相当的球友，缺少了切磋交流的氛围与动力。',
+            '不过乒乓球从未淡出我的生活，求学的各个阶段一直都有好同学陪我打球，相伴挥拍的时光轻松又治愈，成为我求学路上珍贵的乐趣。进入大学、参加工作后，乒乓球依旧是我最核心的爱好之一。如今我长期保持规律训练的习惯，积极参加各类业余赛事，曾在校级比赛及社会业余乒乓球赛事中斩获荣誉和奖项。我始终自称是一名"业余运动员"，我认为运动员的核心从来不是专业身份与职业头衔，而是敢于站在赛场上全力以赴的态度，这份热爱与坚守足以让每一位爱好者成为自己赛场上的运动员。'
+        ],
+        honors: [
+            '校级学院团体赛亚军',
+            '童祥乒乓球U1500组亚军'
+        ]
     },
     'sports-rope': {
         title: '🪢 跳绳',
@@ -1090,6 +1127,14 @@ function openInterestModal(id) {
     if (modalHonors) modalHonors.innerHTML = data.honors.map(item => `<li>${item}</li>`).join('');
     if (modalThoughts) renderInterestParagraphs(modalThoughts, data.thoughts);
 
+    // 动态设置区块标题（默认值兼容旧数据）
+    const experienceTitle = document.getElementById('interestModalExperienceTitle');
+    const honorsTitle = document.getElementById('interestModalHonorsTitle');
+    const thoughtsTitle = document.getElementById('interestModalThoughtsTitle');
+    if (experienceTitle) experienceTitle.textContent = data.experienceTitle || '📝 我的经历';
+    if (honorsTitle) honorsTitle.textContent = data.honorsTitle || '🏆 荣誉与经历';
+    if (thoughtsTitle) thoughtsTitle.textContent = data.thoughtsTitle || '💭 个人感想';
+
     // 根据 layout 切换布局：side=全部内容在图片右侧；split（默认）=履历/感想移至下方
     const layout = data.layout || 'split';
     if (layout === 'side') {
@@ -1105,6 +1150,10 @@ function openInterestModal(id) {
         }
         if (modalBottom) modalBottom.style.display = '';
     }
+
+    // 隐藏空区块
+    if (honorsBlock) honorsBlock.style.display = (data.honors && data.honors.length > 0) ? '' : 'none';
+    if (thoughtsBlock) thoughtsBlock.style.display = (data.thoughts && data.thoughts.length > 0) ? '' : 'none';
 
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';

@@ -21,9 +21,11 @@
     <!-- 顶部导航栏 -->
     <header class="header">
         <nav class="nav">
-            <a href="index.html" class="logo">XueXue</a>
+            <div class="nav-left">
+                <a href="index.html" class="logo">XueXue</a>
             <div class="header-title">兴趣爱好</div>
             <div class="header-subtitle">我的多彩生活</div>
+            </div>
             <div class="search-wrapper">
                 <div class="search-box">
                     <span class="search-icon">🔍</span>
@@ -282,19 +284,19 @@
                                 <span id="interestModalCategory" class="interest-modal-category"></span>
                             </div>
                             <div class="interest-modal-experience">
-                                <h3>📝 我的口琴之路</h3>
+                                <h3 id="interestModalExperienceTitle">📝 我的口琴之路</h3>
                                 <div id="interestModalExperience"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- 下方：舞台与教学经历 + 个人感想（layout=side 时由 JS 移入 info） -->
+                    <!-- 下方：荣誉 + 感想（layout=side 时由 JS 移入 info） -->
                     <div class="interest-modal-bottom" id="interestModalBottom">
                         <div class="interest-modal-honors" id="interestModalHonorsBlock">
-                            <h3>🎤 舞台与教学经历</h3>
+                            <h3 id="interestModalHonorsTitle">🎤 舞台与教学经历</h3>
                             <ul id="interestModalHonors"></ul>
                         </div>
                         <div class="interest-modal-thoughts" id="interestModalThoughtsBlock">
-                            <h3>💭 个人感想</h3>
+                            <h3 id="interestModalThoughtsTitle">💭 个人感想</h3>
                             <div id="interestModalThoughts"></div>
                         </div>
                     </div>

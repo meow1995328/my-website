@@ -67,6 +67,32 @@
             margin-bottom: 1rem;
         }
 
+        /* 网络名言：蓝色配色 */
+        .quote-category.cat-internet {
+            background: rgba(0, 168, 255, 0.2);
+            color: #4da3ff;
+        }
+
+        /* 网络名言卡片：左边框 + hover 阴影改为蓝色 */
+        .quote-card.quote-cat-internet {
+            border-left-color: #4da3ff;
+        }
+        .quote-card.quote-cat-internet:hover {
+            box-shadow: 0 8px 30px rgba(77, 163, 255, 0.3);
+        }
+        .quote-card.quote-cat-internet::before {
+            color: rgba(77, 163, 255, 0.3);
+        }
+
+        /* 长语录：单独占满一行 */
+        .quote-card-wide {
+            grid-column: 1 / -1;
+        }
+        .quote-card-wide .quote-content {
+            font-size: 1rem;                                  /* 略小，避免过长 */
+            line-height: 1.9;
+        }
+
         .quote-date {
             display: block;
             text-align: right;
@@ -123,9 +149,11 @@
     <!-- 顶部导航栏 -->
     <header class="header">
         <nav class="nav">
-            <a href="index.html" class="logo">XueXue</a>
+            <div class="nav-left">
+                <a href="index.html" class="logo">XueXue</a>
             <div class="header-title">经典语录</div>
             <div class="header-subtitle">记录值得铭记的智慧之言</div>
+            </div>
             <div class="search-wrapper">
                 <div class="search-box">
                     <span class="search-icon">🔍</span>
@@ -162,13 +190,10 @@
         <div class="container">
             <div class="quote-filters" id="quoteFilters">
                 <button class="filter-btn active" data-category="all">全部</button>
-                <button class="filter-btn" data-category="inspiration">励志</button>
                 <button class="filter-btn" data-category="philosophy">哲理</button>
-                <button class="filter-btn" data-category="emotion">情感</button>
                 <button class="filter-btn" data-category="celebrity">名人</button>
-                <button class="filter-btn" data-category="life">生活</button>
-                <button class="filter-btn" data-category="work">职场</button>
                 <button class="filter-btn" data-category="personal">个人语录</button>
+                <button class="filter-btn" data-category="internet">网络名言</button>
             </div>
         </div>
         
@@ -203,6 +228,12 @@
         // 经典语录数据
         const quotes = [
             {
+                content: '水清则浅，水绿则深，水黑则渊，鳝大成蛇，蛇大成蟒，蟒大成蛟，蛟大成龙，龙大成王，王中王，火腿肠，一节更比六节强，三百年，九芝堂，治肾亏，不含糖，果冻，我选喜之郎！喜之郎，不一般，马可波罗是瓷砖，能贴墙，能贴地，大力才能出奇迹，奇迹衍大道，道生一，一生二，二生三，三生万物，万物生太极，太极生两仪，两仪生四舅，四舅生八崽，八崽爱喝奶，喝了这个奶，忘掉那个崽，旺仔牛奶！',
+                author: 'XueXue',
+                category: 'internet',
+                date: '2026-08-31'
+            },
+            {
                 content: '人不是老了才会死，而是随时都可能会死的。生命没有预告，随时可能散场，我们唯一能把握的就是鲜活的"现在"。请珍视时光，珍爱身体，大胆追逐所想，用心享受生活。（本条创意来自互联网）',
                 author: 'XueXue',
                 category: 'personal',
@@ -215,11 +246,6 @@
                 date: '2026-08-24'
             },
             {
-                content: '生活不是等待风暴过去，而是学会在雨中起舞。',
-                author: '佚名',
-                category: 'inspiration'
-            },
-            {
                 content: '你所浪费的今天，是昨天死去的人奢望的明天。',
                 author: '佚名',
                 category: 'philosophy'
@@ -227,17 +253,7 @@
             {
                 content: '世界上只有一种真正的英雄主义，那就是在认清生活真相之后依然热爱生活。',
                 author: '罗曼·罗兰',
-                category: 'inspiration'
-            },
-            {
-                content: '人生就像一盒巧克力，你永远不知道下一颗是什么味道。',
-                author: '阿甘正传',
-                category: 'life'
-            },
-            {
-                content: '不要等待机会，而要创造机会。',
-                author: '萧伯纳',
-                category: 'work'
+                category: 'celebrity'
             },
             {
                 content: '千里之行，始于足下。',
@@ -245,24 +261,9 @@
                 category: 'philosophy'
             },
             {
-                content: '世上无难事，只怕有心人。',
-                author: '佚名',
-                category: 'inspiration'
-            },
-            {
                 content: '人生如逆旅，我亦是行人。',
                 author: '苏轼',
                 category: 'philosophy'
-            },
-            {
-                content: '明月几时有？把酒问青天。',
-                author: '苏轼',
-                category: 'emotion'
-            },
-            {
-                content: '海内存知己，天涯若比邻。',
-                author: '王勃',
-                category: 'emotion'
             },
             {
                 content: '落红不是无情物，化作春泥更护花。',
@@ -270,98 +271,47 @@
                 category: 'philosophy'
             },
             {
-                content: '长风破浪会有时，直挂云帆济沧海。',
-                author: '李白',
-                category: 'inspiration'
-            },
-            {
-                content: '会当凌绝顶，一览众山小。',
-                author: '杜甫',
-                category: 'inspiration'
-            },
-            {
-                content: '欲穷千里目，更上一层楼。',
-                author: '王之涣',
-                category: 'inspiration'
-            },
-            {
                 content: '不识庐山真面目，只缘身在此山中。',
                 author: '苏轼',
                 category: 'philosophy'
             },
             {
-                content: '纸上得来终觉浅，绝知此事要躬行。',
-                author: '陆游',
-                category: 'work'
-            },
-            {
                 content: '问渠那得清如许？为有源头活水来。',
                 author: '朱熹',
                 category: 'philosophy'
-            },
-            {
-                content: '宝剑锋从磨砺出，梅花香自苦寒来。',
-                author: '《警世贤文》',
-                category: 'inspiration'
-            },
-            {
-                content: '少壮不努力，老大徒伤悲。',
-                author: '《长歌行》',
-                category: 'work'
-            },
-            {
-                content: '一寸光阴一寸金，寸金难买寸光阴。',
-                author: '《增广贤文》',
-                category: 'life'
-            },
-            {
-                content: '三人行，必有我师焉。',
-                author: '孔子',
-                category: 'work'
-            },
-            {
-                content: '己所不欲，勿施于人。',
-                author: '孔子',
-                category: 'life'
-            },
-            {
-                content: '学而不思则罔，思而不学则殆。',
-                author: '孔子',
-                category: 'work'
-            },
-            {
-                content: '温故而知新，可以为师矣。',
-                author: '孔子',
-                category: 'work'
             }
         ];
-        
+
         // 分类名称映射
         const categoryNames = {
-            inspiration: '励志',
             philosophy: '哲理',
-            emotion: '情感',
             celebrity: '名人',
-            life: '生活',
-            work: '职场',
-            personal: '个人语录'
+            personal: '个人语录',
+            internet: '网络名言'
         };
         
         // 渲染语录
         function renderQuotes(category = 'all') {
             const grid = document.getElementById('quotesGrid');
-            const filtered = category === 'all' 
-                ? quotes 
+            const filtered = category === 'all'
+                ? quotes
                 : quotes.filter(q => q.category === category);
-            
-            grid.innerHTML = filtered.map(quote => `
-                <div class="quote-card">
-                    <span class="quote-category">${categoryNames[quote.category]}</span>
+
+            grid.innerHTML = filtered.map(quote => {
+                // 长语录（> 80 字）单独占一行，避免文字挤压
+                const isWide = quote.content.length > 80;
+                const wideClass = isWide ? ' quote-card-wide' : '';
+                // 按分类加修饰类，用于配色
+                const catClass = ` quote-cat-${quote.category}`;
+                return `
+                <div class="quote-card${wideClass}${catClass}">
+                    <span class="quote-category cat-${quote.category}">${categoryNames[quote.category]}</span>
                     <p class="quote-content">${quote.content}</p>
                     <p class="quote-author">— ${quote.author}</p>
                     ${quote.date ? `<span class="quote-date">${quote.date}</span>` : ''}
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
         
         // 筛选按钮事件

@@ -225,14 +225,6 @@
   },
 
   {
-    "id": "quote-1",
-    "title": "生活不是等待风暴过去，而是学会在雨中起舞。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "励志类语录 - 佚名",
-    "keywords": "语录 励志 生活 风暴 雨中起舞 佚名"
-  },
-  {
     "id": "quote-2",
     "title": "你所浪费的今天，是昨天死去的人奢望的明天。",
     "category": "经典语录",
@@ -245,24 +237,8 @@
     "title": "世界上只有一种真正的英雄主义，那就是在认清生活真相之后依然热爱生活。",
     "category": "经典语录",
     "url": "creation-quotes.html",
-    "desc": "励志类语录 - 罗曼·罗兰",
-    "keywords": "语录 励志 英雄主义 生活 罗曼罗兰"
-  },
-  {
-    "id": "quote-4",
-    "title": "人生就像一盒巧克力，你永远不知道下一颗是什么味道。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "生活类语录 - 阿甘正传",
-    "keywords": "语录 生活 人生 巧克力 阿甘正传"
-  },
-  {
-    "id": "quote-5",
-    "title": "不要等待机会，而要创造机会。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "职场类语录 - 萧伯纳",
-    "keywords": "语录 职场 机会 创造 萧伯纳"
+    "desc": "名人类语录 - 罗曼·罗兰",
+    "keywords": "语录 名人 英雄主义 生活 罗曼罗兰"
   },
   {
     "id": "quote-6",
@@ -273,36 +249,12 @@
     "keywords": "语录 哲理 千里 足下 老子"
   },
   {
-    "id": "quote-7",
-    "title": "世上无难事，只怕有心人。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "励志类语录 - 佚名",
-    "keywords": "语录 励志 难事 有心人 佚名"
-  },
-  {
     "id": "quote-8",
     "title": "人生如逆旅，我亦是行人。",
     "category": "经典语录",
     "url": "creation-quotes.html",
     "desc": "哲理类语录 - 苏轼",
     "keywords": "语录 哲理 人生 逆旅 行人 苏轼"
-  },
-  {
-    "id": "quote-9",
-    "title": "明月几时有？把酒问青天。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "情感类语录 - 苏轼",
-    "keywords": "语录 情感 明月 苏轼 诗词"
-  },
-  {
-    "id": "quote-10",
-    "title": "海内存知己，天涯若比邻。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "情感类语录 - 王勃",
-    "keywords": "语录 情感 知己 天涯 王勃"
   },
   {
     "id": "quote-11",
@@ -313,30 +265,6 @@
     "keywords": "语录 哲理 落红 春泥 龚自珍"
   },
   {
-    "id": "quote-12",
-    "title": "长风破浪会有时，直挂云帆济沧海。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "励志类语录 - 李白",
-    "keywords": "语录 励志 长风 破浪 云帆 李白"
-  },
-  {
-    "id": "quote-13",
-    "title": "会当凌绝顶，一览众山小。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "励志类语录 - 杜甫",
-    "keywords": "语录 励志 绝顶 众山 杜甫"
-  },
-  {
-    "id": "quote-14",
-    "title": "欲穷千里目，更上一层楼。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "励志类语录 - 王之涣",
-    "keywords": "语录 励志 千里 上层楼 王之涣"
-  },
-  {
     "id": "quote-15",
     "title": "不识庐山真面目，只缘身在此山中。",
     "category": "经典语录",
@@ -345,76 +273,12 @@
     "keywords": "语录 哲理 庐山 苏轼"
   },
   {
-    "id": "quote-16",
-    "title": "纸上得来终觉浅，绝知此事要躬行。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "职场类语录 - 陆游",
-    "keywords": "语录 职场 纸上 躬行 陆游"
-  },
-  {
     "id": "quote-17",
     "title": "问渠那得清如许？为有源头活水来。",
     "category": "经典语录",
     "url": "creation-quotes.html",
     "desc": "哲理类语录 - 朱熹",
     "keywords": "语录 哲理 源头 活水 朱熹"
-  },
-  {
-    "id": "quote-18",
-    "title": "宝剑锋从磨砺出，梅花香自苦寒来。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "励志类语录 - 警世贤文",
-    "keywords": "语录 励志 宝剑 梅花 磨砺 苦寒"
-  },
-  {
-    "id": "quote-19",
-    "title": "少壮不努力，老大徒伤悲。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "职场类语录 - 长歌行",
-    "keywords": "语录 职场 少壮 努力 老大 伤悲"
-  },
-  {
-    "id": "quote-20",
-    "title": "一寸光阴一寸金，寸金难买寸光阴。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "生活类语录 - 增广贤文",
-    "keywords": "语录 生活 光阴 时间 珍惜"
-  },
-  {
-    "id": "quote-21",
-    "title": "三人行，必有我师焉。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "职场类语录 - 孔子",
-    "keywords": "语录 职场 三人行 师 孔子"
-  },
-  {
-    "id": "quote-22",
-    "title": "己所不欲，勿施于人。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "生活类语录 - 孔子",
-    "keywords": "语录 生活 己所不欲 施于人 孔子"
-  },
-  {
-    "id": "quote-23",
-    "title": "学而不思则罔，思而不学则殆。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "职场类语录 - 孔子",
-    "keywords": "语录 职场 学而不思 思而不学 孔子"
-  },
-  {
-    "id": "quote-24",
-    "title": "温故而知新，可以为师矣。",
-    "category": "经典语录",
-    "url": "creation-quotes.html",
-    "desc": "职场类语录 - 孔子",
-    "keywords": "语录 职场 温故知新 师 孔子"
   },
   {
     "id": "quote-25",
@@ -431,6 +295,14 @@
     "url": "creation-quotes.html",
     "desc": "个人语录 - 薛大侠 - 2026-08-28",
     "keywords": "语录 个人语录 生命 时光 珍惜 现在 生活 薛大侠"
+  },
+  {
+    "id": "quote-27",
+    "title": "水清则浅，水绿则深，水黑则渊，鳝大成蛇...",
+    "category": "经典语录",
+    "url": "creation-quotes.html",
+    "desc": "网络名言 - 薛大侠 - 2026-08-31",
+    "keywords": "语录 网络名言 水清则浅 火腿肠 九芝堂 喜之郎 马可波罗 旺仔牛奶 道生一 太极 薛大侠"
   },
 
   {

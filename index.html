@@ -13,9 +13,11 @@
     <!-- 顶部导航栏 -->
     <header class="header">
         <nav class="nav">
-            <a href="index.html" class="logo">XueXue</a>
-            <div class="header-title">XueXue的秘密基地🐱</div>
-            <div class="header-subtitle">用心记录生活</div>
+            <div class="nav-left">
+                <a href="index.html" class="logo">XueXue</a>
+                <div class="header-title">XueXue的秘密基地🐱</div>
+                <div class="header-subtitle">用心记录生活</div>
+            </div>
             <div class="search-wrapper">
                 <div class="search-box">
                     <span class="search-icon">🔍</span>
@@ -60,6 +62,14 @@
         <div class="hero-card" id="hero">
             <div class="hero-card-decoration"></div>
             <p>这是我的个人数字空间，旨在沉淀知识、分享价值、记录成长足迹，探索技术与创作的无限可能。在这里，我会分享技术心得、生活感悟、阅读体验，以及有趣的资源和工具。</p>
+            <!-- 个人趣味标签 -->
+            <div class="hero-tags">
+                <span class="hero-tag" style="--c1:#ff6b9d; --c2:#ff9ebb; --d:0.05s">🤭 终极怕痒人</span>
+                <span class="hero-tag" style="--c1:#ff9f43; --c2:#ffc078; --d:0.18s">🤧 过敏性鼻炎患者</span>
+                <span class="hero-tag" style="--c1:#8b5cf6; --c2:#b197fc; --d:0.31s">� 不熬夜冠军</span>
+                <span class="hero-tag" style="--c1:#10b981; --c2:#6ee7b7; --d:0.44s">� 爱吃汉堡</span>
+                <span class="hero-tag" style="--c1:#0ea5e9; --c2:#7dd3fc; --d:0.57s">🐱 资深小猫咪</span>
+            </div>
             <div class="hero-card-badge">
                 <span class="badge-icon">🎉</span>
                 <span class="badge-text">近期活动：暂无活动预告，敬请期待</span>
@@ -253,18 +263,18 @@
                             <span id="interestModalCategory" class="interest-modal-category"></span>
                         </div>
                         <div class="interest-modal-experience">
-                            <h3>📝 我的口琴之路</h3>
+                            <h3 id="interestModalExperienceTitle">📝 我的口琴之路</h3>
                             <div id="interestModalExperience"></div>
                         </div>
                     </div>
                 </div>
                 <div class="interest-modal-bottom" id="interestModalBottom">
                     <div class="interest-modal-honors" id="interestModalHonorsBlock">
-                        <h3>🎤 舞台与教学经历</h3>
+                        <h3 id="interestModalHonorsTitle">🎤 舞台与教学经历</h3>
                         <ul id="interestModalHonors"></ul>
                     </div>
                     <div class="interest-modal-thoughts" id="interestModalThoughtsBlock">
-                        <h3>💭 个人感想</h3>
+                        <h3 id="interestModalThoughtsTitle">💭 个人感想</h3>
                         <div id="interestModalThoughts"></div>
                     </div>
                 </div>
