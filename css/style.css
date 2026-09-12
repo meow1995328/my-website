@@ -2071,11 +2071,20 @@ li {
     padding: 1rem;                  /* 内边距：1rem */
     margin-top: 1rem;               /* 上边距：1rem（减小空隙） */
     border-top: 1px solid var(--border-color); /* 顶部边框：灰色 */
+    position: relative;
 }
 
 .footer p {
     margin: 0.5rem 0; /* 段落外边距：上下0.5rem */
     font-size: 0.9rem; /* 字体大小：0.9rem */
+}
+
+.footer p.site-version {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #7dd3fc;
+    letter-spacing: 0.03em;
+    margin: 0;
 }
 
 .footer-links {
@@ -2129,6 +2138,121 @@ li {
 .back-to-top.show {
     opacity: 1;
     visibility: visible;
+}
+
+/* ============================================
+   悬浮音乐播放器（上一首 + 黑胶唱片 + 下一首）
+   ============================================ */
+.music-player {
+    position: fixed;
+    bottom: 72px;               /* 位于返回顶部按钮上方 */
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 999;
+}
+
+/* 上一首 / 下一首按钮 */
+.music-prev,
+.music-next {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: rgba(244, 114, 182, 0.16);
+    color: rgba(251, 207, 232, 0.85);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    padding: 0;
+    opacity: 0.85;
+    box-shadow: 0 2px 8px rgba(244, 114, 182, 0.2);
+}
+
+.music-prev:hover,
+.music-next:hover {
+    opacity: 1;
+    background: rgba(244, 114, 182, 0.3);
+    color: #fbcfe8;
+    transform: scale(1.12);
+}
+
+/* 中间唱片播放/暂停按钮 */
+.music-toggle {
+    width: 58px;
+    height: 58px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.music-toggle:hover {
+    transform: scale(1.1);
+}
+
+.music-disc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* 黑胶盘面：中心粉色标签 + 外圈细纹路 */
+    background:
+        repeating-radial-gradient(circle at center, rgba(255,255,255,0.05) 0 1.5px, transparent 1.5px 3.5px),
+        radial-gradient(circle at center, #f472b6 0 27%, #17171d 28% 100%);
+    box-shadow: 0 6px 22px rgba(244, 114, 182, 0.5), 0 0 0 2px rgba(244, 114, 182, 0.25), inset 0 0 0 1px rgba(255,255,255,0.12);
+    animation: musicSpin 6s linear infinite;
+    animation-play-state: paused; /* 默认静止，播放时旋转 */
+}
+
+.music-toggle.playing .music-disc {
+    animation-play-state: running;
+}
+
+.music-note {
+    font-size: 1rem;
+    color: #fff1f7;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    user-select: none;
+}
+
+@keyframes musicSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* 音乐提示气泡（歌曲名+作者） */
+.music-tip {
+    position: fixed;
+    bottom: 132px;
+    right: 16px;
+    background: rgba(23, 23, 29, 0.95);
+    color: #fbcfe8;
+    font-size: 0.8rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    border: 1px solid rgba(244, 114, 182, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: all 0.3s ease;
+    z-index: 999;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.music-tip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 /* ============================================
@@ -2199,7 +2323,7 @@ li {
     .main-content {
         padding: 9rem 1rem 2rem; /* 内容内边距：上9rem（避开导航栏），左右1rem，下2rem */
     }
-    
+
     .hero-card h1 {
         font-size: 2rem; /* 英雄卡片标题：2rem */
     }

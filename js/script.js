@@ -1450,3 +1450,135 @@ const bookData = {
         thoughts: '这是一本充满奇幻色彩的冒险故事。托尔金创造了一个完整而丰富的中土世界，让我沉浸其中无法自拔。比尔博的成长历程让我深受感动——从一个安逸的霍比特人到勇敢的冒险家，他的转变激励着我勇敢面对生活中的挑战。书中的角色形象鲜明，情节跌宕起伏，每一次阅读都让我仿佛置身于那个神奇的世界。这是一本适合所有年龄段读者的经典之作。'
     }
 };
+
+// ============================================
+// 全站悬浮音乐播放器（多曲切换 + 暂停/继续 + 记忆偏好）
+// 音乐文件：audio/ 目录下（首次播放时才加载，不影响页面打开速度）
+// ============================================
+(function initMusicPlayer() {
+    // 播放列表（替换为真实音乐时改这里即可）
+    const PLAYLIST = [
+        { src: 'audio/Life Is Like A Boat.m4a', title: 'Life Is Like A Boat', artist: 'Rie fu' },
+        { src: 'audio/Red Rock for Mother Russia.m4a', title: 'Red Rock for Mother Russia', artist: 'IIA' },
+        { src: 'audio/想你的三百六十五天.m4a', title: '想你的三百六十五天', artist: '李玟' }
+    ];
+    const PREF_KEY = 'bgmPref';       // 记忆：on/off
+    const TRACK_KEY = 'bgmTrack';     // 记忆：曲目索引
+
+    // 动态创建播放器 UI（全站生效，无需改每个页面）
+    const wrap = document.createElement('div');
+    wrap.id = 'musicPlayer';
+    wrap.className = 'music-player';
+    wrap.innerHTML =
+        '<button class="music-prev" title="上一首" aria-label="上一首">⏮</button>' +
+        '<button class="music-toggle" id="musicToggle" type="button" aria-label="播放/暂停">' +
+            '<span class="music-disc"><span class="music-note">♪</span></span>' +
+        '</button>' +
+        '<button class="music-next" title="下一首" aria-label="下一首">⏭</button>';
+    document.body.appendChild(wrap);
+
+    // 歌曲信息提示
+    let tipTimer = null;
+    function showTip(text) {
+        let tip = document.getElementById('musicTip');
+        if (!tip) {
+            tip = document.createElement('div');
+            tip.id = 'musicTip';
+            tip.className = 'music-tip';
+            document.body.appendChild(tip);
+        }
+        tip.textContent = text;
+        tip.classList.add('show');
+        clearTimeout(tipTimer);
+        tipTimer = setTimeout(() => tip.classList.remove('show'), 2400);
+    }
+
+    const toggleBtn = wrap.querySelector('#musicToggle');
+    const prevBtn = wrap.querySelector('.music-prev');
+    const nextBtn = wrap.querySelector('.music-next');
+
+    let audio = null;
+    let currentTrack = Math.max(0, Math.min(PLAYLIST.length - 1, parseInt(localStorage.getItem(TRACK_KEY)) || 0));
+
+    // 懒加载：第一次播放时才创建 Audio
+    function ensureAudio() {
+        if (audio) return audio;
+        audio = new Audio();
+        audio.volume = 0.4;
+        audio.addEventListener('ended', function () { nextTrack(true); }); // 播完自动切下一首
+        audio.addEventListener('error', function () {
+            toggleBtn.classList.remove('playing');
+            showTip('暂无音乐文件');
+            localStorage.setItem(PREF_KEY, 'off');
+        });
+        return audio;
+    }
+
+    function loadTrack(idx) {
+        currentTrack = (idx + PLAYLIST.length) % PLAYLIST.length; // 循环
+        localStorage.setItem(TRACK_KEY, currentTrack);
+        if (audio) {
+            audio.src = PLAYLIST[currentTrack].src;
+        }
+    }
+
+    function playMusic() {
+        ensureAudio();
+        if (!audio.src) audio.src = PLAYLIST[currentTrack].src;
+        audio.play().then(function () {
+            toggleBtn.classList.add('playing');
+            localStorage.setItem(PREF_KEY, 'on');
+            showTip('♪ ' + PLAYLIST[currentTrack].title + ' — ' + PLAYLIST[currentTrack].artist);
+        }).catch(function () { /* 浏览器自动播放拦截，静默处理 */ });
+    }
+
+    function pauseMusic() {
+        if (audio) audio.pause();
+        toggleBtn.classList.remove('playing');
+        localStorage.setItem(PREF_KEY, 'off');
+    }
+
+    function nextTrack(autoPlay) {
+        loadTrack(currentTrack + 1);
+        if (autoPlay && toggleBtn.classList.contains('playing')) {
+            audio.currentTime = 0;
+            playMusic();
+        } else if (autoPlay) {
+            playMusic();
+        } else {
+            showTip('♪ ' + PLAYLIST[currentTrack].title + ' — ' + PLAYLIST[currentTrack].artist);
+        }
+    }
+
+    function prevTrack() {
+        loadTrack(currentTrack - 1);
+        if (toggleBtn.classList.contains('playing')) {
+            audio.currentTime = 0;
+            playMusic();
+        } else {
+            showTip('♪ ' + PLAYLIST[currentTrack].title + ' — ' + PLAYLIST[currentTrack].artist);
+        }
+    }
+
+    // 点击唱片：播放/暂停
+    toggleBtn.addEventListener('click', function () {
+        if (toggleBtn.classList.contains('playing')) {
+            pauseMusic();
+        } else {
+            playMusic();
+        }
+    });
+
+    prevBtn.addEventListener('click', function (e) { e.stopPropagation(); prevTrack(); });
+    nextBtn.addEventListener('click', function (e) { e.stopPropagation(); nextTrack(true); });
+
+    // 记忆偏好：上次离开时音乐开着，访客回到站点后首次交互即续播
+    if (localStorage.getItem(PREF_KEY) === 'on') {
+        const resume = function (e) {
+            if (e.target.closest('#musicPlayer')) return; // 点播放器本身交给按钮逻辑
+            document.removeEventListener('pointerdown', resume);
+            playMusic();
+        };
+        document.addEventListener('pointerdown', resume);
+    }
+})();
