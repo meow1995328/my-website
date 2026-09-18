@@ -805,6 +805,32 @@ p {
     border-radius: 16px;
 }
 
+/* 响应式：平板 2 列 */
+@media (max-width: 768px) {
+    .fh-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 140px);
+    }
+
+    /* 所有卡片取消跨列/跨行，统一 1×1 */
+    .fh-grid > .fh-card {
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+}
+
+/* 响应式：手机单列 */
+@media (max-width: 480px) {
+    .fh-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: none;
+    }
+
+    .fh-grid > .fh-card {
+        min-height: 90px;
+    }
+}
+
 .fh-card {
     border-radius: 10px;
     padding: 0.8rem;
@@ -1028,9 +1054,12 @@ p {
     font-size: 0.7rem;
 }
 
-/* ========== 服务中心页面卡片样式 ========== */
+/* ========== 服务中心页面卡片布局（7卡片） ========== */
+/* Row 1: 免费资源库(2列) + 实用工具箱(2列) — 两大并排 */
+/* Row 2-3: 开源(1列竖通) + 友链(1列竖通) + 个人项目 + 商务合作 + 付费(1列竖通) */
+
 .fh-card-resources-free {
-    grid-column: 2 / 4;
+    grid-column: 1 / 3;
     grid-row: 1 / 2;
     background: linear-gradient(135deg, #00c853 0%, #009624 50%, #00691e 100%);
 }
@@ -1043,15 +1072,29 @@ p {
     font-size: 0.9rem;
 }
 
+.fh-card-resources-tools {
+    grid-column: 3 / 5;
+    grid-row: 1 / 2;
+    background: linear-gradient(135deg, #ff6d00 0%, #e65100 50%, #bf360c 100%);
+}
+
+.fh-card-resources-tools h3 {
+    font-size: 1.4rem;
+}
+
+.fh-card-resources-tools p {
+    font-size: 0.9rem;
+}
+
 .fh-card-resources-open {
     grid-column: 1 / 2;
-    grid-row: 1 / 4;
+    grid-row: 2 / 4;
     background: linear-gradient(135deg, #536dfe 0%, #3949ab 100%);
 }
 
 .fh-card-resources-paid {
     grid-column: 4 / 5;
-    grid-row: 1 / 4;
+    grid-row: 2 / 4;
     background: linear-gradient(135deg, #aa00ff 0%, #7b1fa2 100%);
 }
 
@@ -2806,6 +2849,7 @@ html.fh-transition-dissolve::view-transition-new(root) {
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.8;
     margin: 0;
+    white-space: pre-line;
 }
 
 /* ========== 珍贵回忆列表 ========== */

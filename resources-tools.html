@@ -1,10 +1,10 @@
-<!-- 版本：v0.4.5-dev -->
+<!-- 版本：v0.5.1-alpha -->
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>干货分享 - XueXue</title>
+    <title>🧰 实用工具箱 - XueXue</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3/dist/fuse.min.js"></script>
@@ -15,8 +15,8 @@
         <nav class="nav">
             <div class="nav-left">
                 <a href="index.html" class="logo">XueXue</a>
-            <div class="header-title">干货分享</div>
-            <div class="header-subtitle">技术文章与实用技巧</div>
+            <div class="header-title">实用工具</div>
+            <div class="header-subtitle">精选在线小工具</div>
             </div>
             <div class="search-wrapper">
                 <div class="search-box">
@@ -34,12 +34,10 @@
                     <a href="about.html" class="nav-link">关于我</a>
                 </li>
                 <li class="nav-item">
-                    <a href="creation.html" class="nav-link active">内容创作</a>
+                    <a href="creation.html" class="nav-link">内容创作</a>
                 </li>
                 <li class="nav-item">
-                    <a href="resources.html" class="nav-link">服务中心</a>
-                </li>
-                <li class="nav-item">
+                    <a href="resources.html" class="nav-link active">服务中心</a>
                 </li>
                 <li class="nav-item">
                     <a href="site-info.html" class="nav-link">站点信息</a>
@@ -51,43 +49,48 @@
     <!-- 主内容区域 -->
     <main class="main-content">
         <div class="container">
-            <h1>📝 干货分享</h1>
-            <p>技术文章、实用教程、经验分享，将学习过程中的收获整理成文，希望能帮助到有需要的同学。</p>
+            <h1>🧰 实用工具箱</h1>
+            <p>精选好用的在线小工具，涵盖效率、设计、开发、生活等场景。</p>
         </div>
-        
-        <!-- 干货分享内容 -->
+
         <div class="container">
-            <h2>技术文章</h2>
-            <p>详细内容占位符 - 技术文章列表...</p>
+            <h2>⚡ 效率工具</h2>
+            <p>详细内容占位符...</p>
         </div>
-        
+
         <div class="container">
-            <h2>实用教程</h2>
-            <p>详细内容占位符 - 实用教程内容...</p>
+            <h2>🎨 设计工具</h2>
+            <p>详细内容占位符...</p>
         </div>
-        
+
         <div class="container">
-            <h2>经验分享</h2>
-            <p>详细内容占位符 - 经验分享内容...</p>
+            <h2>💻 开发工具</h2>
+            <p>详细内容占位符...</p>
         </div>
-        
+
+        <div class="container">
+            <h2>🏠 生活工具</h2>
+            <p>详细内容占位符...</p>
+        </div>
+
         <!-- 返回按钮 -->
         <div class="container" style="text-align: center;">
-            <a href="creation.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
-                ← 返回内容创作
+            <a href="resources.html" class="module-card" style="display: inline-block; width: auto; padding: 1rem 2rem;">
+                ← 返回服务中心
             </a>
         </div>
     </main>
 
     <!-- 返回上一级按钮 -->
-    <button id="backToParent" class="back-to-parent" onclick="goToParent('creation.html')" title="返回上一级">←</button>
-    
+    <button id="backToParent" class="back-to-parent" onclick="goToParent('resources.html')" title="返回上一级">←</button>
+
     <!-- 返回顶部按钮 -->
     <button id="backToTop" class="back-to-top" onclick="scrollToTop()">↑</button>
-    
+
     <!-- 页脚 -->
     <footer class="footer">
-        <p>&copy; 2026 薛大侠 - 用心记录生活</p>
+        <p>&copy; 2026 XueXue喵 - 用心记录生活</p>
+        <p class="site-version">当前版本 v0.5.1-alpha · 最新更新 2026-09-13</p>
     </footer>
 
     <script src="js/script.js?v=20260913b"></script>

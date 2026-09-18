@@ -18,58 +18,60 @@ console.log('XueXue的个人网站已加载！v0.3.5');
     }
 })();
 
-// ========== 页面加载完成后执行 ==========
-document.addEventListener('DOMContentLoaded', function() {
+// ========== 页面初始化（首次加载 + PJAX换页后都会调用） ==========
+window.reinitPageScripts = function() {
     console.log('DOM加载完成');
-    
+
     // 初始化页面切换动画
     initViewTransitions();
-    
+
     // 初始化子导航高亮效果
     initSubNavHighlight();
-    
+
     // 初始化平滑滚动效果
     initSmoothScroll();
-    
+
     // 初始化留言板表单处理
     initMessageForm();
-    
+
     // 初始化订阅表单处理
     initSubscribeForm();
-    
+
     // 初始化模块卡片动画
     initModuleCardsAnimation();
-    
+
     // 初始化链接项动画
     initLinkItemsAnimation();
-    
+
     // 初始化左侧导航栏高亮
     initSideNav();
-    
+
     // 初始化关于我页面卡片点击缩放动画
     initFhCardAnimation();
-    
+
     // 初始化返回顶部按钮
     initBackToTop();
-    
+
     // 初始化返回上一层页面按钮
     initBackToParent();
-    
+
     // 初始化家庭生活弹窗
     initFamilyModal();
-    
+
     // 初始化电影详情弹窗
     initMovieModal();
-    
+
     // 初始化兴趣特长弹窗
     initInterestModal();
-    
+
     // 初始化项目分类筛选
     initProjectFilters();
-    
+
     // 初始化站内搜索
     initSearch();
-});
+};
+
+document.addEventListener('DOMContentLoaded', window.reinitPageScripts);
 
 // 浏览器后退/前进时重新触发 fh-card 弹入动画（全局生效）
 window.addEventListener('pageshow', function(e) {
@@ -542,13 +544,16 @@ function initFhCardAnimation() {
                 });
             });
             
-            const urlWithParam = href.includes('?') 
-                ? href + '&transition=dissolve' 
+            const urlWithParam = href.includes('?')
+                ? href + '&transition=dissolve'
                 : href + '?transition=dissolve';
-            
-            if (document.startViewTransition) {
+
+            // 优先走 PJAX 无刷新导航（背景音乐不中断）；不支持时回退整页跳转
+            if (window.__pjaxNavigate) {
+                window.__pjaxNavigate(new URL(urlWithParam, location.href).href, true);
+            } else if (document.startViewTransition) {
                 document.documentElement.classList.add('fh-transition-dissolve');
-                
+
                 document.startViewTransition(() => {
                     window.location.href = urlWithParam;
                 }).finished.then(() => {
@@ -613,7 +618,8 @@ function initBackToParent() {
  */
 function goToParent(parentPage) {
     if (parentPage) {
-        window.location.href = parentPage;
+        if (window.__pjaxNavigate) { window.__pjaxNavigate(new URL(parentPage, location.href).href, true); }
+        else { window.location.href = parentPage; }
     } else {
         window.history.back();
     }
@@ -644,13 +650,12 @@ const familyData = {
         status: '💪 现役',
         image: 'images/family-me.jpg',
         fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20portrait%20of%20a%20young%20Chinese%20man%20developer%20modern%20style%20confident%20smile&image_size=landscape_16_9',
-        story: '我就是这个网站的作者，大家叫我薛大侠。我热爱生活，热爱技术，喜欢用代码创造美好的事物。工作之余，我喜欢打篮球、看电影、养宠物，还喜欢折腾各种技术项目。这个网站是我的个人小天地，记录着我的成长历程和生活点滴。',
+        story: '大家好，我是本站作者 XueXue！\n我是一名标准的斜杠青年，对生活始终保有热忱，兴趣涉猎很广。工作之外，我爱打乒乓球，闲暇时看电影、玩游戏、照料宠物；也痴迷科学与技术，总忍不住动手折腾各类技术项目。这个网站是属于我的一方小天地，用来随手记录生活碎片、所思所想，存放所有热爱与探索。',
         memories: [
-            '小时候梦想成为科学家',
-            '大学开始接触编程',
-            '第一份工作在银行',
-            '爱上了前端开发',
-            '决定打造这个个人网站'
+            '小时候梦想成为天文学家，参加天文学奥林匹克竞赛。',
+            '大学开始接触计算机科学与技术，喜欢探索软硬件与编程。',
+            '主业在大国企干金融，但还喜欢各类演艺事业。',
+            '决定打造这个个人网站，成为自己的永久记录和展示平台。'
         ]
     },
     'mom': {
@@ -660,61 +665,56 @@ const familyData = {
         status: '❤️ 健在',
         image: 'images/family-mom.jpg',
         fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=warm%20portrait%20of%20a%20kind%20middle-aged%20Chinese%20woman%20with%20gentle%20smile%20soft%20lighting%20home%20setting&image_size=landscape_16_9',
-        story: '妈妈是我们家的灵魂人物，她用无尽的爱和关怀守护着整个家庭。从我记事起，每天清晨她都会准备好热腾腾的早餐，晚上无论多晚都会等我回家。她的拿手好菜是红烧肉和糖醋排骨，每次回家都能吃到最爱的味道。妈妈性格温柔，但在关键时刻总是很坚强，她教会了我什么是真正的爱和责任。',
+        story: '妈妈是家里的核心C位，她用无尽的爱和关怀守护着家庭。\n妈妈技能树两大王牌技能：厨艺与牌技。厨艺方面堪称中国民间食神，总是能创造并烹饪出绝美的佳肴美馔，烧出可称之为惊天地泣鬼神的绝顶菜式。社交版局这块更是高手，凭借过人的口才，把整个小区一众中年好友集结起来，牌局常年不断。\n妈妈还是我个人成长和个人事业之路上最坚实的后盾！感谢她一直以来的付出和支持！',
         memories: [
-            '小时候每天早上都会给我梳辫子',
-            '生病时整夜守在床边照顾',
-            '总是把最好的留给家人',
-            '教会我做饭和家务',
-            '支持我追求自己的梦想'
+            '小时候经常带我吃麦当劳奖励我。',
+            '给我做世界上最好吃的菜“豆苗水煮肉”。',
+            '小时候陪我玩奥特曼打怪兽，她当怪兽。',
+            '支持我的梦想，在我低迷时给予鼓励。'
         ]
     },
     'dad': {
         title: '👨‍💼 爸爸',
-        subtitle: '勤劳朴实的劳动工人',
+        subtitle: '聪明绝顶的劳动帅哥',
         birth: '出生于196X年',
         status: '❤️ 健在',
         image: 'images/family-dad.png',
         fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=portrait%20of%20a%20kind%20middle-aged%20Chinese%20man%20wearing%20glasses%20professional%20business%20attire%20warm%20smile&image_size=landscape_16_9',
-        story: '爸爸是一名资深工程师，一辈子兢兢业业工作，用双手撑起了这个家。他不善言辞，但总是用行动表达爱。小时候家里条件不好，但他从不让我受委屈，省吃俭用供我读书。爸爸教会了我坚韧和责任感，他常说："做任何事都要认真，要么不做，要么做好。"这句话一直激励着我。',
+        story: '爸爸是家里的妥妥的智力担当。\n身为小区里的乒乓球队队长，有着高深莫测的技术水平，传说在巅峰时期可以在脑海中和瓦尔德内尔对战，打得有来有回。除了乒乓球，他的围棋功底同样厉害。\n至于我身上这点幽默细胞，大概率遗传自爸爸。',
         memories: [
-            '小时候骑在爸爸肩上看烟花',
-            '辅导我做数学题到深夜',
-            '总是默默承担家里的重担',
-            '教我骑自行车和游泳',
-            '支持我选择自己的人生道路'
+            '给我过生日买游戏机带我放风筝',
+            '小时候带我爬香山',
+            '参加街道大型乒乓球赛，打出了风采',
+            '曾经上过报纸，报道北京油价问题'
         ]
     },
-    'hamster-lalada': {
-        title: '🐹 小拉达',
+    'hamster-haohao': {
+        title: '🐹 耗耗',
         subtitle: '仓鼠 · 已去吱星',
-        birth: '🐣 出生于2023年',
-        status: '💔 2024年去世',
-        image: 'images/pet-lalada.jpg',
+        birth: '🐣 出生于2022年8月',
+        status: '💔 2023年11月去世',
+        image: 'images/pet-haohao.jpg',
         fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20syrian%20hamster%20golden%20color%20fluffy%20sitting%20in%20a%20hamster%20house%20soft%20lighting&image_size=landscape_16_9',
-        story: '小拉达是我的第一只宠物，也是最难忘的一只。它是一只金黄色的金丝熊，圆滚滚的像个小毛球。刚到家时它很胆小，总是躲在角落里，但慢慢熟悉后变得非常亲人。每天晚上它都会在跑轮上跑个不停，那声音就像是家里的闹钟。虽然它只陪伴了我两年，但那些美好的回忆永远不会忘记。',
+        story: '小耗耗是一只紫仓仓鼠，也是我的第一只宠物。\n捧在手心软乎乎的，活像一小团糯米团子。我们给它安排了超大鼠笼别墅加豪华跑轮，小家伙每天乐此不疲，在里面不停"健身"。\n性格温顺安静，一点不闹腾。很感谢小耗耗，陪我走过了448天。',
         memories: [
-            '第一次带回家时只有手掌大小',
+            '第一次带回家时只有鸡蛋大小',
             '喜欢把食物塞到腮帮子藏起来',
-            '会站起来用爪子扒笼子要零食',
-            '冬天喜欢钻到木屑里睡觉',
-            '跑轮跑太快会自己翻车'
+            '一次也没听它叫唤过',
+            '冬天喜欢钻到窝窝里睡觉',
         ]
     },
     'hamster-maodou': {
         title: '🐹 毛豆',
         subtitle: '仓鼠 · 已去吱星',
-        birth: '🐣 出生于2020年',
-        status: '💔 2022年去世',
+        birth: '🐣 出生于2023年11月',
+        status: '💔 2025年10月去世',
         image: 'images/pet-maodou.jpg',
         fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20syrian%20hamster%20light%20brown%20color%20eating%20sunflower%20seed%20adorable%20soft%20lighting&image_size=landscape_16_9',
-        story: '毛豆是小拉达去世后我养的第二只仓鼠，它的毛色是浅棕色的，像一颗毛茸茸的毛豆。毛豆性格活泼好动，和小拉达完全不同，它总是充满精力，喜欢探索新事物。它最喜欢吃葵花籽，每次听到开袋子的声音就会兴奋地跑过来。虽然它也离开了，但它给我的生活带来了很多欢乐。',
+        story: '毛豆，是耗耗离开之后，家里迎来的第二只仓鼠 —— 一只浅棕与白毛相间的金丝熊。它顺利继承了耗耗留下的豪华鼠笼别墅与大号跑轮。小家伙最爱到处攀爬探索，一举一动都软萌可爱。',
         memories: [
-            '刚到家就敢从我手上吃东西',
-            '喜欢在笼子里搭窝',
-            '会把木屑推得到处都是',
-            '睡觉时会把身体卷成一个球',
-            '每次放风都会到处乱跑'
+            '长得真的很像一只小熊',
+            '非常有活力，能吃能睡',
+            '摸起来手感非常好'
         ]
     },
     'cat-caidou': {
@@ -724,13 +724,13 @@ const familyData = {
         status: '❤️ 健康活泼',
         image: 'images/pet-caidou.jpg',
         fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cute%20calico%20cat%20tri-color%20fluffy%20kitten%20curled%20up%20relaxing%20warm%20home%20setting&image_size=landscape_16_9',
-        story: '彩豆是我现在的宠物，一只虎斑串串猫咪。它是2025年我们在延庆永宁古城地摊上花100元买的，刚到家时只有两个月大，小小的一只特别可爱。现在它已经长成了一只漂亮的大猫咪，性格傲娇又粘人。它最喜欢躺在窗台上晒太阳，或者跳到我身上求抚摸。彩豆是家里的小少爷，全家人都很宠爱它，它给我们的生活带来了无尽的欢乐。',
+        story: '彩豆是我现在的宠物，一只虎斑串串小猫咪。2025 年国庆，我们在延庆永宁古城的地摊上，花100元把它带回了家。刚来的时候才一个多月，小小的一团，萌得不行。如今已经长成一只颜值出众的大猫咪，一双蓝眼睛格外帅气。小家伙最大的特点就是嘴馋，日常主线任务：啃零食、睡大觉，兴致来了就在屋里疯跑。作为家里的小少爷，全家都宠着它，给我们的生活添了好多欢乐。',
         memories: [
-            '刚到家时躲在沙发底下不敢出来',
-            '喜欢追着激光笔跑',
-            '会用头蹭我的手求抚摸',
-            '每天早上准时叫我起床',
-            '睡觉喜欢四脚朝天露出肚子'
+            '买回来5天就生病了，误以为是星期猫',
+            '家里玩具十几种每天换样玩',
+            '大夜里会跳到我身上求零食吃',
+            '开饭时间总想跑上饭桌',
+            '喜欢抓小鸟但从没抓到过'
         ]
     }
 };
@@ -1235,9 +1235,6 @@ async function searchWebsite(keyword) {
 }
 
 function initSearch() {
-    if (searchInitialized) return;
-    searchInitialized = true;
-
     const searchWrapper = document.querySelector('.search-wrapper');
     if (!searchWrapper) return;
 
@@ -1291,7 +1288,8 @@ function initSearch() {
             el.addEventListener('click', () => {
                 const url = el.getAttribute('data-url');
                 if (url) {
-                    window.location.href = url;
+                    if (window.__pjaxNavigate) { window.__pjaxNavigate(new URL(url, location.href).href, true); }
+                    else { window.location.href = url; }
                 }
             });
         });
@@ -1348,7 +1346,8 @@ function initSearch() {
             e.preventDefault();
             if (activeResultIndex >= 0 && activeResultIndex < currentResults.length) {
                 const url = currentResults[activeResultIndex].url;
-                window.location.href = url;
+                if (window.__pjaxNavigate) { window.__pjaxNavigate(new URL(url, location.href).href, true); }
+                else { window.location.href = url; }
             }
         } else if (e.key === 'Escape') {
             searchResults.classList.remove('active');
@@ -1377,17 +1376,25 @@ function initSearch() {
         });
     }
 
-    document.addEventListener('click', function(e) {
-        if (!searchWrapper.contains(e.target)) {
-            searchResults.classList.remove('active');
-        }
-    });
+    // document 级监听只在首次绑定（PJAX 换页后复用），查询时用实时 DOM
+    if (!searchInitialized) {
+        searchInitialized = true;
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            searchResults.classList.remove('active');
-        }
-    });
+        document.addEventListener('click', function(e) {
+            const wrapper = document.querySelector('.search-wrapper');
+            const results = wrapper && wrapper.querySelector('.search-results');
+            if (wrapper && results && !wrapper.contains(e.target)) {
+                results.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const results = document.querySelector('.search-results');
+                if (results) results.classList.remove('active');
+            }
+        });
+    }
 }
 
 // ============================================

@@ -103,8 +103,9 @@
         </div>
     </div>
 
-    <script src="js/script.js?v=20260811"></script>
-    <script>
+    <script src="js/script.js?v=20260913b"></script>
+    <script>(function() {
+
         const timelineData = [
             {
                 year: '2026',
@@ -232,7 +233,11 @@
             return icons[type] || '📌';
         }
 
-        document.addEventListener('DOMContentLoaded', initTimeline);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTimeline);
+        } else {
+            initTimeline();
+        }
 
         // 幼年故事完整内容
         const stories = {
@@ -301,12 +306,18 @@
         });
 
         // 绑定关闭按钮和遮罩点击
-        document.addEventListener('DOMContentLoaded', () => {
+        var __bindStoryClose = () => {
             const closeBtn = document.getElementById('storyModalClose');
             const overlay = document.getElementById('storyModalOverlay');
             if (closeBtn) closeBtn.addEventListener('click', closeStory);
             if (overlay) overlay.addEventListener('click', closeStory);
-        });
-    </script>
+        };
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', __bindStoryClose);
+        } else {
+            __bindStoryClose();
+        }
+})();</script>
+    <script src="js/pjax.js?v=20260913b"></script>
 </body>
 </html>

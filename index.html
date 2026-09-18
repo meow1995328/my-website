@@ -252,7 +252,7 @@
     <!-- 页脚 -->
     <footer class="footer">
         <p>&copy; 2026 XueXue喵 - 用心记录生活</p>
-        <p class="site-version">当前版本 v0.5.1-alpha · 最新更新 2026-09-12</p>
+        <p class="site-version">当前版本 v0.5.2-alpha · 最新更新 2026-09-18</p>
     </footer>
 
     <!-- 兴趣详情弹窗（与兴趣页共享 openInterestModal 逻辑） -->
@@ -334,8 +334,9 @@
         </div>
     </div>
 
-    <script src="js/script.js?v=20260828"></script>
-    <script>
+    <script src="js/script.js?v=20260913b"></script>
+    <script>(function() {
+
     // 幼年故事数据（首页直接读取弹窗）
     const growthStories = {
         'dongguantou': {
@@ -419,7 +420,7 @@
         document.body.style.overflow = '';
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    var __pageInit = function() {
         // 首页"最新创作"卡片点击：触发口琴弹窗 / 幼年故事弹窗
         document.querySelectorAll('[data-interest-modal]').forEach(el => {
             const handler = () => openInterestModal(el.getAttribute('data-interest-modal'));
@@ -475,7 +476,13 @@
                 if (movieModal && movieModal.classList.contains('active')) closeHomeMovieModal();
             }
         });
-    });
-    </script>
+    };
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', __pageInit);
+    } else {
+        __pageInit();
+    }
+})();</script>
+    <script src="js/pjax.js?v=20260913b"></script>
 </body>
 </html>

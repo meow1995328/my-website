@@ -113,8 +113,14 @@
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
     </footer>
 
-    <script src="js/script.js?v=20260811"></script>
-    <script>
+    <script src="js/script.js?v=20260913b"></script>
+    <script>(function() {
+    // PJAX换页后内联onclick需要全局可访问
+    window.openHonorModal = openHonorModal;
+    window.closeHonorModal = closeHonorModal;
+    window.nextHonor = nextHonor;
+    window.prevHonor = prevHonor;
+
         const honorsData = [
             { id: 1, category: 'award', title: '小学三好学生', desc: '连续三年获得校级三好学生称号', image: 'images/honors/honor-001.jpg' }
         ];
@@ -196,7 +202,12 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', initHonors);
-    </script>
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initHonors);
+        } else {
+            initHonors();
+        }
+})();</script>
+    <script src="js/pjax.js?v=20260913b"></script>
 </body>
 </html>
