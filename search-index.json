@@ -164,8 +164,16 @@
     "title": "免费资源库",
     "category": "服务中心",
     "url": "resources-free.html",
-    "desc": "各类免费优质资源 - 学习资料、开发工具、设计素材",
-    "keywords": "免费资源 学习资料 开发工具 设计素材 免费"
+    "desc": "各类免费优质资源 - 学习资料、开发工具、设计素材，含 Emojis Wiki 表情符号百科等",
+    "keywords": "免费资源 学习资料 开发工具 设计素材 免费 Emojis 表情符号 emoji 含义 emojis.wiki CoverCay 专辑封面 音乐封面 下载 cover.caydock.com"
+  },
+  {
+    "id": "resources-tools",
+    "title": "实用工具箱",
+    "category": "服务中心",
+    "url": "resources-tools.html",
+    "desc": "精选好用的在线小工具 - 效率、设计、开发、生活，含 iLovePDF 等PDF处理工具、在线摄像头麦克风设备检测、键盘性能测试",
+    "keywords": "实用工具 工具箱 在线工具 效率工具 iLovePDF PDF 合并PDF 拆分PDF 压缩PDF PDF转换 屏幕检测 显示器 坏点 漏光 screen.bmcx.com 摄像头测试 麦克风测试 耳机测试 扬声器测试 视频会议 网课 设备检测 p2hp 键盘测试 机械键盘 全键无冲 NKRO 连点 双击 坏轴 输入延迟 回报率 keyboardtest"
   },
   {
     "id": "resources-opensource",

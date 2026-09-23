@@ -6,3 +6,7 @@
 
 # Thumbnails
 Thumbs.db
+
+# 本地历史版本备份（仅本地保留，不同步到 GitHub）
+backup/
+BACKUP/

@@ -54,14 +54,16 @@ body {
    顶部导航栏 - 地平线6风格
    ============================================ */
 .header {
-    background: #0d0d0d; /* 近黑背景（略深于body，靠底部边框区分） */
-    border-bottom: 2px solid #e94560; /* 底部红色边框 */
-    position: fixed; /* 固定定位：始终在顶部 */
-    top: 0;          /* 距离顶部0 */
-    left: 0;         /* 距离左侧0 */
-    right: 0;        /* 距离右侧0 */
-    z-index: 1000;   /* 层级：最高，确保在最上层 */
-    box-shadow: 0 2px 15px rgba(233, 69, 96, 0.3); /* 红色阴影效果 */
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 48px;
 }
 
 .nav {
@@ -69,37 +71,28 @@ body {
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* 左右两端分布 */
-    padding: 0 2rem;
-    height: 60px;
-    position: relative; /* 为搜索框绝对定位做基准 */
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    height: 100%;
+    position: relative;
+    gap: 1rem;
 }
 
-/* ========== Logo样式 ========== */
-/* 网站Logo，当前设计不需要显示，故隐藏 */
 .logo {
     display: none;
 }
 
 .header-title {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 800;
     background: linear-gradient(135deg, #00d4ff, #7c4dff, #ff6b6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    letter-spacing: 0.03em;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
     animation: titleGlow 3s ease-in-out infinite;
-}
-
-.header-subtitle {
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.9); /* 更白 */
-    margin-left: 0.8rem;
-    max-width: 400px;
-    line-height: 1.3;
+    white-space: nowrap;
 }
 
 @keyframes titleGlow {
@@ -107,60 +100,71 @@ body {
     50% { filter: brightness(1.2); }
 }
 
-/* ========== 导航菜单容器 ========== */
-/* 包含所有一级导航按钮的无序列表容器 */
-.nav-menu {
-    display: flex;     /* 弹性布局：水平排列所有菜单项 */
-    list-style: none;  /* 去掉列表项默认圆点 */
-    gap: 0;            /* 无间距，靠内边距自然分隔 */
-    margin-left: 0;    /* 去掉自动左推 */
+.header-subtitle {
+    font-size: 0.68rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.55);
+    margin-left: 0.5rem;
+    max-width: 260px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* ========== 导航左侧标题组 ========== */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 0.15rem;
+}
+
 .nav-left {
     display: flex;
     align-items: center;
-    flex-shrink: 0;    /* 不收缩，保证标题完整 */
-    gap: 0;
+    flex-shrink: 0;
 }
 
-/* ========== 导航菜单项 ========== */
-/* 每个一级导航按钮的容器（li标签） */
 .nav-item {
-    position: relative; /* 相对定位：为子元素（如下拉菜单）绝对定位做准备 */
+    position: relative;
 }
 
-/* ========== 导航链接按钮 ========== */
-/* 每个一级导航的链接按钮样式 */
 .nav-link {
-    display: flex;     /* 弹性布局：方便内容垂直居中 */
-    align-items: center; /* 垂直居中对齐文字 */
-    padding: 0.35rem 0.55rem !important; /* 紧凑内边距 */
-    color: rgba(255, 255, 255, 0.85); /* 默认文字：更白 */
-    text-decoration: none; /* 去掉链接下划线 */
-    font-weight: 500;      /* 字体粗细：中等 */
-    font-size: 0.8rem;    /* 字体大小 */
-    transition: color 0.2s ease; /* 只保留颜色过渡 */
-    background: transparent; /* 去掉背景 */
-    border-radius: 0;     /* 去掉圆角 */
-    margin: 0;         /* 去掉外边距 */
-    border: none;       /* 去掉边框 */
-    position: relative;  /* 为底部指示线做准备 */
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0.5rem;
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.78rem;
+    transition: color 0.2s ease;
+    background: transparent;
+    border-radius: 4px;
+    position: relative;
 }
 
-/* ========== 导航链接悬停效果 ========== */
-/* 鼠标悬浮在导航按钮上时的样式 */
 .nav-link:hover {
-    color: #ffffff;                      /* 悬停文字：纯白 */
-    background: transparent;              /* 去掉填充 */
+    color: #ffffff;
+    background: transparent;
 }
 
-/* ========== 导航链接激活状态 ========== */
-/* 当前页面对应的导航按钮高亮样式 */
-.nav-link.active {
-    color: #4da3ff;                       /* 激活文字：蓝色 */
-    font-weight: 600;
+.nav-link:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1px;
 }
+
+.nav-link.active {
+    color: #4da3ff;
+    font-weight: 600;
+    background: transparent;
+}
+
 .nav-link.active::after {
     content: '';
     position: absolute;
@@ -1134,6 +1138,79 @@ p {
     font-size: 0.7rem;
 }
 
+/* ========== 实用工具箱卡片 ========== */
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 1rem;
+}
+
+.tool-card {
+    display: flex;
+    gap: 14px;
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 109, 0, 0.55);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.tool-card-icon {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    background: rgba(255, 109, 0, 0.14);
+    border-radius: 12px;
+}
+
+.tool-card-body {
+    min-width: 0;
+}
+
+.tool-card-body h3 {
+    margin: 0 0 4px;
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.tool-card-tagline {
+    margin: 0 0 8px;
+    font-size: 0.82rem;
+    color: #ffab66;
+}
+
+.tool-card-desc {
+    margin: 0 0 10px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.65;
+}
+
+.tool-card-link {
+    font-size: 0.78rem;
+    color: #7dd3fc;
+}
+
+@media (max-width: 480px) {
+    .tool-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ========== 站点信息页面卡片样式 ========== */
 .fh-card-site-changelog {
     grid-column: 2 / 4;
@@ -1341,16 +1418,22 @@ li {
     margin-bottom: 2.5rem; /* 下边距：2.5rem */
 }
 
-/* ========== 时间轴区块标题（橙色分隔栏） ========== */
+/* ========== 时间轴区块标题（跟随区块主色） ========== */
 .timeline-section-header {
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); /* 橙色渐变 */
-    color: #ffffff;                                                /* 文字颜色：白色 */
-    padding: 0.25rem 1.5rem;                                       /* 内边距：0.8rem 1.5rem */
-    border-radius: 10px;                                      /* 上边距：1rem */
-    margin-bottom: 1rem;                                        /* 下边距：1.5rem */
-    position: relative;                                           /* 相对定位 */
-    overflow: hidden;                                             /* 溢出隐藏 */
+    background: linear-gradient(135deg, var(--axis-color, #f7931e) 0%, var(--axis-color-2, #ff6b35) 100%);
+    color: #ffffff;
+    padding: 0.25rem 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
 }
+
+/* 各区块标题栏主色 */
+.timeline-section#education { --axis-color: #3b82f6; --axis-color-2: #1d4ed8; }
+.timeline-section#work { --axis-color: #f7931e; --axis-color-2: #ea580c; }
+.timeline-section#projects { --axis-color: #a855f7; --axis-color-2: #7c3aed; }
+.timeline-section#internship { --axis-color: #22c55e; --axis-color-2: #16a34a; }
 
 .timeline-section-header::after {
     content: '';                                                           /* 伪元素：空 */
@@ -1367,67 +1450,211 @@ li {
     font-weight: 600;        /* 字体粗细：半粗 */
 }
 
+/* ========== 时间轴区块（左侧竖线+圆点） ========== */
+.timeline-section {
+    position: relative;
+    padding-left: 0;
+}
+
+/* 左侧竖线（纯色） */
+.timeline-section::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 50px;
+    bottom: 10px;
+    width: 4px;
+    background: var(--axis-color, #00d4ff);
+    border-radius: 2px;
+    opacity: 0.7;
+}
+
+/* 各区块轴线颜色 */
+.timeline-section#education { --axis-color: #3b82f6; }
+.timeline-section#work { --axis-color: #f7931e; }
+.timeline-section#projects { --axis-color: #a855f7; }
+.timeline-section#internship { --axis-color: #22c55e; }
+
 /* ========== 时间轴条目 ========== */
-.timeline-item {
-    margin-bottom: 1.5rem;                    /* 下边距：1.5rem */
-    background: rgba(255, 255, 255, 0.05);   /* 背景：白色极淡透明 */
-    border-radius: 12px;                      /* 圆角：12px */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* 边框：白色极淡 */
-    border-left: 4px solid #00d4ff;          /* 左边框：青色4px */
-    padding: 1.2rem 1.5rem;                  /* 内边距：1.2rem 1.5rem */
-    transition: all 0.3s ease;               /* 过渡动画：0.3秒 */
+.timeline-section .timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+    margin-left: 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem 1.5rem;
+    transition: all 0.3s ease;
 }
 
-.timeline-item:hover {
-    background: rgba(255, 255, 255, 0.08); /* 悬停背景：略亮 */
-    border-color: rgba(255, 255, 255, 0.2); /* 悬停边框：略亮 */
-    transform: translateX(5px);              /* 悬停：向右移动5px */
+/* 圆点节点 */
+.timeline-section .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 1.5rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--axis-color, #00d4ff);
+    border: 2px solid #0a0a0a;
+    box-shadow: 0 0 8px var(--axis-color, #00d4ff);
+    z-index: 1;
 }
 
-/* ========== 时间轴头部（日期+标题） ========== */
+.timeline-section .timeline-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ========== 时间轴头部（日期胶囊+标题） ========== */
 .timeline-header {
-    display: flex;         /* 弹性布局 */
-    align-items: baseline; /* 基线对齐 */
-    gap: 0.8rem;          /* 间距：0.8rem */
-    margin-bottom: 0.8rem; /* 下边距：0.8rem */
-    flex-wrap: nowrap;     /* 不换行 */
-    font-size: 1rem;      /* 字体大小：1rem */
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    font-size: 1rem;
 }
 
 .timeline-date {
-    font-weight: 600;       /* 字体粗细：半粗 */
-    color: #00d4ff;         /* 颜色：青色 */
-    white-space: nowrap;    /* 不换行 */
-    flex-shrink: 0;         /* 不缩小 */
+    font-weight: 600;
+    color: var(--axis-color, #00d4ff);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.15rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .timeline-divider {
-    color: rgba(255, 255, 255, 0.3); /* 分隔符颜色：灰色 */
-    flex-shrink: 0;                   /* 不缩小 */
+    display: none; /* 日期胶囊不需要分隔符 */
 }
 
 .timeline-header h3 {
-    color: #ffffff; /* 标题颜色：白色 */
-    margin: 0;      /* 去掉外边距 */
-    font-weight: 600; /* 字体粗细：半粗 */
-    flex: 1;        /* 占据剩余空间 */
-    min-width: 0;   /* 允许缩小 */
+    color: #ffffff;
+    margin: 0;
+    font-weight: 600;
+    flex: 1;
+    min-width: 200px;
+    font-size: 0.95rem;
 }
 
 /* ========== 时间轴详情内容 ========== */
 .timeline-details {
-    color: rgba(255, 255, 255, 0.75); /* 颜色：半透明白色 */
-    font-size: 0.9rem;                 /* 字体大小：0.9rem */
-    line-height: 1.6;                  /* 行高：1.6 */
-    padding-left: 0;                   /* 去掉左内边距 */
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    padding-left: 0;
 }
 
 .timeline-details p {
-    margin-bottom: 0.6rem; /* 段落下边距：0.6rem */
+    color: #ffffff;
+    margin-bottom: 0.6rem;
 }
 
 .timeline-details p:last-child {
-    margin-bottom: 0; /* 最后一段去掉下边距 */
+    margin-bottom: 0;
+}
+
+.timeline-details strong {
+    color: var(--axis-color, #00d4ff);
+    font-weight: 600;
+}
+
+/* ========== 荣誉徽章 ========== */
+.honor-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+}
+
+.honor-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.15));
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    color: #fbbf24;
+}
+
+/* ========== 项目摘要标签 ========== */
+.project-summary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+.summary-tag {
+    display: inline-block;
+    padding: 0.15rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--axis-color, #00d4ff) 15%, transparent);
+    border: 1px solid color-mix(in srgb, var(--axis-color, #00d4ff) 35%, transparent);
+    color: color-mix(in srgb, var(--axis-color, #7dd3fc) 85%, white);
+}
+
+/* ========== 项目卡片化 ========== */
+#projects .project-item {
+    --axis-color: #a855f7;
+    --axis-color-2: #7c3aed;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 28px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* 项目卡片圆点节点 */
+#projects .project-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 1.5rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--axis-color, #a855f7);
+    border: 2px solid #0a0a0a;
+    box-shadow: 0 0 8px var(--axis-color, #a855f7);
+    z-index: 1;
+}
+
+#projects .project-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(168, 85, 247, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 24px rgba(168, 85, 247, 0.15);
+}
+
+/* 响应式：小屏圆点位置微调 */
+@media (max-width: 768px) {
+    .timeline-section .timeline-item,
+    #projects .project-item {
+        margin-left: 22px;
+    }
+    .timeline-section .timeline-item::before,
+    #projects .project-item::before {
+        left: -22px;
+    }
+    .timeline-section::before {
+        left: 6px;
+    }
 }
 
 /* ============================================
@@ -1451,26 +1678,37 @@ li {
 .career-subnav {
     display: flex;         /* 弹性布局 */
     align-items: center;   /* 垂直居中 */
-    gap: 0.4rem;          /* 间距：0.4rem */
+    gap: 0.3rem;          /* 间距：0.3rem */
     flex-wrap: wrap;       /* 换行：自动换行 */
 }
 
 .career-subnav-item {
-    color: rgba(255, 255, 255, 0.7); /* 文字颜色：半透明白色 */
-    text-decoration: none;            /* 去掉下划线 */
-    font-size: 0.85rem;              /* 字体大小：0.85rem */
-    padding: 0.2rem 0.6rem;          /* 内边距：0.2rem 0.6rem */
-    border-radius: 4px;              /* 圆角：4px */
-    transition: all 0.3s ease;       /* 过渡动画：0.3秒 */
+    color: rgba(255, 255, 255, 0.85); /* 文字颜色：亮白 */
+    text-decoration: none;
+    font-size: 0.82rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    border: 1px solid transparent;
 }
 
 .career-subnav-item:hover {
-    color: #00d4ff;                     /* 悬停文字：青色 */
-    background: rgba(0, 212, 255, 0.1); /* 悬停背景：青色半透明 */
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.career-subnav-item.active {
+    color: #4da3ff;
+    background: rgba(77, 163, 255, 0.12);
+    border-color: rgba(77, 163, 255, 0.3);
+    font-weight: 600;
 }
 
 .career-divider {
-    color: rgba(255, 255, 255, 0.3); /* 分隔符颜色：灰色 */
+    color: rgba(255, 255, 255, 0.2); /* 分隔符颜色：更淡 */
+    font-size: 0.75rem;
 }
 
 /* ============================================
@@ -1498,12 +1736,14 @@ li {
 }
 
 .filter-hint {
-    font-size: 0.7rem;
-    color: rgba(255, 215, 0, 0.7);
-    background: rgba(255, 215, 0, 0.1);
-    padding: 0.15rem 0.4rem;
+    font-size: 0.72rem;
+    color: #ffffff;
+    background: rgba(168, 85, 247, 0.45);
+    padding: 0.2rem 0.6rem;
     border-radius: 8px;
-    border: 1px dashed rgba(255, 215, 0, 0.3);
+    border: 1px solid rgba(192, 132, 252, 0.7);
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .filter-btn {
@@ -1544,11 +1784,11 @@ li {
 }
 
 .filter-btn.active {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 152, 0, 0.3));
-    color: #ffd700;
-    border-color: rgba(255, 215, 0, 0.8);
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(124, 58, 237, 0.3));
+    color: #c084fc;
+    border-color: rgba(168, 85, 247, 0.8);
     font-weight: 700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
 }
 
 .project-header {
@@ -1569,9 +1809,14 @@ li {
 
 .project-date {
     font-weight: 600;
-    color: #00d4ff;
+    color: var(--axis-color, #a855f7);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.15rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
     white-space: nowrap;
     flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .project-divider {
@@ -1603,13 +1848,12 @@ li {
 }
 
 .project-item.hidden {
-    opacity: 0;
-    transform: translateY(20px);
+    animation: projectHide 0.25s ease forwards;
     pointer-events: none;
-    height: 0;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
+}
+
+@keyframes projectHide {
+    to { opacity: 0; transform: scale(0.94) translateY(8px); height: 0; margin: 0; padding: 0; border: 0; overflow: hidden; }
 }
 
 /* ============================================
@@ -1665,36 +1909,38 @@ li {
    项目经历样式（个人简历页面）
    ============================================ */
 .project-item {
-    background: rgba(255, 255, 255, 0.05);   /* 背景：白色极淡透明 */
-    border-radius: 12px;                      /* 圆角：12px */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* 边框：白色极淡 */
-    padding: 1.2rem 1.5rem;                  /* 内边距：1.2rem 1.5rem */
-    margin-bottom: 1.2rem;                   /* 下边距：1.2rem */
-    transition: all 0.3s ease;               /* 过渡动画：0.3秒 */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
+}
+
+@keyframes projectPop {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .project-item:hover {
-    background: rgba(255, 255, 255, 0.08); /* 悬停背景：略亮 */
-    border-color: rgba(255, 255, 255, 0.2); /* 悬停边框：略亮 */
-    transform: translateX(5px);              /* 悬停：向右移动5px */
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .project-item h3 {
-    color: #ff6b35;         /* 标题颜色：橙色 */
-    font-size: 1.1rem;      /* 字体大小：1.1rem */
-    margin: 0 0 0.8rem 0;   /* 外边距：上下0，下0.8rem */
-    font-weight: 600;       /* 字体粗细：半粗 */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* 底部边框：灰色 */
-    padding-bottom: 0.5rem; /* 底部内边距：0.5rem */
+    color: #ffffff;
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 600;
 }
 
 .project-details {
-    color: rgba(255, 255, 255, 0.75); /* 颜色：半透明白色 */
-    font-size: 0.9rem;                 /* 字体大小：0.9rem */
-    line-height: 1.6;                  /* 行高：1.6 */
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.9rem;
+    line-height: 1.65;
 }
 
 .project-details p {
+    color: #ffffff;
     margin-bottom: 0.5rem;   /* 段落下边距：0.5rem */
     text-align: justify;     /* 文字对齐：两端对齐 */
 }
@@ -1704,7 +1950,8 @@ li {
 }
 
 .project-details strong {
-    color: #00d4ff; /* 强调文字颜色：青色 */
+    color: var(--axis-color, #a855f7);
+    font-weight: 600;
 }
 
 /* ============================================
@@ -2364,7 +2611,7 @@ li {
     }
     
     .main-content {
-        padding: 9rem 1rem 2rem; /* 内容内边距：上9rem（避开导航栏），左右1rem，下2rem */
+        padding: 5rem 1rem 2rem; /* 内容内边距：上5rem（避开导航栏），左右1rem，下2rem */
     }
 
     .hero-card h1 {
