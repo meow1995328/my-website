@@ -64,6 +64,9 @@ window.reinitPageScripts = function() {
     // 初始化兴趣特长弹窗
     initInterestModal();
 
+    // 全站弹窗统一关闭体验（ESC兜底/操作提示/底部关闭按钮）
+    initModalEnhancements();
+
     // 初始化项目分类筛选
     initProjectFilters();
 
@@ -1193,6 +1196,143 @@ function initInterestModal() {
         }
     });
 }
+
+// ============================================
+// 全站弹窗统一关闭体验
+// 1. ESC 键关闭兜底（覆盖收集簿等原本缺失的弹窗）
+// 2. 首次打开弹窗时显示一次操作提示（每会话一次）
+// 3. 弹窗底部注入统一的「关闭」按钮
+// ============================================
+(function() {
+    // 弹窗注册表：id 为遮罩/容器元素，panel 为底部按钮要插入的内容面板
+    var MODAL_REGISTRY = [
+        { id: 'interestModalOverlay', panel: '#interestModal' },
+        { id: 'familyModalOverlay',      panel: '#familyModal' },
+        { id: 'movieModalOverlay',        panel: '#movieModal' },
+        { id: 'homeMovieModalOverlay',    panel: '#homeMovieModal' },
+        { id: 'storyModal',               panel: '#storyModalArticle' },
+        { id: 'honorModal',               panel: '.honor-modal-content' },
+        { id: 'momentModal',              panel: '.moment-modal-content' },
+        { id: 'collectionDetail',         panel: function(el) { return el.querySelector('.container'); } }
+    ];
+
+    var OVERLAY_CLASSES = '.interest-modal-overlay, .family-modal-overlay, .movie-modal-overlay, ' +
+                          '.story-modal, .honor-modal, .moment-modal, .collection-detail';
+
+    // 判断弹窗当前是否可见
+    function isVisible(el) {
+        if (el.id === 'honorModal') return el.style.display === 'flex';
+        return el.classList.contains('active');
+    }
+
+    // 通用关闭：优先调用各页面自有的关闭函数（保留其动画/状态逻辑）
+    window.__closeModalEl = function(el) {
+        if (!el) return;
+        if (el.id === 'honorModal' && typeof window.closeHonorModal === 'function') return window.closeHonorModal();
+        if (el.id === 'collectionDetail' && typeof window.closeCollectionDetail === 'function') return window.closeCollectionDetail();
+        if (el.id === 'interestModalOverlay' && typeof window.closeInterestModal === 'function') return window.closeInterestModal();
+        el.classList.remove('active');
+        if (el.id === 'collectionDetail') {
+            setTimeout(function() {
+                if (!el.classList.contains('active')) el.style.display = 'none';
+            }, 300);
+        }
+        document.body.style.overflow = '';
+    };
+
+    // 首次打开时的操作提示（每会话只展示一次）
+    function showHintOnce(el) {
+        var shown = false;
+        try {
+            shown = sessionStorage.getItem('modalCloseHintShown') === '1';
+        } catch (e) { /* 隐私模式等场景直接放行 */ }
+        if (shown || !el.__hint) return;
+        try { sessionStorage.setItem('modalCloseHintShown', '1'); } catch (e) {}
+        var hint = el.__hint;
+        hint.classList.remove('show');
+        void hint.offsetWidth; // 重置动画
+        hint.classList.add('show');
+    }
+
+    function buildHint() {
+        var hint = document.createElement('div');
+        hint.className = 'modal-close-hint';
+        hint.setAttribute('aria-hidden', 'true');
+        hint.innerHTML = '按 <kbd>ESC</kbd> 或点击空白处关闭';
+        hint.addEventListener('animationend', function() {
+            hint.classList.remove('show');
+        });
+        return hint;
+    }
+
+    function buildFooter() {
+        var footer = document.createElement('div');
+        footer.className = 'modal-close-footer';
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'modal-close-btn';
+        btn.innerHTML = '✕ 关闭';
+        btn.addEventListener('click', function() {
+            window.__closeModalEl(btn.closest(OVERLAY_CLASSES));
+        });
+        footer.appendChild(btn);
+        return footer;
+    }
+
+    // 确保底部关闭按钮存在（部分弹窗打开时会重写面板 innerHTML，需重新注入）
+    function ensureFooter(cfg, el) {
+        var panel = typeof cfg.panel === 'function' ? cfg.panel(el) : el.querySelector(cfg.panel);
+        if (panel && !panel.querySelector('.modal-close-footer')) {
+            panel.appendChild(buildFooter());
+        }
+    }
+
+    function setupModal(cfg) {
+        var el = document.getElementById(cfg.id);
+        if (!el || el.__modalEnhanced) return;
+        el.__modalEnhanced = true;
+
+        // 操作提示条（挂在遮罩层上，不拦截点击）
+        var hint = buildHint();
+        el.appendChild(hint);
+        el.__hint = hint;
+
+        // 底部关闭按钮（挂在内容面板上）
+        ensureFooter(cfg, el);
+
+        // 监听打开状态：首次出现时给提示，并兜底重建可能被 innerHTML 清掉的按钮
+        var wasVisible = isVisible(el);
+        var observer = new MutationObserver(function() {
+            var visible = isVisible(el);
+            if (visible && !wasVisible) {
+                ensureFooter(cfg, el);
+                showHintOnce(el);
+            }
+            wasVisible = visible;
+        });
+        observer.observe(el, { attributes: true, attributeFilter: ['class', 'style'] });
+    }
+
+    window.initModalEnhancements = function() {
+        MODAL_REGISTRY.forEach(setupModal);
+    };
+
+    // 全局 ESC 兜底：只在 document 上绑定一次，关闭最上层可见弹窗
+    // （与各弹窗自带的 ESC 监听并存，关闭操作幂等，不会冲突）
+    if (!window.__modalEscBound) {
+        window.__modalEscBound = true;
+        document.addEventListener('keydown', function(e) {
+            if (e.key !== 'Escape') return;
+            for (var i = MODAL_REGISTRY.length - 1; i >= 0; i--) {
+                var el = document.getElementById(MODAL_REGISTRY[i].id);
+                if (el && isVisible(el)) {
+                    window.__closeModalEl(el);
+                    break;
+                }
+            }
+        });
+    }
+})();
 
 // ============================================
 // 站内搜索功能 (v0.4.6-dev)
