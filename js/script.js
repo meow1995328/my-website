@@ -575,42 +575,81 @@ function initFhCardAnimation() {
 
 /**
  * ============================================
- * 返回顶部按钮功能
- * 滚动时显示/隐藏按钮，点击后平滑滚动到页面顶部
+ * 底部悬浮操作栏 + 返回顶部按钮
+ * 把「返回上一级」「返回顶部」两个按钮移入同一个底部居中悬浮栏，
+ * 不占布局空间，两者宽度与样式统一（返回顶部文案：↑ 返回顶部）
  * ============================================
  */
 function initBackToTop() {
     const backToTopBtn = document.getElementById('backToTop');
-    
+
     if (!backToTopBtn) return;
-    
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-    
-    backToTopBtn.addEventListener('click', function() {
-        smoothScrollTo(0, 400);
-    });
+
+    // 文案：↑ 返回顶部，与「← 返回 关于我」对称
+    backToTopBtn.innerHTML = '<span class="bp-text">↑ 返回</span><span class="bp-accent">顶部</span>';
+
+    // 先取出两个按钮，避免下面的重建把它们一起移除
+    const backToParentBtn = document.getElementById('backToParent');
+
+    // 重建底部居中悬浮栏：居中逻辑只写一次，两个按钮共用
+    const oldBar = document.querySelector('.bottom-bar');
+    if (oldBar) oldBar.remove();
+
+    const bottomBar = document.createElement('div');
+    bottomBar.className = 'bottom-bar';
+    document.body.appendChild(bottomBar);
+
+    // 顺序：返回上一级 在左，返回顶部 在右
+    if (backToParentBtn) bottomBar.appendChild(backToParentBtn);
+    bottomBar.appendChild(backToTopBtn);
+
+    if (backToTopBtn.dataset.bttInit !== 'yes') {
+        backToTopBtn.dataset.bttInit = 'yes';
+        backToTopBtn.addEventListener('click', function() {
+            smoothScrollTo(0, 400);
+        });
+    }
 }
 
 /**
  * ============================================
- * 返回上一层页面按钮功能
- * 点击后返回上一页
+ * 返回上一级按钮功能
+ * 文案：← 返回 关于我（按钮由 initBackToTop 统一移入底部悬浮栏 .bottom-bar）
+ * 父级文件名取自按钮原有的内联 onclick="goToParent('父级.html')"
  * ============================================
  */
 function initBackToParent() {
     const backToParentBtn = document.getElementById('backToParent');
-    
+
     if (!backToParentBtn) return;
-    
-    backToParentBtn.addEventListener('click', function() {
-        window.history.back();
-    });
+
+    // 父级页面 → 中文名映射
+    const parentNames = {
+        'about.html': '关于我',
+        'creation.html': '内容创作',
+        'resources.html': '服务中心',
+        'site-info.html': '站点信息'
+    };
+
+    // 从内联 onclick 中解析父级文件名（如 goToParent('about.html')）
+    const onclickAttr = backToParentBtn.getAttribute('onclick') || '';
+    const matched = onclickAttr.match(/goToParent\(\s*['"]([^'"]+)['"]\s*\)/);
+    const parentPage = matched ? matched[1] : '';
+    const parentName = parentNames[parentPage] || '上一级';
+
+    // 改写成悬浮胶囊文案，并移除内联 onclick（避免与下方监听重复导航）
+    backToParentBtn.innerHTML =
+        '<span class="bp-text">← 返回</span><span class="bp-accent">' + parentName + '</span>';
+    backToParentBtn.title = '返回' + parentName;
+    backToParentBtn.removeAttribute('onclick');
+
+    if (backToParentBtn.dataset.bpInit !== 'yes') {
+        backToParentBtn.dataset.bpInit = 'yes';
+        backToParentBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            goToParent(parentPage);
+        });
+    }
 }
 
 /**
