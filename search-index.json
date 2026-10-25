@@ -96,6 +96,14 @@
     "keywords": "随想 碎碎念 感悟 生活思考 人生 随笔"
   },
   {
+    "id": "thought-article-ai-decade",
+    "title": "我亲历的 AI 十年：它正在重构这个世界",
+    "category": "随想碎碎念",
+    "url": "creation-thoughts.html",
+    "desc": "科技观察 - 从AlphaGo、ChatGPT到世界模型的十年亲历观察，探讨AI如何重构产业格局与社会阶层，以及中美AI竞赛格局，2026年10月25日",
+    "keywords": "AI 人工智能 AlphaGo AlphaStar ChatGPT 大模型 世界模型 OpenAI Anthropic DeepMind 图灵测试 AI Agent 马斯克 科技观察 产业格局 2026"
+  },
+  {
     "id": "thought-article-shengpizi",
     "title": "《生僻字》，并不生僻",
     "category": "随想碎碎念",

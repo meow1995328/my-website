@@ -1258,9 +1258,8 @@ function initInterestModal() {
     var OVERLAY_CLASSES = '.interest-modal-overlay, .family-modal-overlay, .movie-modal-overlay, ' +
                           '.story-modal, .honor-modal, .moment-modal, .collection-detail';
 
-    // 判断弹窗当前是否可见
+    // 判断弹窗当前是否可见（统一按 active 类判断，荣誉弹窗也已改用类切换）
     function isVisible(el) {
-        if (el.id === 'honorModal') return el.style.display === 'flex';
         return el.classList.contains('active');
     }
 
@@ -1271,11 +1270,6 @@ function initInterestModal() {
         if (el.id === 'collectionDetail' && typeof window.closeCollectionDetail === 'function') return window.closeCollectionDetail();
         if (el.id === 'interestModalOverlay' && typeof window.closeInterestModal === 'function') return window.closeInterestModal();
         el.classList.remove('active');
-        if (el.id === 'collectionDetail') {
-            setTimeout(function() {
-                if (!el.classList.contains('active')) el.style.display = 'none';
-            }, 300);
-        }
         document.body.style.overflow = '';
     };
 

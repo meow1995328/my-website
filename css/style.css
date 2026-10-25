@@ -4931,3 +4931,91 @@ html.fh-transition-dissolve::view-transition-new(root) {
     transform: scale(0.97);
 }
 
+/* ============================================
+   弹窗统一开关动画：缩放淡入（v0.5.6-alpha）
+   遮罩淡入淡出 + 内容缩放上浮；关闭略快于打开，收尾更干脆
+   背景：原先各弹窗用 display:none 切换，浏览器在 display 变更的
+   同一帧不会播放过渡，导致「开关都是瞬间出现」。这里统一改为
+   visibility + opacity，让打开与关闭都有动画。
+   ============================================ */
+
+/* ---- 遮罩层：淡入 / 淡出 ---- */
+.interest-modal-overlay,
+.family-modal-overlay,
+.movie-modal-overlay,
+.story-modal,
+.honor-modal {
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    /* 关闭：淡出播完再真正隐藏，避免「关到一半又闪回来」 */
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+
+/* 收集簿详情是整屏滚动容器，保持 block 布局 */
+.collection-detail {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+
+.interest-modal-overlay.active,
+.family-modal-overlay.active,
+.movie-modal-overlay.active,
+.story-modal.active,
+.honor-modal.active,
+.collection-detail.active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.25s ease, visibility 0s;
+}
+
+/* ---- 内容面板：缩放 + 上浮淡入 ---- */
+.interest-modal,
+.family-modal,
+.movie-modal,
+.story-modal-content,
+.honor-modal-content,
+.collection-detail .container {
+    transform: scale(0.94) translateY(12px);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.18s ease;
+}
+
+.interest-modal-overlay.active .interest-modal,
+.family-modal-overlay.active .family-modal,
+.movie-modal-overlay.active .movie-modal,
+.story-modal.active .story-modal-content,
+.honor-modal.active .honor-modal-content,
+.collection-detail.active .container {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    /* 打开：快出缓停 */
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+/* 中和旧 keyframes 动画：成长故事弹窗原有 story-modal-fade-in（遮罩）与
+   story-modal-slide-up（内容）会覆盖上面的过渡（动画优先级高于过渡），
+   这里统一关闭，改由同一套缩放淡入过渡驱动，避免两套机制打架 */
+.story-modal.active,
+.story-modal-content {
+    animation: none;
+}
+
+/* ---- 尊重系统「减少动态效果」：仅保留淡入淡出，不做位移缩放 ---- */
+@media (prefers-reduced-motion: reduce) {
+    .interest-modal,
+    .family-modal,
+    .movie-modal,
+    .story-modal-content,
+    .honor-modal-content,
+    .moment-modal-content,
+    .collection-detail .container {
+        transform: none !important;
+    }
+}
+

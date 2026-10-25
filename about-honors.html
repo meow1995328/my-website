@@ -13,7 +13,7 @@
             }, 600);
         }
     </script>
-    <link rel="stylesheet" href="css/style.css?v=20261016c">
+    <link rel="stylesheet" href="css/style.css?v=20261020b">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/fuse.min.js"></script>
 </head>
@@ -108,7 +108,7 @@
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
     </footer>
 
-    <script src="js/script.js?v=20261016c"></script>
+    <script src="js/script.js?v=20261020b"></script>
     <script>(function() {
     // PJAX换页后内联onclick需要全局可访问
     window.openHonorModal = openHonorModal;
@@ -164,12 +164,12 @@
             document.getElementById('honorModalImg').src = honor.image;
             document.getElementById('honorModalTitle').textContent = honor.title;
             document.getElementById('honorModalDesc').textContent = honor.desc;
-            document.getElementById('honorModal').style.display = 'flex';
+            document.getElementById('honorModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeHonorModal() {
-            document.getElementById('honorModal').style.display = 'none';
+            document.getElementById('honorModal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
@@ -190,7 +190,7 @@
         });
 
         document.addEventListener('keydown', function(e) {
-            if (document.getElementById('honorModal').style.display === 'flex') {
+            if (document.getElementById('honorModal').classList.contains('active')) {
                 if (e.key === 'Escape') closeHonorModal();
                 if (e.key === 'ArrowLeft') prevHonor();
                 if (e.key === 'ArrowRight') nextHonor();

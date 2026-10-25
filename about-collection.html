@@ -13,7 +13,7 @@
             }, 600);
         }
     </script>
-    <link rel="stylesheet" href="css/style.css?v=20261016c">
+    <link rel="stylesheet" href="css/style.css?v=20261020b">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/fuse.min.js"></script>
 </head>
@@ -104,7 +104,7 @@
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
     </footer>
 
-    <script src="js/script.js?v=20261016c"></script>
+    <script src="js/script.js?v=20261020b"></script>
     <script>(function() {
     // PJAX换页后内联onclick需要全局可访问
     window.openCollectionDetail = openCollectionDetail;
@@ -250,18 +250,12 @@
                 </div>
             `).join('');
             
-            detail.style.display = 'block';
-            setTimeout(() => {
-                detail.classList.add('active');
-            }, 10);
+            detail.classList.add('active');
         }
 
         function closeCollectionDetail() {
             const detail = document.getElementById('collectionDetail');
             detail.classList.remove('active');
-            setTimeout(() => {
-                detail.style.display = 'none';
-            }, 300);
         }
 
         document.getElementById('collectionDetail').addEventListener('click', function(e) {
