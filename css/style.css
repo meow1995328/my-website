@@ -63,19 +63,22 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    height: 48px;
+    min-height: 48px; /* 桌面固定 48px；窄屏折行时由内容自动撑高 */
 }
 
+/* 三栏布局：标题靠左、导航居中、搜索靠右
+   左右两侧等分剩余空间（flex:1 1 0），中间菜单自然精确居中
+   左右内边距必须与 .main-content 完全对称（50px / 50px），否则菜单中心会偏离视口正中 */
 .nav {
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;      /* 窄屏时允许菜单折到第二行 */
     align-items: center;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-    height: 100%;
+    column-gap: 1.25rem;
+    padding: 0 50px;
+    min-height: 48px;
     position: relative;
-    gap: 1rem;
 }
 
 .logo {
@@ -85,6 +88,7 @@ body {
 .header-title {
     font-size: 1.1rem;
     font-weight: 800;
+    flex: 0 0 auto;         /* 标题不压缩，让副标题先让步 */
     background: linear-gradient(135deg, #00d4ff, #7c4dff, #ff6b6b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -100,99 +104,101 @@ body {
     50% { filter: brightness(1.2); }
 }
 
-.header-subtitle {
-    font-size: 0.68rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.55);
-    margin-left: 0.5rem;
-    max-width: 260px;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 0.15rem;
+    flex: 0 0 auto;
+    order: 2;         /* 视觉顺序：标题 → 菜单 → 搜索（与 DOM 顺序无关） */
+    margin: 0;        /* 清除旧的外边距，否则菜单会偏离中心 */
 }
 
 .nav-left {
     display: flex;
     align-items: center;
-    flex-shrink: 0;
+    flex: 1 1 0;      /* 与右侧等分，保证中间菜单精确居中 */
+    min-width: 0;
+    order: 1;
+    overflow: hidden; /* 空间不够时裁掉副标题，绝不压到中间菜单下面 */
 }
 
 .nav-item {
     position: relative;
 }
 
+/* 每个导航项一套专属主题色：当前页高亮时用各自的色，方便一眼区分处于哪个板块 */
+.nav-item:nth-child(1) .nav-link { --nav-accent: #00d4ff; --nav-accent-soft: rgba(0, 212, 255, 0.16); }
+.nav-item:nth-child(2) .nav-link { --nav-accent: #b197fc; --nav-accent-soft: rgba(177, 151, 252, 0.16); }
+.nav-item:nth-child(3) .nav-link { --nav-accent: #ff6b9d; --nav-accent-soft: rgba(255, 107, 157, 0.16); }
+.nav-item:nth-child(4) .nav-link { --nav-accent: #10b981; --nav-accent-soft: rgba(16, 185, 129, 0.16); }
+.nav-item:nth-child(5) .nav-link { --nav-accent: #f59e0b; --nav-accent-soft: rgba(245, 158, 11, 0.16); }
+
+/* 胶囊按钮：图标 + 4 字文案，五项等宽，第 3 项正中 = 屏幕正中 */
 .nav-link {
     display: flex;
     align-items: center;
-    padding: 0.2rem 0.5rem;
+    justify-content: center;
+    gap: 0.3em;
+    /* 用 min-width 而不是固定 width：文案绝不允许换行，
+       图标给固定宽度（不同 emoji 字形宽度不一），各按钮宽度仍然一致 */
+    min-width: calc(5.5em + 1rem);
+    padding: 0.32rem 0.4rem;
+    white-space: nowrap;
     color: rgba(255, 255, 255, 0.72);
     text-decoration: none;
     font-weight: 500;
     font-size: 0.78rem;
-    transition: color 0.2s ease;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    transition: color 0.2s ease, background 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
     background: transparent;
-    border-radius: 4px;
     position: relative;
 }
 
+.nav-icon {
+    flex: 0 0 auto;
+    width: 1.3em;           /* 固定图标占位，避免不同 emoji 字形宽窄不一 */
+    text-align: center;
+    font-size: 1em;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
 .nav-link:hover {
-    color: #ffffff;
-    background: transparent;
+    color: var(--nav-accent);   /* 悬停时预览该板块的主题色 */
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
 }
 
-.nav-link:hover::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 2px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 1px;
+.nav-link:hover .nav-icon {
+    transform: scale(1.12);
 }
 
+/* 当前页：该板块主题色的胶囊高亮 */
 .nav-link.active {
-    color: #4da3ff;
+    color: #ffffff;
     font-weight: 600;
-    background: transparent;
-}
-
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 2px;
-    background: #4da3ff;
-    border-radius: 1px;
+    background: var(--nav-accent-soft);
+    border-color: var(--nav-accent);
+    box-shadow: 0 0 14px -4px var(--nav-accent);
 }
 
 /* ============================================
    导航栏搜索框样式
    ============================================ */
 .search-wrapper {
-    position: absolute;  /* 绝对定位居中 */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 260px;
-    max-width: 260px;
-    margin: 0;
+    flex: 1 1 0;         /* 与左侧等分剩余空间 */
+    min-width: 0;
     display: flex;
     align-items: center;
+    justify-content: flex-end; /* 搜索框贴本侧右边缘 */
+    order: 3;
 }
 
 .search-box {
-    width: 100%;
+    width: 200px;        /* 收窄，给标题与居中导航让出空间 */
+    max-width: 100%;
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.08);
@@ -252,12 +258,14 @@ body {
 }
 
 /* ========== 搜索结果下拉面板 ========== */
+/* 搜索框在右侧列，面板右对齐到导航内边距，避免超出视口 */
 .search-results {
     position: absolute;
     top: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
+    right: 2rem;         /* 与导航右内边距对齐，避免超出视口 */
+    left: auto;
+    transform: none;
+    width: 280px;
     max-width: 420px;
     background: #0d0d0d; /* 近黑背景，与header统一 */
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -363,15 +371,12 @@ body {
 
 /* ========== 响应式：搜索框 ========== */
 @media (max-width: 900px) {
-    .search-wrapper {
-        flex: 0 0 160px;
-        max-width: 160px;
+    .search-box {
+        width: 160px;
+        padding: 0.3rem 0.6rem;
     }
     .search-input {
         font-size: 0.75rem;
-    }
-    .search-box {
-        padding: 0.3rem 0.6rem;
     }
 }
 
@@ -379,13 +384,8 @@ body {
     .header-title {
         font-size: 1.1rem;
     }
-    .header-subtitle {
-        font-size: 0.65rem;
-        margin-left: 0.4rem;
-    }
-    .search-wrapper {
-        flex: 0 0 110px;
-        max-width: 110px;
+    .search-box {
+        width: 130px;
     }
     .search-input::placeholder {
         color: transparent;
@@ -394,17 +394,27 @@ body {
         font-size: 0.72rem;
     }
     .search-results {
-        max-width: 300px;
+        width: 260px;
+        max-width: 260px;
     }
 }
 
 @media (max-width: 550px) {
-    .search-wrapper {
-        flex: 0 0 90px;
-        max-width: 90px;
+    .search-box {
+        width: 110px;
     }
     .search-icon {
         margin-right: 0.3rem;
+    }
+}
+
+/* 极窄屏（≤420px）：缩小标题，给搜索框留出空间 */
+@media (max-width: 420px) {
+    .header-title {
+        font-size: 1rem;
+    }
+    .search-box {
+        width: 96px;
     }
 }
 
@@ -414,7 +424,9 @@ body {
 .main-content {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 80px 2rem 1rem 50px;
+    /* 顶部内边距 = 导航实高 + 32px，导航折行时自动让位（--header-h 由 script.js 写入） */
+    /* 左右 50px 对称：既给左侧竖条导航留出空间，也保证内容列中心 = 视口中心 */
+    padding: calc(var(--header-h, 48px) + 32px) 50px 1rem 50px;
     min-height: calc(100vh - 200px); /* 最小高度：视口高度-200px */
 }
 
@@ -2095,7 +2107,7 @@ li {
    ============================================ */
 .contact-grid {
     display: grid;                              /* 网格布局 */
-    grid-template-columns: repeat(4, 1fr);      /* 4列布局 */
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4列布局，minmax(0,1fr) 允许列宽小于内容最小宽度 */
     gap: 0.8rem;                               /* 间距：0.8rem */
     margin-top: 0.8rem;                        /* 上边距：0.8rem */
 }
@@ -2107,6 +2119,8 @@ li {
     text-align: center;                         /* 文字居中 */
     border: 1px solid rgba(0, 188, 242, 0.2);   /* 淡青色边框 */
     transition: all 0.3s ease;                  /* 过渡效果 */
+    min-width: 0;                               /* 允许收缩，防止长链接撑破网格导致横向溢出 */
+    overflow-wrap: anywhere;                    /* 长邮箱/网址可断行 */
 }
 
 .contact-item:hover {
@@ -2124,6 +2138,19 @@ li {
     margin: 0;                                  /* 去掉边距 */
     font-size: 0.8rem;                          /* 小字体 */
     color: var(--text-secondary);               /* 灰色 */
+}
+
+/* 联系卡片响应式：平板两列、手机单列，避免 4 列被压窄后横向溢出 */
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* 联系方式容器 */
@@ -2571,33 +2598,53 @@ li {
     .nav-menu {
         gap: 0.1rem; /* 菜单间距：0.1rem */
     }
-    
-    .nav-link {
-        padding: 0.8rem 1rem; /* 链接内边距：0.8rem 1rem */
-        font-size: 0.85rem;   /* 链接字体：0.85rem */
+}
+
+/* ========== 平板及窄屏（最大宽度950px）：导航独占一行居中，避免与搜索框互相挤压 ========== */
+@media (max-width: 950px) {
+    .nav {
+        /* 左右内边距仍与 .main-content（50px / 50px）保持一致，避免菜单相对内容列偏移 */
+        padding: 0.45rem 50px;
+        row-gap: 0.4rem;
+    }
+
+    .nav-left {
+        flex: 1 1 auto;      /* 首行：标题占满剩余宽度 */
+        order: 1;
+    }
+
+    .search-wrapper {
+        flex: 0 0 auto;      /* 首行：搜索框固定宽度 */
+        order: 2;
+    }
+
+    .nav-menu {
+        flex: 1 1 100%;      /* 第二行：菜单独占整行 */
+        flex-wrap: wrap;     /* 窄屏时菜单项可换行，避免横向溢出 */
+        justify-content: center;
+        order: 3;
+    }
+
+    .search-results {
+        right: 1rem;
     }
 }
 
 /* ========== 移动端（最大宽度768px） ========== */
 @media (max-width: 768px) {
     .nav {
-        flex-direction: column; /* 导航栏垂直排列 */
-        padding: 1rem;          /* 内边距：1rem */
-    }
-    
-    .nav-menu {
-        flex-wrap: wrap;        /* 菜单换行 */
-        justify-content: center; /* 菜单居中 */
-        margin-top: 0.5rem;     /* 上边距：0.5rem */
+        padding: 0.5rem 1rem;  /* 与 .main-content 的左右 1rem 保持一致 */
+        row-gap: 0.35rem;
     }
     
     .nav-link {
-        padding: 0.6rem 0.8rem; /* 链接内边距：0.6rem 0.8rem */
-        font-size: 0.8rem;      /* 链接字体：0.8rem */
+        padding: 0.4rem 0.3rem;
+        min-width: calc(5.3em + 0.8rem); /* 图标 + 4 字，481px 起仍能单行放下 */
+        font-size: 0.8rem;       /* 链接字体：0.8rem */
     }
     
     .main-content {
-        padding: 5rem 1rem 2rem; /* 内容内边距：上5rem（避开导航栏），左右1rem，下2rem */
+        padding: calc(var(--header-h, 80px) + 16px) 1rem 2rem; /* 上内边距跟随导航实高，左右1rem，下2rem */
     }
 
     .hero-card h1 {
@@ -2639,8 +2686,13 @@ li {
 /* ========== 小屏移动端（最大宽度480px） ========== */
 @media (max-width: 480px) {
     .nav-link {
-        padding: 0.5rem 0.6rem; /* 链接内边距：0.5rem 0.6rem */
+        padding: 0.45rem 0.4rem;
+        min-width: calc(4em + 1rem); /* 窄屏隐藏图标后回到 4 字宽度，保证 375px 单行 */
         font-size: 0.75rem;     /* 链接字体：0.75rem */
+    }
+
+    .nav-icon {
+        display: none;          /* 极窄屏只留文字，避免菜单换行 */
     }
     
     .hero-card {

@@ -52,6 +52,9 @@ window.reinitPageScripts = function() {
     // 初始化返回顶部按钮
     initBackToTop();
 
+    // 同步导航栏实高到 CSS 变量（导航折行时让内容自动让位）
+    initHeaderOffset();
+
     // 初始化返回上一层页面按钮
     initBackToParent();
 
@@ -574,8 +577,34 @@ function initFhCardAnimation() {
 }
 
 /**
+ * 把导航栏实际高度写入 CSS 变量 --header-h
+ * 导航在窄屏会折成两行，高度不再是固定 48px；内容区用它计算顶部内边距，避免被遮挡
+ */
+function initHeaderOffset() {
+    const header = document.querySelector('.header');
+    if (!header) return;
+
+    const sync = function() {
+        const h = Math.round(header.getBoundingClientRect().height);
+        document.documentElement.style.setProperty('--header-h', h + 'px');
+    };
+
+    sync();
+
+    if (!window.__headerOffsetBound) {
+        window.__headerOffsetBound = true;
+        window.addEventListener('resize', function() {
+            const hd = document.querySelector('.header');
+            if (hd) document.documentElement.style.setProperty('--header-h', Math.round(hd.getBoundingClientRect().height) + 'px');
+        });
+        // 字体加载完成后高度可能变化
+        window.addEventListener('load', sync);
+    }
+}
+
+/**
  * ============================================
- * 底部悬浮操作栏 + 返回顶部按钮
+ * 底部悬浮操作栏
  * 把「返回上一级」「返回顶部」两个按钮移入同一个底部居中悬浮栏，
  * 不占布局空间，两者宽度与样式统一（返回顶部文案：↑ 返回顶部）
  * ============================================

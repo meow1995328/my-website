@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>活动预告 - 薛大侠</title>
-    <link rel="stylesheet" href="css/style.css?v=20261020b">
+    <link rel="stylesheet" href="css/style.css?v=20261029j">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/fuse.min.js"></script>
 </head>
 <body>
     <!-- 顶部导航栏 -->
@@ -14,25 +15,31 @@
         <nav class="nav">
             <div class="nav-left">
                 <a href="index.html" class="logo">XueXue</a>
-            <div class="header-title">活动记录</div>
-            <div class="header-subtitle">参与过的精彩活动</div>
+            <div class="header-title">一起参与过的活动</div>
+            </div>
+            <div class="search-wrapper">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="搜索网站内容..." autocomplete="off">
+                    <button class="search-clear" type="button" title="清除">✕</button>
+                </div>
+                <div class="search-results"></div>
+            </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">首页</a>
+                    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span>网站首页</a>
                 </li>
                 <li class="nav-item">
-                    <a href="about.html" class="nav-link">关于我</a>
+                    <a href="about.html" class="nav-link"><span class="nav-icon">👤</span>关于本人</a>
                 </li>
                 <li class="nav-item">
-                    <a href="creation.html" class="nav-link active">内容创作</a>
+                    <a href="creation.html" class="nav-link active"><span class="nav-icon">✍️</span>内容创作</a>
                 </li>
                 <li class="nav-item">
-                    <a href="resources.html" class="nav-link">服务中心</a>
+                    <a href="resources.html" class="nav-link"><span class="nav-icon">🛠️</span>服务中心</a>
                 </li>
                 <li class="nav-item">
-                </li>
-                <li class="nav-item">
-                    <a href="site-info.html" class="nav-link">站点信息</a>
+                    <a href="site-info.html" class="nav-link"><span class="nav-icon">ℹ️</span>站点信息</a>
                 </li>
             </ul>
         </nav>
@@ -75,7 +82,7 @@
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
     </footer>
 
-    <script src="js/script.js?v=20261020b"></script>
+    <script src="js/script.js?v=20261029c"></script>
     <script src="js/pjax.js?v=20260913b"></script>
 </body>
 </html>

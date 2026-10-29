@@ -10,3 +10,7 @@ Thumbs.db
 # 本地历史版本备份（仅本地保留，不同步到 GitHub）
 backup/
 BACKUP/
+
+# IDE「分享/预览」自动打包产物（整站 zip，体积巨大，本地删除即可）
+.trae-html-share-packages/
+*.zip
