@@ -55,6 +55,9 @@ window.reinitPageScripts = function() {
     // 同步导航栏实高到 CSS 变量（导航折行时让内容自动让位）
     initHeaderOffset();
 
+    // 生成导航悬浮子菜单
+    initNavDropdowns();
+
     // 初始化返回上一层页面按钮
     initBackToParent();
 
@@ -573,6 +576,68 @@ function initFhCardAnimation() {
                 }, 10);
             }
         });
+    });
+}
+
+/**
+ * 顶部导航悬浮子菜单
+ * 子页面清单集中在这里维护，各页面不用重复写 HTML；
+ * 桌面端鼠标悬浮或键盘聚焦时由 CSS 展开，≤950px 不显示
+ */
+const NAV_SUBMENUS = {
+    'about.html': [
+        ['成长经历', 'about-growth.html'],
+        ['职业经历', 'about-career.html'],
+        ['荣誉证书', 'about-honors.html'],
+        ['兴趣爱好', 'about-interests.html'],
+        ['家庭生活', 'about-family.html'],
+        ['收集簿', 'about-collection.html']
+    ],
+    'creation.html': [
+        ['随想碎碎念', 'creation-thoughts.html'],
+        ['生活碎碎拍', 'creation-moments.html'],
+        ['观影笔记', 'creation-movies.html'],
+        ['读书笔记', 'creation-reading.html'],
+        ['视频作品', 'creation-videos.html'],
+        ['经典语录', 'creation-quotes.html'],
+        ['干货分享', 'creation-articles.html'],
+        ['活动记录', 'creation-events.html']
+    ],
+    'resources.html': [
+        ['免费资源', 'resources-free.html'],
+        ['开源项目', 'resources-opensource.html'],
+        ['付费资源', 'resources-paid.html'],
+        ['友情链接', 'resources-links.html'],
+        ['个人项目', 'resources-projects.html'],
+        ['实用工具', 'resources-tools.html']
+    ],
+    'site-info.html': [
+        ['更新日志', 'site-info-changelog.html'],
+        ['订阅服务', 'site-info-subscribe.html'],
+        ['合规声明', 'site-info-compliance.html']
+    ]
+};
+
+function initNavDropdowns() {
+    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-menu .nav-item').forEach(function (li) {
+        if (li.dataset.dropdownReady === '1') return;   // PJAX 换页后避免重复生成
+        const link = li.querySelector('.nav-link');
+        if (!link) return;
+
+        const subs = NAV_SUBMENUS[link.getAttribute('href')];
+        if (!subs) return;
+
+        li.dataset.dropdownReady = '1';
+        li.classList.add('has-dropdown');
+
+        const panel = document.createElement('div');
+        panel.className = 'nav-dropdown';
+        panel.innerHTML = subs.map(function (sub) {
+            const active = sub[1] === currentFile ? ' active' : '';
+            return '<a class="nav-dropdown-link' + active + '" href="' + sub[1] + '">' + sub[0] + '</a>';
+        }).join('');
+        li.appendChild(panel);
     });
 }
 
@@ -1671,7 +1736,6 @@ const bookData = {
         { src: 'audio/Red Rock for Mother Russia.m4a', title: 'Red Rock for Mother Russia', artist: 'IIA' },
         { src: 'audio/想你的三百六十五天.m4a', title: '想你的三百六十五天', artist: '李玟' }
     ];
-    const PREF_KEY = 'bgmPref';       // 记忆：on/off
     const TRACK_KEY = 'bgmTrack';     // 记忆：曲目索引
 
     // 动态创建播放器 UI（全站生效，无需改每个页面）
@@ -1718,7 +1782,6 @@ const bookData = {
         audio.addEventListener('error', function () {
             toggleBtn.classList.remove('playing');
             showTip('暂无音乐文件');
-            localStorage.setItem(PREF_KEY, 'off');
         });
         return audio;
     }
@@ -1736,7 +1799,6 @@ const bookData = {
         if (!audio.src) audio.src = PLAYLIST[currentTrack].src;
         audio.play().then(function () {
             toggleBtn.classList.add('playing');
-            localStorage.setItem(PREF_KEY, 'on');
             showTip('♪ ' + PLAYLIST[currentTrack].title + ' — ' + PLAYLIST[currentTrack].artist);
         }).catch(function () { /* 浏览器自动播放拦截，静默处理 */ });
     }
@@ -1744,7 +1806,6 @@ const bookData = {
     function pauseMusic() {
         if (audio) audio.pause();
         toggleBtn.classList.remove('playing');
-        localStorage.setItem(PREF_KEY, 'off');
     }
 
     function nextTrack(autoPlay) {
@@ -1780,14 +1841,4 @@ const bookData = {
 
     prevBtn.addEventListener('click', function (e) { e.stopPropagation(); prevTrack(); });
     nextBtn.addEventListener('click', function (e) { e.stopPropagation(); nextTrack(true); });
-
-    // 记忆偏好：上次离开时音乐开着，访客回到站点后首次交互即续播
-    if (localStorage.getItem(PREF_KEY) === 'on') {
-        const resume = function (e) {
-            if (e.target.closest('#musicPlayer')) return; // 点播放器本身交给按钮逻辑
-            document.removeEventListener('pointerdown', resume);
-            playMusic();
-        };
-        document.addEventListener('pointerdown', resume);
-    }
 })();

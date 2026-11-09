@@ -184,6 +184,89 @@ body {
     box-shadow: 0 0 14px -4px var(--nav-accent);
 }
 
+/* ========== 导航悬浮子菜单（仅桌面端） ========== */
+.nav-item.has-dropdown .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    transform: translate(-50%, -6px);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 9.5em;
+    padding: 0.35rem;
+    background: rgba(13, 13, 13, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
+    z-index: 2100;
+}
+
+/* 面板与按钮之间的 8px 缝隙也算悬停区域，避免鼠标下移时菜单闪烁 */
+.nav-item.has-dropdown .nav-dropdown::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -10px;
+    height: 10px;
+}
+
+.nav-item.has-dropdown:hover .nav-dropdown,
+.nav-item.has-dropdown:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+}
+
+/* 最右侧「站点信息」改为右对齐，避免面板超出视口 */
+.nav-menu .nav-item.has-dropdown:last-child .nav-dropdown {
+    left: auto;
+    right: 0;
+    transform: translateY(-6px);
+}
+
+.nav-menu .nav-item.has-dropdown:last-child:hover .nav-dropdown,
+.nav-menu .nav-item.has-dropdown:last-child:focus-within .nav-dropdown {
+    transform: translateY(0);
+}
+
+.nav-dropdown-link {
+    display: block;
+    padding: 0.42rem 0.7rem;
+    font-size: 0.76rem;
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-dropdown-link:hover,
+.nav-dropdown-link:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.nav-dropdown-link.active {
+    color: #4da3ff;
+    background: rgba(77, 163, 255, 0.12);
+}
+
+/* 窄屏导航折行，没有悬浮条件，直接不显示子菜单 */
+@media (max-width: 950px) {
+    .nav-item.has-dropdown .nav-dropdown {
+        display: none;
+    }
+}
+
 /* ============================================
    导航栏搜索框样式
    ============================================ */

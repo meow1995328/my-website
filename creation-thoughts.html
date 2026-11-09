@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>随想碎碎念 - 薛大侠</title>
-    <link rel="stylesheet" href="css/style.css?v=20261029j">
+    <link rel="stylesheet" href="css/style.css?v=20261109a">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/fuse.min.js"></script>
     <style>
@@ -216,8 +216,8 @@
         <p>&copy; 2026 薛大侠 - 用心记录生活</p>
     </footer>
 
-    <script src="js/thoughts-data.js?v=20261026"></script>
-    <script src="js/script.js?v=20261029c"></script>
+    <script src="js/thoughts-data.js?v=20261109a"></script>
+    <script src="js/script.js?v=20261109a"></script>
     <script src="js/pjax.js?v=20260913b"></script>
     <script>
     (function () {
@@ -274,7 +274,7 @@
             renderDetail(item);
             document.getElementById('thoughtListView').hidden = true;
             document.getElementById('thoughtDetailView').hidden = false;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo(0, 0); // 立即回到顶部，避免长距离平滑滚动导致正文迟迟不出现
         }
 
         function showList() {
@@ -306,10 +306,19 @@
             }
         }
 
+        // PJAX 换页时 js/thoughts-data.js 是异步加载的，可能晚于本脚本执行，需等待数据就绪
+        var booted = false;
+        function boot(attempts) {
+            if (booted) return;
+            if (window.THOUGHTS) { booted = true; init(); return; }
+            if (attempts >= 40) return; // 约 2 秒仍无数据则放弃，避免无限轮询
+            setTimeout(function () { boot(attempts + 1); }, 50);
+        }
+
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
+            document.addEventListener('DOMContentLoaded', function () { boot(0); });
         } else {
-            init();
+            boot(0);
         }
     })();
     </script>
