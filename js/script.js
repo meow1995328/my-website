@@ -1511,6 +1511,102 @@ function initSearch() {
 
     if (!searchInput || !searchResults) return;
 
+    // ===== 注入「按钮 + 右上滑出面板」结构（28 页 HTML 无需改动） =====
+    // 原 .search-box（输入行）与 .search-results（结果区）被移入面板，
+    // 移动 DOM 节点不会丢失已绑定事件，后续搜索逻辑完全复用。
+    const searchBox = searchWrapper.querySelector('.search-box');
+    const searchToggle = document.createElement('button');
+    searchToggle.type = 'button';
+    searchToggle.className = 'search-toggle';
+    searchToggle.setAttribute('aria-label', '搜索（快捷键 /）');
+    searchToggle.innerHTML = '🔍';
+
+    const searchPanel = document.createElement('div');
+    searchPanel.className = 'search-panel';
+
+    searchWrapper.appendChild(searchToggle);
+    searchWrapper.appendChild(searchPanel);
+    if (searchBox) searchPanel.appendChild(searchBox);
+    searchPanel.appendChild(searchResults);
+
+    const panelHint = document.createElement('div');
+    panelHint.className = 'search-panel-hint';
+    panelHint.textContent = '↑↓ 选择 · Enter 打开 · ESC 关闭';
+    searchPanel.appendChild(panelHint);
+
+    // 标记「焦点是由悬浮带进来的」，用于鼠标移开时一并收回焦点
+    let focusFromHover = false;
+
+    function openSearchPanel(focusInput) {
+        searchWrapper.classList.add('open');
+        searchToggle.setAttribute('aria-expanded', 'true');
+        // 只有点按钮 / 快捷键时才抢焦点；悬浮展开不打断用户原有操作
+        if (focusInput) {
+            focusFromHover = false;
+            // 用 setTimeout 而非 rAF：无头/后台标签页下 rAF 可能不触发，导致聚焦丢失
+            setTimeout(function() { searchInput.focus(); }, 60);
+        }
+    }
+    function closeSearchPanel() {
+        searchWrapper.classList.remove('open');
+        searchToggle.setAttribute('aria-expanded', 'false');
+        focusFromHover = false;
+    }
+
+    // 点击：打开并聚焦；已打开时再点关闭
+    searchToggle.addEventListener('click', function() {
+        if (searchWrapper.classList.contains('open')) {
+            closeSearchPanel();
+        } else {
+            openSearchPanel(true);
+        }
+    });
+
+    // 悬浮：桌面端鼠标掠过即展开（不抢焦点），移开自动收起。
+    // 已输入内容或输入框仍在聚焦时不收起，避免打字途中面板消失。
+    const canHover = window.matchMedia
+        ? window.matchMedia('(hover: hover) and (pointer: fine)').matches
+        : false;
+    if (canHover) {
+        let hoverOpenTimer = null;
+        let hoverCloseTimer = null;
+
+        searchWrapper.addEventListener('mouseenter', function() {
+            clearTimeout(hoverCloseTimer);
+            if (searchWrapper.classList.contains('open')) return;
+            hoverOpenTimer = setTimeout(function() {
+                openSearchPanel(false);
+            }, 120);
+        });
+
+        searchWrapper.addEventListener('mouseleave', function() {
+            clearTimeout(hoverOpenTimer);
+            hoverCloseTimer = setTimeout(function() {
+                const typing = document.activeElement === searchInput;
+                const hasText = searchInput.value.trim() !== '';
+                if (!typing && !hasText) {
+                    closeSearchPanel();
+                } else if (focusFromHover && !hasText) {
+                    // 焦点是悬浮带进来的，且一个字都没输入：连焦点一起收回，
+                    // 否则会因「聚焦即不收起」把面板一直挂在那里挡内容
+                    searchInput.blur();
+                    closeSearchPanel();
+                }
+            }, 220);
+        });
+
+        // 方案 B：悬浮只负责展开面板，指针真正移进输入行时才聚焦，
+        // 这样「只是路过导航右上角」不会抢走别处（如留言板）的输入焦点
+        if (searchBox) {
+            searchBox.addEventListener('mouseenter', function() {
+                if (document.activeElement === searchInput) return;
+                if (!searchWrapper.classList.contains('open')) return;
+                focusFromHover = true;
+                searchInput.focus();
+            });
+        }
+    }
+
     let debounceTimer = null;
     let activeResultIndex = -1;
     let currentResults = [];
@@ -1649,16 +1745,37 @@ function initSearch() {
 
         document.addEventListener('click', function(e) {
             const wrapper = document.querySelector('.search-wrapper');
-            const results = wrapper && wrapper.querySelector('.search-results');
-            if (wrapper && results && !wrapper.contains(e.target)) {
-                results.classList.remove('active');
+            if (wrapper && wrapper.classList.contains('open') && !wrapper.contains(e.target)) {
+                wrapper.classList.remove('open');
             }
         });
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                const results = document.querySelector('.search-results');
-                if (results) results.classList.remove('active');
+                const wrapper = document.querySelector('.search-wrapper');
+                if (wrapper && wrapper.classList.contains('open')) {
+                    wrapper.classList.remove('open');
+                    const t = wrapper.querySelector('.search-toggle');
+                    if (t) t.focus();
+                }
+                return;
+            }
+            // “/” 快捷键唤起搜索面板（正在输入或按住修饰键时不拦截）
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                const t = e.target;
+                const tag = t && t.tagName;
+                const typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable);
+                if (typing) return;
+                const wrapper = document.querySelector('.search-wrapper');
+                if (!wrapper) return;
+                e.preventDefault();
+                if (!wrapper.classList.contains('open')) {
+                    const toggle = wrapper.querySelector('.search-toggle');
+                    if (toggle) toggle.click();
+                } else {
+                    const input = wrapper.querySelector('.search-input');
+                    if (input) input.focus();
+                }
             }
         });
     }
