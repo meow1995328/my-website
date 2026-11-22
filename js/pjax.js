@@ -99,6 +99,11 @@
             // 1. 标题
             document.title = doc.title;
 
+            // 1.1 body 的 class / id —— 页面专属样式选择器（如 .site-info-changelog .container）
+            // 和进入动画（.fh-subpage-enter）都挂在 body 上，不同步就会退回全局样式
+            document.body.className = doc.body.className || '';
+            document.body.id = doc.body.id || '';
+
             // 2. 页面专属 <style>（部分页面 head 里有内联样式）
             document.head.querySelectorAll('style[data-pjax-page]').forEach(function (el) { el.remove(); });
             doc.head.querySelectorAll('style').forEach(function (el) {

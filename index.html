@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XueXue的小窝</title>
-    <link rel="stylesheet" href="css/style.css?v=20261115b">
+    <link rel="stylesheet" href="css/style.css?v=20261122b">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/fuse.min.js"></script>
 </head>
@@ -77,6 +77,17 @@
         <div class="container" id="latest">
             <h2>📝 最新创作</h2>
             <div class="featured-grid">
+                <div class="featured-item" data-movie-modal="lihongzhang" role="button" tabindex="0">
+                    <div class="featured-item-title">📚 《李鸿章传》读书笔记</div>
+                    <div class="featured-item-desc">梁启超借李鸿章一生功过，道出"时势造英雄，而非英雄造时势"——个人才具终究难破时代困局。</div>
+                    <div class="featured-item-foot">
+                        <div class="featured-item-tags">
+                            <span>📚 读书笔记</span>
+                        </div>
+                        <span class="featured-item-time">2026-11-22</span>
+                    </div>
+                </div>
+
                 <a href="about-growth.html" class="featured-item">
                     <div class="featured-item-title">🛁 洗澡简史</div>
                     <div class="featured-item-desc">从平房的大澡盆、公共澡堂的踏板，到五楼阳台的排水孔，一段关于洗澡的童年记忆。</div>
@@ -270,7 +281,7 @@
     <!-- 页脚 -->
     <footer class="footer">
         <p>&copy; 2026 XueXue喵 - 用心记录生活</p>
-        <p class="site-version">当前版本 v0.5.9-alpha · 最新更新 2026-11-15</p>
+        <p class="site-version">当前版本 v0.5.10-alpha · 最新更新 2026-11-22</p>
     </footer>
 
     <!-- 兴趣详情弹窗（与兴趣页共享 openInterestModal 逻辑） -->
@@ -352,7 +363,7 @@
         </div>
     </div>
 
-    <script src="js/script.js?v=20261115b"></script>
+    <script src="js/script.js?v=20261122b"></script>
     <script>(function() {
 
     // 幼年故事数据（首页直接读取弹窗）
@@ -405,7 +416,10 @@
 
     // 电影影评弹窗（复用 script.js 的 movieData）
     function openHomeMovieModal(movieId) {
-        const data = (typeof movieData !== 'undefined') && movieData[movieId];
+        const isBook = typeof bookData !== 'undefined' && !!bookData[movieId];
+        const data = isBook
+            ? bookData[movieId]
+            : ((typeof movieData !== 'undefined') && movieData[movieId]);
         if (!data) return;
         const overlay = document.getElementById('homeMovieModalOverlay');
         if (!overlay) return;
@@ -413,8 +427,18 @@
         img.src = data.image;
         img.onerror = function() { this.src = data.fallbackImage; };
         document.getElementById('homeMovieModalTitle').innerHTML = `${data.title} <span class="movie-modal-subtitle">${data.subtitle}</span>`;
-        document.getElementById('homeMovieModalMeta').innerHTML = data.meta.map(item => `<span>${item}</span>`).join('');
+        document.getElementById('homeMovieModalMeta').innerHTML = data.meta.map(item => {
+            if (item && typeof item === 'object') {
+                return `<span class="meta-wide">${item.text}</span>`;
+            }
+            return `<span>${item}</span>`;
+        }).join('');
         document.getElementById('homeMovieModalSummary').textContent = data.summary;
+        // 读书笔记与影评共用此弹窗，文案随数据类型切换
+        const summaryTitle = overlay.querySelector('.movie-modal-summary h3');
+        const summaryHint = overlay.querySelector('.movie-modal-hint span:last-child');
+        if (summaryTitle) summaryTitle.textContent = isBook ? '📖 书籍简介' : '📖 剧情简介';
+        if (summaryHint) summaryHint.textContent = isBook ? '下方读书笔记，欢迎阅读' : '下方个人影评，欢迎阅读';
         const thoughts = document.getElementById('homeMovieModalThoughts');
         if (Array.isArray(data.thoughts)) {
             thoughts.innerHTML = data.thoughts.map(p => `<p>${p}</p>`).join('');
@@ -501,6 +525,6 @@
         __pageInit();
     }
 })();</script>
-    <script src="js/pjax.js?v=20260913b"></script>
+    <script src="js/pjax.js?v=20261116a"></script>
 </body>
 </html>

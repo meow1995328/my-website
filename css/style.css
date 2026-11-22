@@ -3677,6 +3677,13 @@ html.fh-transition-dissolve::view-transition-new(root) {
     white-space: nowrap;
 }
 
+/* 整行宽标签：用于较长的说明文字，允许折行并横跨两列 */
+.movie-modal-meta .meta-wide {
+    grid-column: 1 / -1;
+    white-space: normal;
+    line-height: 1.5;
+}
+
 /* 剧情简介 */
 .movie-modal-summary {
     flex: 1;

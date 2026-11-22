@@ -993,7 +993,10 @@ function initMovieModal() {
     cards.forEach(card => {
         card.addEventListener('click', function() {
             const movieId = this.getAttribute('data-movie');
-            const data = movieData[movieId];
+            // 读书笔记页与观影笔记页共用此弹窗：优先按书籍查，未命中再按影片查
+            const data = (typeof bookData !== 'undefined' && bookData[movieId])
+                ? bookData[movieId]
+                : movieData[movieId];
             
             if (!data) return;
 
@@ -1006,8 +1009,13 @@ function initMovieModal() {
             // 设置标题
             modalTitle.innerHTML = `${data.title} <span class="movie-modal-subtitle">${data.subtitle}</span>`;
             
-            // 设置元信息
-            modalMeta.innerHTML = data.meta.map(item => `<span>${item}</span>`).join('');
+            // 设置元信息（字符串为普通标签，{ text, wide } 为整行宽标签）
+            modalMeta.innerHTML = data.meta.map(item => {
+                if (item && typeof item === 'object') {
+                    return `<span class="meta-wide">${item.text}</span>`;
+                }
+                return `<span>${item}</span>`;
+            }).join('');
             
             // 设置内容
             modalSummary.textContent = data.summary;
@@ -1786,59 +1794,26 @@ function initSearch() {
 // ============================================
 
 const bookData = {
-    '1984': {
-        title: '📚 1984',
-        subtitle: '乔治·奥威尔',
-        image: 'images/book-1984.jpg',
-        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%201984%20george%20orwell%20dystopian%20dark%20surveillance%20big%20brother%20vertical&image_size=portrait_2_3',
-        meta: ['📖 小说', '📅 1949', '🏷️ 反乌托邦', '⭐ 豆瓣9.3'],
-        summary: '《1984》是乔治·奥威尔于1949年出版的反乌托邦小说。故事发生在一个被极权主义统治的虚构国家"大洋国"，主人公温斯顿·史密斯在真理部工作，负责修改历史以符合党的宣传。随着对现状的不满和对自由的渴望，他开始了一段危险的秘密恋情，并加入了地下反抗组织。',
-        thoughts: '这本书被誉为反乌托邦的经典之作，读完后让人不寒而栗。奥威尔对极权主义的预言如此精准，以至于今天读来仍然具有强烈的现实意义。"战争即和平，自由即奴役，无知即力量"——这些口号在书中反复出现，揭示了权力如何通过控制思想来维持统治。最令人震撼的是"老大哥在看着你"这句话，它成为了监视社会的代名词。这本书提醒我们，自由和真理是多么宝贵，值得我们去捍卫。'
-    },
-    'sapiens': {
-        title: '📚 人类简史',
-        subtitle: '尤瓦尔·赫拉利',
-        image: 'images/book-sapiens.jpg',
-        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20sapiens%20human%20history%20civilization%20evolution%20colorful%20artistic%20vertical&image_size=portrait_2_3',
-        meta: ['📖 历史', '📅 2011', '🏷️ 人类学', '⭐ 豆瓣9.2'],
-        summary: '《人类简史》从认知革命、农业革命、科学革命三个阶段讲述了人类从史前时代到现代社会的发展历程。作者尤瓦尔·赫拉利提出了许多颠覆性的观点，挑战了我们对人类历史和自身的认知。',
-        thoughts: '这本书彻底改变了我对人类历史的认知。赫拉利用宏大的视角审视人类的发展，提出了许多引人深思的问题。"农业革命是史上最大骗局"这个观点让我印象深刻——农业带来了稳定的食物供应，却也让人类陷入了更加辛苦的劳作和更大的社会不平等。书中关于"人类是如何通过虚构的故事来构建大规模协作"的论述更是精彩绝伦。读完这本书，我重新审视了人类在地球上的位置，以及我们未来的走向。'
-    },
-    'thinking': {
-        title: '📚 思考，快与慢',
-        subtitle: '丹尼尔·卡尼曼',
-        image: 'images/book-thinking.jpg',
-        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20thinking%20fast%20and%20slow%20psychology%20brain%20cognitive%20science%20professional%20vertical&image_size=portrait_2_3',
-        meta: ['📖 心理学', '📅 2011', '🏷️ 行为经济学', '⭐ 豆瓣8.1'],
-        summary: '诺贝尔经济学奖得主丹尼尔·卡尼曼在这本书中介绍了人类思维的两种模式：系统1（快速、直觉、无意识）和系统2（缓慢、理性、有意识）。通过大量的实验和案例，揭示了我们在判断和决策中存在的各种认知偏差。',
-        thoughts: '这是一本让我重新认识自己思维方式的书。卡尼曼用通俗易懂的语言解释了复杂的心理学概念，让我意识到自己每天都在犯各种认知错误。锚定效应、损失厌恶、确认偏误——这些概念帮助我理解了为什么我们会做出不理性的决策。最有价值的是，这本书教会了我如何识别和避免这些偏差，让我在生活和工作中做出更明智的选择。'
-    },
-    'deepwork': {
-        title: '📚 深度工作',
-        subtitle: '卡尔·纽波特',
-        image: 'images/book-deepwork.jpg',
-        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20deep%20work%20productivity%20focus%20minimalist%20professional%20workspace%20vertical&image_size=portrait_2_3',
-        meta: ['📖 自我提升', '📅 2016', '🏷️ 时间管理', '⭐ 豆瓣7.9'],
-        summary: '在这个信息爆炸的时代，深度工作能力变得越来越稀缺。卡尔·纽波特提出了深度工作的概念——在无干扰的状态下进行专注的职业活动，从而创造新价值、提升技能。书中介绍了如何培养深度工作习惯，提高工作效率。',
-        thoughts: '这本书改变了我的工作方式。在读完这本书之前，我习惯了随时处理邮件和消息，以为这样效率更高。但实际上，这种碎片化的工作方式严重影响了我的专注力和创造力。深度工作让我意识到，真正有价值的工作需要长时间的专注。现在，我每天都会安排一段不受打扰的深度工作时间，专注于最重要的任务。这种改变让我的工作效率和质量都有了显著提升。'
-    },
-    'atomic': {
-        title: '📚 原子习惯',
-        subtitle: '詹姆斯·克利尔',
-        image: 'images/book-atomic.jpg',
-        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20atomic%20habits%20self%20improvement%20success%20minimalist%20modern%20clean%20vertical&image_size=portrait_2_3',
-        meta: ['📖 自我提升', '📅 2018', '🏷️ 习惯养成', '⭐ 豆瓣8.3'],
-        summary: '《原子习惯》提出了一个简单而强大的观点：微小的改变可以带来惊人的结果。作者詹姆斯·克利尔介绍了如何通过建立良好的习惯、消除不良习惯来实现个人成长和成功。书中提供了实用的方法和技巧，帮助读者养成持久的好习惯。',
-        thoughts: '这本书让我明白了习惯的力量。我们常常追求大的改变，却忽略了每天微小的进步。"每天进步1%，一年后就是37倍"——这个公式深深震撼了我。书中关于"习惯叠加"和"环境设计"的方法非常实用，让我能够轻松地将新习惯融入日常生活。现在，我更加注重培养那些看似微小但意义深远的习惯，相信时间会带来巨大的改变。'
-    },
-    'hobbit': {
-        title: '📚 霍比特人',
-        subtitle: 'J.R.R.托尔金',
-        image: 'images/book-hobbit.jpg',
-        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20the%20hobbit%20fantasy%20adventure%20middle%20earth%20magical%20elves%20vertical&image_size=portrait_2_3',
-        meta: ['📖 奇幻', '📅 1937', '🏷️ 中土世界', '⭐ 豆瓣9.2'],
-        summary: '《霍比特人》是托尔金中土世界系列的开篇之作。故事讲述了霍比特人比尔博·巴金斯在巫师甘道夫的引导下，加入了一支矮人远征队，踏上了夺回孤山宝藏的冒险之旅。途中，他遇到了各种神奇的生物，经历了无数惊险的挑战。',
-        thoughts: '这是一本充满奇幻色彩的冒险故事。托尔金创造了一个完整而丰富的中土世界，让我沉浸其中无法自拔。比尔博的成长历程让我深受感动——从一个安逸的霍比特人到勇敢的冒险家，他的转变激励着我勇敢面对生活中的挑战。书中的角色形象鲜明，情节跌宕起伏，每一次阅读都让我仿佛置身于那个神奇的世界。这是一本适合所有年龄段读者的经典之作。'
+    'lihongzhang': {
+        title: '📚 李鸿章传',
+        subtitle: '梁启超',
+        image: 'images/book-lihongzhang.jpg',
+        fallbackImage: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=book%20cover%20biography%20of%20li%20hongzhang%20qing%20dynasty%20chinese%20classical%20ink%20wash%20portrait%20style&image_size=portrait_2_3',
+        meta: ['📖 历史人物传记', '📅 1901年', '✍️ 梁启超', { text: '晚清一代权臣的跌宕人生；国学大家梁启超信实之作', wide: true }],
+        summary: '梁启超为李鸿章所作的传记，是中国近代人物传记的经典之作。全书以李鸿章一生的军政外交为主线，既总结其功过得失，更以李氏为切口，勾勒出晚清中国的整体社会环境与内忧外患。梁启超以"敬重其才干、惋惜其见识、同情其际遇"的笔触，得出了"李鸿章是时势造英雄，而非英雄造时势"的核心论断，被誉为研究中国近代史绕不开的必读书。',
+        thoughts: [
+            '很少有历史人物传记能给我留下如此深刻的印象，梁启超先生这部《李鸿章传》便是其中之一。它不仅总结了李鸿章一生的功过，更详细勾勒出中国近代史、晚清史的整体社会环境，以及中国当时所面临的具体困境，由此得出<span class="review-highlight">"李鸿章是时势造英雄，而非英雄造时势"</span>这一结论。',
+            '作者梁启超先生敬重李鸿章的才干、惋惜他的见识、同情他的际遇——"若以李鸿章比诸汉之霍光、曹操，明之张居正，与夫近世欧美日本所谓立宪君主国之大臣，则其权固有迵不相俟者。"李鸿章所处的，是一个沿袭数千年君权专制的国家，又恰逢专制政体发展成熟、专制制度达到极点的时代；这又是一个由满洲人入主中原所建立的王朝，满汉杂居多年、汉族人权利逐渐开始恢复。但这个时代充满危机，外有西方列强环伺，内有叛乱蜂起，正是这样的时势，"造出"李鸿章这样的人物。',
+            '作为军事家，李鸿章可谓才华横溢——"李鸿章之用兵也，谋定后动，料敌如神，故军中十五年，未尝有所挫衄"。他曾与曾国藩等人配合，击败李秀成，平定了给予清朝沉重打击的太平天国；面对十多年来众多将领束手无策的剽悍敌人——"捻军"，他也不过用了一年的时间就将其平定。李鸿章曾师从曾国藩多年，涵养出道义仁德，磨炼出军事才干，一生身体力行任劳任怨，坚忍不拔。',
+            '兴办洋务与甲午战败，是李鸿章悲剧命运的开端。当时中国兴办洋务的人士，无人比得上李鸿章；但要说他真通晓洋务，那为何我国兴办洋务不仅没有崛起，还反而愈加衰落了呢？可见<span class="review-highlight">李鸿章通晓洋务，却不谙国务</span>。他兴办了那么多西式工商业、西式军队，但一方面朝廷群臣争议，对他掣肘牵制，另一方面自身见识不足、自视甚高、用人失当。他不明白政府和人民的权责关系，最后可谓东施效颦、邯郸学步，最终一无所得，在中日战争中败北，让中国人蒙受了深重的民族耻辱。',
+            '西报有论者曰："日本非与中国战，实与李鸿章一人战耳"，这句话虽有些过头，实际情况却也大体如此。中日甲午战争因朝鲜问题而起，李鸿章在外交举措上失误，从而留下千古遗恨。清政府外交上怯懦怕事，不仅让中国失去对朝鲜这一藩属国的控制，还被迫让日本势力介入朝鲜，最终纠葛不清，爆发战争。但众多中国将率卑劣闲散，临阵先逃，谎报军情；军队管理混乱、士气涣散。再加上政府的腐败无能、李鸿章的计策失误，未能洞察先机。最终中国陆军在朝鲜惨败，北洋舰队更是全军覆没！',
+            '甲午战争之后，李鸿章以一人之身成为众矢之的，几乎被骂得体无完肤。平心而论，他当然有难辞其咎之处。但那些谴责、怪罪李鸿章的人，其所应负的责任、应承担的罪过更是数倍于他！这场战争中几乎没有一个将帅是不辜负国家的。但相对而言，李鸿章所统辖的军队，仍比其余将领所统领的军队的优秀。可以说清朝的军队全军腐败，但单独将罪责归咎于李鸿章是不合适的。<span class="review-highlight">那些虚伪骄横之徒，自身不承担任何责任，只惯于在他人背后挑毛病、论是非，一逞口舌之快，但从不思考改变现状、解决问题的办法；这些人实在是致使国家灭亡最具杀伤力的武器。</span>而李鸿章在这场战斗中的作为，已称得上真英豪，虽败犹荣。',
+            '自此，李鸿章在军事上的声誉戛然而止，外交上的困难又接踵而至。他从处理"天津教案"起涉足国家外交事务，半辈子致力于外交，因而在国内外享有极大的威望。此前他仕途一帆风顺，本如天之骄子，但在朝鲜的外交策略上的重大失误，最终导致战败后和日本议和，签下丧权辱国的《马关条约》。作者认为，李鸿章的外交手段在中国确实堪称一流，但放在世界上则远逊于人。他的外交，主要是联合某个国家来牵制另一个国家，终究未能收到成效。中国国力脆弱，缺乏自立之本，联合别的国家也就难免受制于人；因此就算换一个才干更出色的人来主持外交，也不得不隐忍周旋，在外交上无计可施。',
+            '李鸿章晚年病魔缠身，此时八国联军侵入北京，中国又被迫签订了《辛丑条约》，遭此变故，又积劳成疾，最终病逝。李鸿章既是中国几千年历史的一大重要人物，也是十九世纪世界史上的重要人物。<span class="review-highlight">"不学无术、不敢破格"是他的短处，"不辞劳苦、不畏诽谤"是他的长处。</span>总而言之，他是个有才气无学识之人，是个有阅历而无血性之人。临终之前，他担当责任毫不推卸，却不曾留下长远规划，供后人继承其志。',
+            '作者梁启超在文末感叹："如今满朝官员，没有一个能比得上李鸿章的。而今后内忧外患的风潮，将比李鸿章的时代还要严重许多。如今再想求得一个像李鸿章这样的人物，已是一片渺茫。想到中国未来的前途不禁毛骨悚然，不知道漫漫长路终归何处。"在我看来，这是对十九世纪末中国最客观的评说。如今已经是二十一世纪，中华民族伟大复兴的梦想正逐步成为现实，正所谓<span class="review-highlight">"俱往矣，数风流人物，还看今朝"</span>。',
+            '回看李鸿章的一生，他虽有才具与担当，却终究未能扭转晚清的颓局，也无力为时代另开新路——这正印证了"是时势造出了李鸿章这样的英雄，而非英雄造出时势"这一结论。回望这段历史，既可见时代对个人的束缚，也可见个人在困局中的坚守。<span class="review-highlight">读史明智，前车之鉴正是今人砥砺前行的起点。</span>'
+        ],
+        signature: 'XueXue<br>2026年11月22日'
     }
 };
 
